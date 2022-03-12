@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ver3
 {
-    public class MultidimensionalDevice
+    public class MultidimensionalDevice : BaseDevice
     {
 
     }

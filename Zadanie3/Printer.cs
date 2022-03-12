@@ -6,28 +6,16 @@ using System.Threading.Tasks;
 
 namespace ver3
 {
-    public class Printer : IPrinter
+    public class Printer : BaseDevice, IPrinter
     {
-        public int Counter => throw new NotImplementedException();
-
-        public IDevice.State GetState()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PowerOff()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void PowerOn()
-        {
-            throw new NotImplementedException();
-        }
+        public int PrintCounter { get; set; }
 
         public void Print(in IDocument document)
         {
-            throw new NotImplementedException();
+            if (state == IDevice.State.off)
+                return;
+            PrintCounter++;
+            Console.WriteLine($"{DateTime.Now} Print: {document.GetFileName()}");
         }
     }
 }
