@@ -6,24 +6,6 @@ namespace ver1
     {
         public int PrintCounter { get; set; }
         public int ScanCounter { get; set; }
-        new public int Counter { get; private set; }
-
-        new public void PowerOn()
-        {
-            if (state == IDevice.State.on)
-                return;
-            state = IDevice.State.on;
-            Counter++;
-            Console.WriteLine("Device is on ...");
-        }
-
-        new public void PowerOff()
-        {
-            if (state == IDevice.State.off)
-                return;
-            state = IDevice.State.off;
-            Console.WriteLine("... Device is off !");
-        }
 
         public void Print(in IDocument document)
         {

@@ -11,7 +11,7 @@ namespace ver2
         State GetState(); // zwraca aktualny stan urządzenia
 
         int Counter { get; }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                              // np. liczbę uruchomień, liczbę wydrukow, liczbę skanów, ...
+                              // np. liczbę uruchomień
     }
 
     public abstract class BaseDevice : IDevice
@@ -19,16 +19,21 @@ namespace ver2
         protected IDevice.State state = IDevice.State.off;
         public IDevice.State GetState() => state;
 
-        public void PowerOff()
-        {
-            state = IDevice.State.off;
-            Console.WriteLine("... Device is off !");
-        }
-
         public void PowerOn()
         {
+            if (state == IDevice.State.on)
+                return;
             state = IDevice.State.on;
+            Counter++;
             Console.WriteLine("Device is on ...");
+        }
+
+        public void PowerOff()
+        {
+            if (state == IDevice.State.off)
+                return;
+            state = IDevice.State.off;
+            Console.WriteLine("... Device is off !");
         }
 
         public int Counter { get; private set; } = 0;
