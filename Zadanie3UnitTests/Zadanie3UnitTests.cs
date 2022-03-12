@@ -37,28 +37,116 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_GetState_StateOff()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOff();
 
             Assert.AreEqual(IDevice.State.off, copier.GetState());
         }
 
         [TestMethod]
+        public void PrinterByCopier_GetState_StateOff()
+        {
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
+            copier.PowerOff();
+
+            Assert.AreEqual(IDevice.State.off, printer.GetState());
+        }
+
+        [TestMethod]
+        public void ScannerByCopier_GetState_StateOff()
+        {
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
+            copier.PowerOff();
+
+            Assert.AreEqual(IDevice.State.off, scanner.GetState());
+        }
+
+        [TestMethod]
+        public void Printer_GetState_StateOff()
+        {
+            var printer = new Printer();
+            printer.PowerOff();
+
+            Assert.AreEqual(IDevice.State.off, printer.GetState());
+        }
+
+        [TestMethod]
+        public void Scanner_GetState_StateOff()
+        {
+            var scanner = new Scanner();
+            scanner.PowerOff();
+
+            Assert.AreEqual(IDevice.State.off, scanner.GetState());
+        }
+
+        [TestMethod]
         public void Copier_GetState_StateOn()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             Assert.AreEqual(IDevice.State.on, copier.GetState());
         }
 
-
-        // weryfikacja, czy po wywołaniu metody `Print` i włączonej kopiarce w napisie pojawia się słowo `Print`
-        // wymagane przekierowanie konsoli do strumienia StringWriter
         [TestMethod]
+        public void PrinterByCopier_GetState_StateOn()
+        {
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
+            printer.PowerOn();
+
+            Assert.AreEqual(IDevice.State.on, printer.GetState());
+        }
+
+        [TestMethod]
+        public void ScannerByCopier_GetState_StateOn()
+        {
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
+            copier.PowerOn();
+
+            Assert.AreEqual(IDevice.State.on, scanner.GetState());
+        }
+
+        [TestMethod]
+        public void Printer_GetState_StateOn()
+        {
+            var printer = new Printer();
+            printer.PowerOn();
+
+            Assert.AreEqual(IDevice.State.on, printer.GetState());
+        }
+
+        [TestMethod]
+        public void Scanner_GetState_StateOn()
+        {
+        var scanner = new Scanner();
+            scanner.PowerOn();
+
+        Assert.AreEqual(IDevice.State.on, scanner.GetState());
+        }
+
+
+
+
+    // weryfikacja, czy po wywołaniu metody `Print` i włączonej kopiarce w napisie pojawia się słowo `Print`
+    // wymagane przekierowanie konsoli do strumienia StringWriter
+    [TestMethod]
         public void Copier_Print_DeviceOn()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -77,7 +165,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_Print_DeviceOff()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -96,7 +186,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_Scan_DeviceOff()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -115,7 +207,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_Scan_DeviceOn()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -134,7 +228,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_Scan_FormatTypeDocument()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -164,7 +260,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_ScanAndPrint_DeviceOn()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             var currentConsoleOut = Console.Out;
@@ -184,7 +282,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_ScanAndPrint_DeviceOff()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOff();
 
             var currentConsoleOut = Console.Out;
@@ -201,7 +301,9 @@ namespace ver3UnitTests
         [TestMethod]
         public void Copier_PrintCounter()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             IDocument doc1 = new PDFDocument("aaa.pdf");
@@ -220,13 +322,15 @@ namespace ver3UnitTests
             copier.ScanAndPrint();
 
             // 5 wydruków, gdy urządzenie włączone
-            Assert.AreEqual(5, copier.PrintCounter);
+            Assert.AreEqual(5, printer.PrintCounter);
         }
 
         [TestMethod]
         public void Copier_ScanCounter()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
 
             IDocument doc1;
@@ -246,13 +350,15 @@ namespace ver3UnitTests
             copier.ScanAndPrint();
 
             // 4 skany, gdy urządzenie włączone
-            Assert.AreEqual(4, copier.ScanCounter);
+            Assert.AreEqual(4, scanner.ScanCounter);
         }
 
         [TestMethod]
         public void Copier_PowerOnCounter()
         {
-            var copier = new Copier();
+            var scanner = new Scanner();
+            var printer = new Printer();
+            var copier = new Copier(printer, scanner);
             copier.PowerOn();
             copier.PowerOn();
             copier.PowerOn();
