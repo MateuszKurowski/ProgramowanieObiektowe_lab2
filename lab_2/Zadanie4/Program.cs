@@ -1,15 +1,15 @@
 ﻿using System;
 
-using ver1;
+using ver4;
 
-namespace ConsoleApp1
+namespace ConsoleApp4
 {
     internal static class Program
     {
         static void Main(string[] args)
         {
             var xerox = new Copier();
-            xerox.PowerOn();
+            xerox.power();
             IDocument doc1 = new PDFDocument("aaa.pdf");
             xerox.Print(in doc1);
 
