@@ -9,17 +9,29 @@ namespace ConsoleApp4
         static void Main(string[] args)
         {
             var xerox = new Copier();
-            xerox.power();
-            IDocument doc1 = new PDFDocument("aaa.pdf");
-            xerox.Print(in doc1);
+            IScanner scanner = xerox;
+            IPrinter printer = xerox;
+            scanner.PowerOn();
+            printer.PowerOn();
+            scanner.StandbyOn();
+            var scannerStatus = scanner.GetState();
+            var printerStatus = printer.GetState();
+            var xerosStatus = xerox.GetCopierState();
+            xerox.CopierStandbyOn();
+            scannerStatus = scanner.GetState();
+            printerStatus = printer.GetState();
+            xerosStatus = xerox.GetCopierState();
+            var counter = xerox.CopierCounter;
 
-            IDocument doc2;
-            xerox.Scan(out doc2);
+            IDocument doc1 = new PDFDocument("aaa.pdf");
+            xerox.PrintByCopier(in doc1);
+
+            IDocument doc2 = null;
+            xerox.ScanByCopier(doc2);
 
             xerox.ScanAndPrint();
-            System.Console.WriteLine(xerox.Counter);
-            System.Console.WriteLine(xerox.PrintCounter);
-            System.Console.WriteLine(xerox.ScanCounter);
+            System.Console.WriteLine(printer.PrintCounter);
+            System.Console.WriteLine(scanner.ScanCounter);
         }
     }
 }

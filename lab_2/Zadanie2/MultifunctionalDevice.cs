@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ver2
 {
-    public interface IFax
+    public interface IFax : IDevice
     {
         public int FaxCounter { get; set; } // Liczba użytych razy faxu
         public int DownloadFaxCounter { get; set; } // Liczba pobranych dokumentów za pomocą faxu

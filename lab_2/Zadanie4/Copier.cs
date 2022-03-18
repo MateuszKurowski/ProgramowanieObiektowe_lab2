@@ -1,72 +1,111 @@
 ﻿using System;
+using System.Threading;
+
+using static ver4.IDevice;
 
 namespace ver4
 {
-    public class Copier : IPrinter, IScanner, IDevice
+    public class Copier : IPrinter, IScanner
     {
-        public int PrintCounter { get; set; }
-        public int ScanCounter { get; set; }
-        IDevice.State IDevice.state { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        int IDevice.Counter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
-        public void Print(in IDocument document)
+        private int _scanner = 0;
+        private int _printer = 0;
+        public int CopierCounter { get { return ((IDevice)this).Counter; } }
+        private static State _State = State.off;
+        public State GetCopierState()// zwraca aktualny stan urządzenia
         {
-            //if (Stat == IDevice.State.off)
-            //    return;
-            //PrintCounter++;
-            //Console.WriteLine($"{DateTime.Now} Print: {document.GetFileName()}");
+            return _State;
         }
-
-        public void Scan(out IDocument document)
+        void IDevice.SetState(State state)
         {
-            document = null;
-            //if (state == IDevice.State.off)
-            //    return;
-            //ScanCounter++;
-            //Console.WriteLine($"{DateTime.Now} Scan: {ScanCounter}");
+            var printerState = ((IPrinter)this).GetState();
+            var scannerState = ((IScanner)this).GetState();
+            if (printerState == scannerState)
+                _State = printerState;
+            else if (printerState != State.off && scannerState == State.off)
+                _State = printerState;
+            else if (printerState != State.off && scannerState == State.off)
+                _State = scannerState;
+            else
+                _State = State.on;
         }
-
-        public void Scan(out IDocument document, IDocument.FormatType formatType)
+        public void ScanByCopier(IDocument document)
         {
-            document = null;
-            //if (state == IDevice.State.off)
-            //    return;
-            switch (formatType)
+            if (((IScanner)this).GetState() == State.off)
+                return;
+            if (((IScanner)this).GetState() == State.standby)
+                ((IScanner)this).StandbyOff();
+            if (_scanner % 2 == 0)
             {
-                case IDocument.FormatType.PDF:
-                    document = new PDFDocument($"PDFScan{ScanCounter}.pdf");
-                    ScanCounter++;
-                    Console.WriteLine($"{DateTime.Now} Scan: {document.GetFileName()}");
-                    break;
-
-                case IDocument.FormatType.JPG:
-                    document = new ImageDocument($"ImageScan{ScanCounter}.jpg");
-                    ScanCounter++;
-                    Console.WriteLine($"{DateTime.Now} Scan: {document.GetFileName()}");
-                    break;
-
-                case IDocument.FormatType.TXT:
-                    document = new TextDocument($"TextScan{ScanCounter}.txt");
-                    ScanCounter++;
-                    Console.WriteLine($"{DateTime.Now} Scan: {document.GetFileName()}");
-                    break;
+                ((IScanner)this).StandbyOn();
+                Thread.Sleep(1000);
+                ((IScanner)this).StandbyOff();
+                _scanner = 0;
             }
+            ((IPrinter)this).StandbyOn();
+            ((IScanner)this).Scan(out document);
+            _scanner++;
+        }
+
+        public void ScanByCopier(out IDocument document, IDocument.FormatType formatType)
+        {
+            document = null;
+            if (((IScanner)this).GetState() == State.off)
+                return;
+            if (((IScanner)this).GetState() == State.standby)
+                ((IScanner)this).StandbyOff();
+            if (_scanner > 0 && _scanner % 2 == 0)
+            {
+                ((IScanner)this).StandbyOn();
+                Thread.Sleep(1000);
+                ((IScanner)this).StandbyOff();
+                _scanner = 0;
+            }
+            ((IPrinter)this).StandbyOn();
+            ((IScanner)this).Scan(out document, formatType);
+            _scanner++;
+        }
+
+        public void PrintByCopier(in IDocument document)
+        {
+            if (((IPrinter)this).GetState() == State.off)
+                return;
+            if (((IPrinter)this).GetState() == State.standby)
+                ((IPrinter)this).StandbyOff();
+            if (_printer > 0 &&_printer % 3 == 0)
+            {
+                ((IPrinter)this).StandbyOn();
+                Thread.Sleep(1000);
+                ((IPrinter)this).StandbyOff();
+                _printer = 0;
+            }
+            ((IScanner)this).StandbyOn();
+            ((IPrinter)this).Print(in document);
+            _printer++;
         }
 
         public void ScanAndPrint()
         {
-            Scan(out IDocument doc, IDocument.FormatType.JPG);
-            Print(in doc);
+            if (GetCopierState() == State.off)
+                return;
+            else if (GetCopierState() == State.standby)
+                CopierStandbyOn();
+            IDocument doc = null;
+            ScanByCopier(out doc, IDocument.FormatType.JPG);
+            if (doc == null)
+                return;
+            PrintByCopier(in doc);
         }
 
-        void IPrinter.Print(in IDocument document)
+        public void CopierStandbyOn()
         {
-            throw new NotImplementedException();
+            ((IScanner)this).StandbyOn();
+            ((IPrinter)this).StandbyOn();
+        }
+        public void CopierStandbyOff()
+        {
+            ((IScanner)this).StandbyOff();
+            ((IPrinter)this).StandbyOff();
         }
 
-        void IDevice.SetState(IDevice.State state)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
