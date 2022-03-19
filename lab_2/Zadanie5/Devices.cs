@@ -2,94 +2,129 @@
 
 namespace ver5
 {
+    /// <summary>
+    /// Interfejs urządzenia
+    /// </summary>
     public interface IDevice
     {
-        enum State { on, off, standby };
+        /// <summary>
+        /// Obsługiwane stany urządzeń
+        /// </summary>
+        enum State { off, on, standby };
 
-        void PowerOn() // uruchamia urządzenie, zmienia stan na `on`
+        /// <summary>
+        /// Uruchamia urządzenie
+        /// </summary>
+        void PowerOn()
         {
             _Counter++;
             SetState(State.on);
         }
-        void PowerOff() // wyłącza urządzenie, zmienia stan na `off
-        {
-            SetState(State.off);
-        }
-        void StandbyOn() // uruchamia urządzenie, zmienia stan na `on`
+        /// <summary>
+        /// Włącza tryb oszędzania energii na urządzeniu
+        /// </summary>
+        void StandbyOn()
         {
             SetState(State.standby);
         }
-        void StandbyOff() // wyłącza urządzenie, zmienia stan na `off
+        /// <summary>
+        /// Wyłącza tryb oszczędzanai energii na urządzeniu
+        /// </summary>
+        void StandbyOff()
         {
             _Counter++;
             SetState(State.on);
         }
-        protected void SetState(State state)
+        /// <summary>
+        /// Wyłącza urządzenie
+        /// </summary>
+        void PowerOff()
+        {
+            SetState(State.off);
+        }
+        /// <summary>
+        /// Usatwia obecny stan urządzenia
+        /// </summary>
+        /// <param name="state">Stan urządzenia</param>
+        private void SetState(State state)
         {
             _State = state;
         }
-        private static State _State = State.off;
-        State GetState()// zwraca aktualny stan urządzenia
+        /// <summary>
+        /// Obecny stan urządzenia
+        /// </summary>
+        protected State _State { get; set; }
+        /// <summary>
+        /// Zwraca obecny stan urządzenia
+        /// </summary>
+        /// <returns></returns>
+        public State GetState()
         {
             return _State;
         }
-        int Counter { get { return _Counter; } }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                                                  // np. liczbę uruchomień
+        /// <summary>
+        /// Sprawdza czy urządzenie jest wyłączone, gdy ma włączone oszczędzanie energii wyłącza je
+        /// </summary>
+        /// <returns>Zwraca inforacje czy urządzenie jest włączone (true)</returns>
+        protected bool CheckState()
+        {
+            if (GetState() == State.off)
+                return false;
+            else if (GetState() == State.standby)
+                StandbyOff();
+            return true;
+        }
+        /// <summary>
+        /// Liczba uruchomień urządzeń
+        /// </summary>
+        int Counter { get { return _Counter; } }
+        /// <summary>
+        /// Zwraca liczbe uruchomień urządzeń
+        /// </summary>
         private static int _Counter = 0;
     }
 
+    /// <summary>
+    /// Interfejs drukarki
+    /// </summary>
     public interface IPrinter : IDevice
     {
         /// <summary>
-        /// Dokument jest drukowany, jeśli urządzenie włączone. W przeciwnym przypadku nic się nie wykonuje
+        /// Jeśli urządzenie jest włączone drukuje dokument
         /// </summary>
-        /// <param name="document">obiekt typu IDocument, różny od `null`</param>
+        /// <param name="document">Dokument do drukowania</param>
         void Print(in IDocument document)
         {
+            if (!CheckState())
+                return;
             _PrintCounter++;
             Console.WriteLine($"{DateTime.Now} Print: {document.GetFileName()}");
         }
-        int PrintCounter { get { return _PrintCounter; } }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                                                            // np. liczbę uruchomień
+        /// <summary>
+        /// Zwraca liczbę zeskanowanych dokumentów
+        /// </summary>
+        int PrintCounter { get { return _PrintCounter; } }
+        /// <summary>
+        /// Liczba wydrukowanych dokumentów
+        /// </summary>
         private static int _PrintCounter = 0;
-        new public void PowerOn() // uruchamia urządzenie, zmienia stan na `on`
-        {
-            SetState(State.on);
-            ((IDevice)this).PowerOn();
-        }
-        new void PowerOff() // wyłącza urządzenie, zmienia stan na `off
-        {
-            SetState(State.off);
-            ((IDevice)this).PowerOff();
-        }
-        new void StandbyOn() // uruchamia urządzenie, zmienia stan na `on`
-        {
-            SetState(State.standby);
-            ((IDevice)this).StandbyOn();
-        }
-        new void StandbyOff() // wyłącza urządzenie, zmienia stan na `off
-        {
-            SetState(State.on);
-            ((IDevice)this).StandbyOff();
-        }
-        private static State _PrinterState = State.off;
-        new public void SetState(State state)
-        {
-            _PrinterState = state;
-        }
-        new State GetState()// zwraca aktualny stan urządzenia
-        {
-            return _PrinterState;
-        }
     }
 
+    /// <summary>
+    /// Interfejs skanera
+    /// </summary>
     public interface IScanner : IDevice
     {
-        // dokument jest skanowany, jeśli urządzenie włączone
-        // w przeciwnym przypadku nic się dzieje
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument do podanego typu
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
+        /// <param name="formatType">Typ dokumentu</param>
         void Scan(out IDocument document, IDocument.FormatType formatType)
         {
             document = null;
+            if (!CheckState())
+                return;
             switch (formatType)
             {
                 case IDocument.FormatType.PDF:
@@ -111,94 +146,102 @@ namespace ver5
                     break;
             }
         }
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
         void Scan(out IDocument document)
         {
             document = null;
-            if (_ScannerState == State.off)
+            if (!CheckState())
                 return;
             _ScannerCounter++;
-            Console.WriteLine($"{DateTime.Now} Scan: {_ScannerCounter}");
+            Console.WriteLine($"{DateTime.Now} Scan: {_ScannerCounter} dzisiejszy skan");
         }
-        int ScanCounter { get { return _ScannerCounter; } }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                                                             // np. liczbę uruchomień
+        /// <summary>
+        /// Zwraca liczbę zeskanowanych dokumentów
+        /// </summary>
+        int ScanCounter { get { return _ScannerCounter; } }
+        /// <summary>
+        /// Liczba zeskanowanych dokumentów
+        /// </summary>
         private static int _ScannerCounter = 0;
-        new public void PowerOn() // uruchamia urządzenie, zmienia stan na `on`
-        {
-            SetState(State.on);
-            ((IDevice)this).PowerOn();
-        }
-        new void PowerOff() // wyłącza urządzenie, zmienia stan na `off
-        {
-            _ScannerState = State.off;
-            ((IDevice)this).PowerOff();
-        }
-        new void StandbyOn() // uruchamia urządzenie, zmienia stan na `on`
-        {
-            _ScannerState = State.standby;
-            ((IDevice)this).StandbyOn();
-        }
-        new void StandbyOff() // wyłącza urządzenie, zmienia stan na `off
-        {
-            _ScannerState = State.on;
-            ((IDevice)this).StandbyOff();
-        }
-        private static State _ScannerState = State.off;
-        new public void SetState(State state)
-        {
-            _ScannerState = state;
-        }
-        new State GetState()// zwraca aktualny stan urządzenia
-        {
-            return _ScannerState;
-        }
     }
 
-    public interface IFax
+    /// <summary>
+    /// Interfejs faksu
+    /// </summary>
+    public interface IFax : IDevice
     {
-        int FaxCounter { get { return _FaxCounter; } }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                                                             // np. liczbę uruchomień
-        private static int _FaxCounter = 0;
-        int DownloadFaxCounter { get { return _DownloadFaxCounter; } }  // zwraca liczbę charakteryzującą eksploatację urządzenia,
-                                                        // np. liczbę uruchomień
-        private static int _DownloadFaxCounter = 0;
+        /// <summary>
+        /// Jeśli urządzenie jest włączone wysyła faks
+        /// </summary>
+        /// <param name="document">Dokument od wysłania</param>
         public void SendFax(in IDocument document)
         {
-            if (state == IDevice.State.off)
+            if (!CheckState())
                 return;
             _FaxCounter++;
             Console.WriteLine($"{DateTime.Now} Wysłano fax: {document.GetFileName()}");
         }
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera faks
+        /// </summary>
         public void DownloadFax()
         {
-            if (state == IDevice.State.off)
+            if (!CheckState())
                 return;
-            FaxCounter++;
-            DownloadFaxCounter++;
             Random random = new Random();
             IDocument document;
             switch (random.Next(3))
             {
                 case 0:
                     document = new TextDocument("aaa.txt");
+                    _FaxCounter++;
+                    _DownloadFaxCounter++;
                     Console.WriteLine($"{DateTime.Now} Pobrano fax: {document.GetFileName()}");
                     break;
 
                 case 1:
                     document = new PDFDocument("aaa.pdf");
+                    _FaxCounter++;
+                    _DownloadFaxCounter++;
                     Console.WriteLine($"{DateTime.Now} Pobrano fax: {document.GetFileName()}");
                     break;
 
                 case 2:
                     document = new ImageDocument("aaa.jpg");
+                    _FaxCounter++;
+                    _DownloadFaxCounter++;
                     Console.WriteLine($"{DateTime.Now} Pobrano fax: {document.GetFileName()}");
                     break;
             }
         }
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera i wysyła faks
+        /// </summary>
         public void FullFax()
         {
+            if (!CheckState())
+                return;
             SendFax(new ImageDocument("Image.jpg"));
             DownloadFax();
         }
+        /// <summary>
+        /// Zwraca liczbę użycia faksu
+        /// </summary>
+        int FaxCounter { get { return _FaxCounter; } }
+        /// <summary>
+        /// Liczba użycia faksu
+        /// </summary>
+        private static int _FaxCounter = 0;
+        /// <summary>
+        /// Zwraca liczbę pobranych faksu
+        /// </summary>
+        int DownloadFaxCounter { get { return _DownloadFaxCounter; } }
+        /// <summary>
+        /// Liczba pobranych faksów
+        /// </summary>
+        private static int _DownloadFaxCounter = 0;
     }
-
 }

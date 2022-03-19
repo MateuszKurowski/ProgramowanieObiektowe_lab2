@@ -23,7 +23,7 @@ namespace ver4
                 _State = printerState;
             else if (printerState != State.off && scannerState == State.off)
                 _State = printerState;
-            else if (printerState != State.off && scannerState == State.off)
+            else if (printerState == State.off && scannerState != State.off)
                 _State = scannerState;
             else
                 _State = State.on;

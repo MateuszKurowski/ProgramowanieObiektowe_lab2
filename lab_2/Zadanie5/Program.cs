@@ -1,6 +1,4 @@
-﻿using System;
-
-using ver5;
+﻿using ver5;
 
 namespace ConsoleApp5
 {
@@ -11,7 +9,9 @@ namespace ConsoleApp5
             var scanner = new Scanner();
             var printer = new Printer();
             var xerox = new Copier(printer, scanner);
-            xerox.PowerOn();
+            xerox.PowerDeviceOn();
+            xerox.StandbyOnScanner();
+
             IDocument doc1 = new PDFDocument("aaa.pdf");
             xerox.Print(in doc1);
 
@@ -19,9 +19,19 @@ namespace ConsoleApp5
             xerox.Scan(doc2);
 
             xerox.ScanAndPrint();
-            System.Console.WriteLine(xerox.Counter);
-            System.Console.WriteLine(printer.PrintCounter);
-            System.Console.WriteLine(scanner.ScanCounter);
+            System.Console.WriteLine(((IDevice)xerox).Counter);
+            System.Console.WriteLine(((IPrinter)printer).PrintCounter);
+            System.Console.WriteLine(((IScanner)scanner).ScanCounter);
+
+            var fax = new Fax();
+            scanner = new Scanner();
+            printer = new Printer();
+            var multidimensionalDevice = new MultidimensionalDevice(printer, scanner, fax);
+            multidimensionalDevice.PowerDeviceOn();
+            multidimensionalDevice.StandbyOnPrinter();
+            multidimensionalDevice.ScanAndPrint();
+            multidimensionalDevice.StandbyOnFax();
+            multidimensionalDevice.FaxPrintAndScan();
         }
     }
 }
