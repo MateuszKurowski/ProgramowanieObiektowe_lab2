@@ -1,29 +1,25 @@
 ﻿using System;
 
-using ver3;
+using ver5;
 
-namespace ConsoleApp3
+namespace ConsoleApp5
 {
     internal static class Program
     {
         static void Main(string[] args)
         {
-            var fax = new Fax();
             var scanner = new Scanner();
             var printer = new Printer();
             var xerox = new Copier(printer, scanner);
-            var multiDevice = new MultidimensionalDevice(printer, scanner, fax);
-            multiDevice.PowerOn();
+            xerox.PowerOn();
             IDocument doc1 = new PDFDocument("aaa.pdf");
-            multiDevice.Print(in doc1);
+            xerox.Print(in doc1);
 
             IDocument doc2 = null;
-            multiDevice.Scan(doc2);
+            xerox.Scan(doc2);
 
-            multiDevice.DownloadFax();
-
-            multiDevice.ScanAndPrint();
-            System.Console.WriteLine(multiDevice.Counter);
+            xerox.ScanAndPrint();
+            System.Console.WriteLine(xerox.Counter);
             System.Console.WriteLine(printer.PrintCounter);
             System.Console.WriteLine(scanner.ScanCounter);
         }

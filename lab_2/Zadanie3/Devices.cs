@@ -55,4 +55,13 @@ namespace ver3
         void Scan(out IDocument document, IDocument.FormatType formatType);
     }
 
+    public interface IFax
+    {
+        public int FaxCounter { get; set; } // Liczba użytych razy faxu
+        public int DownloadFaxCounter { get; set; } // Liczba pobranych dokumentów za pomocą faxu
+        public void SendFax(in IDocument document);
+        public void DownloadFax();
+        public void FullFax();
+    }
+
 }

@@ -2,15 +2,6 @@
 
 namespace ver3
 {
-    public interface IFax
-    {
-        public int FaxCounter { get; set; } // Liczba użytych razy faxu
-        public int DownloadFaxCounter { get; set; } // Liczba pobranych dokumentów za pomocą faxu
-        public void SendFax(in IDocument document);
-        public void DownloadFax();
-        public void FullFax();
-    }
-
     public class Fax : BaseDevice, IFax
     {
         public int FaxCounter { get; set; }
