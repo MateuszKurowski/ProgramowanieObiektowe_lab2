@@ -1,25 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ver2
 {
     public interface IFax : IDevice
     {
-        public int FaxCounter { get; set; } // Liczba użytych razy faxu
-        public int DownloadFaxCounter { get; set; } // Liczba pobranych dokumentów za pomocą faxu
-        public void SendFax(in IDocument document);
-        public void DownloadFax();
-        public void Fax();
-    }
-
-    public class MultifunctionalDevice : Copier, IFax
-    {
+        /// <summary>
+        /// Liczba użycia faksu
+        /// </summary>
         public int FaxCounter { get; set; }
+
+        /// <summary>
+        /// Liczba pobranych faksów
+        /// </summary>
         public int DownloadFaxCounter { get; set; }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone wysyła faks
+        /// </summary>
+        /// <param name="document">Dokument od wysłania</param>
+        public void SendFax(in IDocument document);
+
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera faks
+        /// </summary>
+        public void DownloadFax();
+
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera i wysyła faks
+        /// </summary>
+        public void FullFax();
+    }
+
+    /// <summary>
+    /// Urządzenie wielofunkcyjne do obsługi faksu i kserokopiarki (drukarki i skanera)
+    /// </summary>
+    public class MultifunctionalDevice : Copier, IFax
+    {
+        /// <summary>
+        /// Liczba użycia faksu
+        /// </summary>
+        public int FaxCounter { get; set; }
+
+        /// <summary>
+        /// Liczba pobranych faksów
+        /// </summary>
+        public int DownloadFaxCounter { get; set; }
+
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera faks
+        /// </summary>
         public void DownloadFax()
         {
             if (state == IDevice.State.off)
@@ -47,6 +76,10 @@ namespace ver2
             }
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone wysyła faks
+        /// </summary>
+        /// <param name="document">Dokument od wysłania</param>
         public void SendFax(in IDocument document)
         {
             if (state == IDevice.State.off)
@@ -55,7 +88,10 @@ namespace ver2
             Console.WriteLine($"{DateTime.Now} Wysłano fax: {document.GetFileName()}");
         }
 
-        public void Fax()
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera i wysyła faks
+        /// </summary>
+        public void FullFax()
         {
             SendFax(new ImageDocument("Image.jpg"));
             DownloadFax();

@@ -2,11 +2,24 @@
 
 namespace ver2
 {
+    /// <summary>
+    /// Kserokopiarka do obsługi drukarki i skanera
+    /// </summary>
     public class Copier : BaseDevice, IPrinter, IScanner
     {
+        /// <summary>
+        /// Liczba wydrukowanych dokumentów
+        /// </summary>
         public int PrintCounter { get; set; }
+        /// <summary>
+        /// Liczba zeskanowanych dokumentów
+        /// </summary>
         public int ScanCounter { get; set; }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone drukuje dokument
+        /// </summary>
+        /// <param name="document">Dokument do drukowania</param>
         public void Print(in IDocument document)
         {
             if (state == IDevice.State.off)
@@ -15,6 +28,10 @@ namespace ver2
             Console.WriteLine($"{DateTime.Now} Print: {document.GetFileName()}");
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
         public void Scan(out IDocument document)
         {
             document = null;
@@ -24,6 +41,11 @@ namespace ver2
             Console.WriteLine($"{DateTime.Now} Scan: {ScanCounter}");
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument do podanego typu
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
+        /// <param name="formatType">Typ dokumentu</param>
         public void Scan(out IDocument document, IDocument.FormatType formatType)
         {
             document = null;
@@ -51,6 +73,9 @@ namespace ver2
             }
         }
 
+        /// <summary>
+        ///  Wysyła żądanie skanowania i drukowania dokumentów testowych
+        /// </summary>
         public void ScanAndPrint()
         {
             Scan(out IDocument doc, IDocument.FormatType.JPG);

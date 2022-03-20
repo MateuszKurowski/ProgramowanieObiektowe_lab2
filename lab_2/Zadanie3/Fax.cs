@@ -2,11 +2,24 @@
 
 namespace ver3
 {
+    /// <summary>
+    /// Obiekt imitujący faks
+    /// </summary>
     public class Fax : BaseDevice, IFax
     {
+        /// <summary>
+        /// Liczba użycia faksu
+        /// </summary>
         public int FaxCounter { get; set; }
+
+        /// <summary>
+        /// Liczba pobranych faksów
+        /// </summary>
         public int DownloadFaxCounter { get; set; }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera faks
+        /// </summary>
         public void DownloadFax()
         {
             if (state == IDevice.State.off)
@@ -34,6 +47,10 @@ namespace ver3
             }
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone wysyła faks
+        /// </summary>
+        /// <param name="document">Dokument od wysłania</param>
         public void SendFax(in IDocument document)
         {
             if (state == IDevice.State.off)
@@ -42,11 +59,13 @@ namespace ver3
             Console.WriteLine($"{DateTime.Now} Wysłano fax: {document.GetFileName()}");
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone pobiera i wysyła faks
+        /// </summary>
         public void FullFax()
         {
             SendFax(new ImageDocument("Image.jpg"));
             DownloadFax();
         }
-
     }
 }

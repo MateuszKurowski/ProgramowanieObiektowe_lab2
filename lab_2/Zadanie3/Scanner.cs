@@ -2,15 +2,20 @@
 
 namespace ver3
 {
+    /// <summary>
+    /// Obiekt imitujący skaner
+    /// </summary>
     public class Scanner : BaseDevice, IScanner
     {
+        /// <summary>
+        /// Liczba zeskanowanych dokumentów
+        /// </summary>
         public int ScanCounter { get; set; }
 
-        public void Print(in IDocument document)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
         public void Scan(out IDocument document)
         {
             document = null;
@@ -20,6 +25,11 @@ namespace ver3
             Console.WriteLine($"{DateTime.Now} Scan: {ScanCounter}");
         }
 
+        /// <summary>
+        /// Jeśli urządzenie jest włączone skanuje dokument do podanego typu
+        /// </summary>
+        /// <param name="document">Dokument zeskanowany</param>
+        /// <param name="formatType">Typ dokumentu</param>
         public void Scan(out IDocument document, IDocument.FormatType formatType)
         {
             document = null;

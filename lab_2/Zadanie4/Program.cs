@@ -1,13 +1,11 @@
-﻿using System;
-
-using ver4;
+﻿using ver4;
 
 namespace ConsoleApp4
 {
     internal static class Program
     {
         static void Main(string[] args)
-        {
+        { 
             var xerox = new Copier();
             IScanner scanner = xerox;
             IPrinter printer = xerox;

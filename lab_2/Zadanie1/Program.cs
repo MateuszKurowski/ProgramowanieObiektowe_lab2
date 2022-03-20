@@ -1,6 +1,4 @@
-﻿using System;
-
-using ver1;
+﻿using ver1;
 
 namespace ConsoleApp1
 {

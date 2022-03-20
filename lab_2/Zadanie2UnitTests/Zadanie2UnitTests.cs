@@ -293,7 +293,7 @@ namespace ver2UnitTests
             currentConsoleOut.Flush();
             using (var consoleOutput = new ConsoleRedirectionToStringWriter())
             {
-                multifunctionalDevice.Fax();
+                multifunctionalDevice.FullFax();
                 Assert.IsFalse(consoleOutput.GetOutput().Contains("fax"));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
@@ -311,7 +311,7 @@ namespace ver2UnitTests
             currentConsoleOut.Flush();
             using (var consoleOutput = new ConsoleRedirectionToStringWriter())
             {
-                multifunctionalDevice.Fax();
+                multifunctionalDevice.FullFax();
                 Assert.IsTrue(consoleOutput.GetOutput().Contains("fax"));
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
@@ -406,8 +406,8 @@ namespace ver2UnitTests
             multifunctionalDevice.DownloadFax();
             multifunctionalDevice.PowerOn();
 
-            multifunctionalDevice.Fax();
-            multifunctionalDevice.Fax();
+            multifunctionalDevice.FullFax();
+            multifunctionalDevice.FullFax();
 
             // 5 pobranych faxów, gdy urządzenie włączone
             Assert.AreEqual(5, multifunctionalDevice.DownloadFaxCounter);
@@ -428,11 +428,11 @@ namespace ver2UnitTests
             multifunctionalDevice.SendFax(in doc3);
 
             multifunctionalDevice.PowerOff();
-            multifunctionalDevice.Fax();
-            multifunctionalDevice.Fax();
+            multifunctionalDevice.FullFax();
+            multifunctionalDevice.FullFax();
             multifunctionalDevice.PowerOn();
 
-            multifunctionalDevice.Fax();
+            multifunctionalDevice.FullFax();
 
             // 5 użycia faxu, gdy urządzenie włączone
             Assert.AreEqual(5, multifunctionalDevice.FaxCounter);

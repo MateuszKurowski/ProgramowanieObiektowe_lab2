@@ -20,6 +20,7 @@ namespace ver5
             _Counter++;
             SetState(State.on);
         }
+
         /// <summary>
         /// Włącza tryb oszędzania energii na urządzeniu
         /// </summary>
@@ -27,6 +28,7 @@ namespace ver5
         {
             SetState(State.standby);
         }
+
         /// <summary>
         /// Wyłącza tryb oszczędzanai energii na urządzeniu
         /// </summary>
@@ -35,6 +37,7 @@ namespace ver5
             _Counter++;
             SetState(State.on);
         }
+
         /// <summary>
         /// Wyłącza urządzenie
         /// </summary>
@@ -42,6 +45,7 @@ namespace ver5
         {
             SetState(State.off);
         }
+
         /// <summary>
         /// Usatwia obecny stan urządzenia
         /// </summary>
@@ -50,10 +54,12 @@ namespace ver5
         {
             _State = state;
         }
+
         /// <summary>
         /// Obecny stan urządzenia
         /// </summary>
         protected State _State { get; set; }
+
         /// <summary>
         /// Zwraca obecny stan urządzenia
         /// </summary>
@@ -62,6 +68,7 @@ namespace ver5
         {
             return _State;
         }
+
         /// <summary>
         /// Sprawdza czy urządzenie jest wyłączone, gdy ma włączone oszczędzanie energii wyłącza je
         /// </summary>
@@ -74,12 +81,14 @@ namespace ver5
                 StandbyOff();
             return true;
         }
-        /// <summary>
-        /// Liczba uruchomień urządzeń
-        /// </summary>
-        int Counter { get { return _Counter; } }
+
         /// <summary>
         /// Zwraca liczbe uruchomień urządzeń
+        /// </summary>
+        int Counter { get { return _Counter; } }
+
+        /// <summary>
+        /// Liczba uruchomień urządzeń
         /// </summary>
         private static int _Counter = 0;
     }
@@ -146,6 +155,7 @@ namespace ver5
                     break;
             }
         }
+
         /// <summary>
         /// Jeśli urządzenie jest włączone skanuje dokument
         /// </summary>
@@ -158,10 +168,12 @@ namespace ver5
             _ScannerCounter++;
             Console.WriteLine($"{DateTime.Now} Scan: {_ScannerCounter} dzisiejszy skan");
         }
+
         /// <summary>
         /// Zwraca liczbę zeskanowanych dokumentów
         /// </summary>
         int ScanCounter { get { return _ScannerCounter; } }
+
         /// <summary>
         /// Liczba zeskanowanych dokumentów
         /// </summary>
@@ -184,6 +196,7 @@ namespace ver5
             _FaxCounter++;
             Console.WriteLine($"{DateTime.Now} Wysłano fax: {document.GetFileName()}");
         }
+
         /// <summary>
         /// Jeśli urządzenie jest włączone pobiera faks
         /// </summary>
@@ -217,6 +230,7 @@ namespace ver5
                     break;
             }
         }
+
         /// <summary>
         /// Jeśli urządzenie jest włączone pobiera i wysyła faks
         /// </summary>
@@ -227,18 +241,22 @@ namespace ver5
             SendFax(new ImageDocument("Image.jpg"));
             DownloadFax();
         }
+
         /// <summary>
         /// Zwraca liczbę użycia faksu
         /// </summary>
         int FaxCounter { get { return _FaxCounter; } }
+
         /// <summary>
         /// Liczba użycia faksu
         /// </summary>
         private static int _FaxCounter = 0;
+
         /// <summary>
         /// Zwraca liczbę pobranych faksu
         /// </summary>
         int DownloadFaxCounter { get { return _DownloadFaxCounter; } }
+
         /// <summary>
         /// Liczba pobranych faksów
         /// </summary>

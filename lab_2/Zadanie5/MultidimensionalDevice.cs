@@ -35,6 +35,7 @@ namespace ver5
             ((IDevice)_fax).PowerOn();
             ((IDevice)this).PowerOn();
         }
+
         /// <summary>
         /// Włącza oszczędzanie energii w urządzeniu i wszystkich podurządzeniach
         /// </summary>
@@ -47,6 +48,7 @@ namespace ver5
             ((IDevice)_fax).StandbyOn();
             ((IDevice)this).StandbyOn();
         }
+
         /// <summary>
         /// Wyłącza oszczędzanie energii w urządzeniu i wszystkich podurządzeniach
         /// </summary>
@@ -59,6 +61,7 @@ namespace ver5
             ((IDevice)_fax).PowerOn();
             ((IDevice)this).PowerOn();
         }
+
         /// <summary>
         /// Wyłącza urządzenie oraz wszystkie jego podurządzenia
         /// </summary>
@@ -113,6 +116,7 @@ namespace ver5
             ((IDevice)_fax).PowerOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie włączenia tryb oszczędzania energii w faksie
         /// </summary>
@@ -123,6 +127,7 @@ namespace ver5
             ((IDevice)_fax).StandbyOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia tryb oszczędzania energii w faksie
         /// </summary>
@@ -133,6 +138,7 @@ namespace ver5
             ((IDevice)_fax).StandbyOff();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia faksu
         /// </summary>
@@ -143,6 +149,7 @@ namespace ver5
             ((IDevice)_fax).PowerOff();
             SetStateByDevice();
         }
+
         /// <summary>
         /// Wysyła żądanie pobrania faksu
         /// </summary>
@@ -152,6 +159,7 @@ namespace ver5
                 return;
             ((IFax)_fax).DownloadFax();
         }
+
         /// <summary>
         ///  Wysyła żądanie wysyłania faksu
         /// </summary>
@@ -162,6 +170,7 @@ namespace ver5
                 return;
             ((IFax)_fax).SendFax(in document);
         }
+
         /// <summary>
         ///  Wysyła żądanie pobrania i wysyła faksu
         /// </summary>

@@ -1,6 +1,4 @@
-﻿using System;
-
-using ver3;
+﻿using ver3;
 
 namespace ConsoleApp3
 {
@@ -11,7 +9,6 @@ namespace ConsoleApp3
             var fax = new Fax();
             var scanner = new Scanner();
             var printer = new Printer();
-            var xerox = new Copier(printer, scanner);
             var multiDevice = new MultidimensionalDevice(printer, scanner, fax);
             multiDevice.PowerOn();
             IDocument doc1 = new PDFDocument("aaa.pdf");

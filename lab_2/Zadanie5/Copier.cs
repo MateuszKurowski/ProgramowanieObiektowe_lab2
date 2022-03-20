@@ -3,7 +3,7 @@
 namespace ver5
 {
     /// <summary>
-    /// kserokopiarka do obsługi drukarki i skanera
+    /// Kserokopiarka do obsługi drukarki i skanera
     /// </summary>
     public class Copier : IDevice
     {
@@ -11,6 +11,7 @@ namespace ver5
         /// Obiekt skanera
         /// </summary>
         protected Scanner _Scanner;
+
         /// <summary>
         /// Obiekt drukarki
         /// </summary>
@@ -43,6 +44,7 @@ namespace ver5
             ((IDevice)_Scanner).PowerOn();
             ((IDevice)this).PowerOn();
         }
+
         /// <summary>
         /// Włącza oszczędzanie energii w urządzeniu i wszystkich podurządzeniach
         /// </summary>
@@ -54,6 +56,7 @@ namespace ver5
             ((IDevice)_Scanner).StandbyOn();
             ((IDevice)this).StandbyOn();
         }
+
         /// <summary>
         /// Wyłącza oszczędzanie energii w urządzeniu i wszystkich podurządzeniach
         /// </summary>
@@ -65,6 +68,7 @@ namespace ver5
             ((IDevice)_Scanner).PowerOn();
             ((IDevice)this).PowerOn();
         }
+
         /// <summary>
         /// Wyłącza urządzenie oraz wszystkie jego podurządzenia
         /// </summary>
@@ -76,6 +80,7 @@ namespace ver5
             ((IDevice)_Scanner).PowerOff();
             ((IDevice)this).PowerOff();
         }
+
         /// <summary>
         /// Ustawia stan urządzenia na podstawie jego podurządzeń
         /// </summary>
@@ -95,6 +100,7 @@ namespace ver5
             else
                 ((IDevice)this).PowerOn();
         }
+
         /// <summary>
         /// Ustawia stan urządzenia
         /// </summary>
@@ -114,6 +120,7 @@ namespace ver5
                     break;
             }
         }
+
         /// <summary>
         /// Sprawdza czy urządzenie jest wyłączone, gdy ma włączone oszczędzanie energii wyłącza je
         /// </summary>
@@ -126,6 +133,7 @@ namespace ver5
                 ((IDevice)this).StandbyOff();
             return true;
         }
+
         /// <summary>
         /// Zwraca stan urządzenia
         /// </summary>
@@ -136,7 +144,6 @@ namespace ver5
         /// <summary>
         ///  Wysyła żądanie włączenia skanera
         /// </summary>
-
         public void PowerOnScanner()
         {
             if (!CheckState())
@@ -144,6 +151,7 @@ namespace ver5
             ((IDevice)_Scanner).PowerOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie włączenia tryb oszczędzania energii w skanerze
         /// </summary>
@@ -154,6 +162,7 @@ namespace ver5
             ((IDevice)_Scanner).StandbyOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia tryb oszczędzania energii w skanerze
         /// </summary>
@@ -164,6 +173,7 @@ namespace ver5
             ((IDevice)_Scanner).StandbyOff();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia skanera
         /// </summary>
@@ -174,6 +184,7 @@ namespace ver5
             ((IDevice)_Scanner).PowerOff();
             SetStateByDevice();
         }
+
         /// <summary>
         /// Wysyła żądanie zeskanowania dokumentu
         /// </summary>
@@ -184,6 +195,7 @@ namespace ver5
                 return;
             ((IScanner)_Scanner).Scan(out document);
         }
+
         /// <summary>
         /// Wysyła żądanie zeskanowania dokumentu do określonego typu
         /// </summary>
@@ -201,7 +213,6 @@ namespace ver5
         /// <summary>
         ///  Wysyła żądanie włączenia drukarki
         /// </summary>
-
         public void PowerOnPrinter()
         {
             if (!CheckState())
@@ -209,6 +220,7 @@ namespace ver5
             ((IDevice)_Printer).PowerOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie włączenia tryb oszczędzania energii w drukarce
         /// </summary>
@@ -219,6 +231,7 @@ namespace ver5
             ((IDevice)_Printer).StandbyOn();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia tryb oszczędzania energii w drukarce
         /// </summary>
@@ -229,6 +242,7 @@ namespace ver5
             ((IDevice)_Printer).StandbyOff();
             SetStateByDevice();
         }
+
         /// <summary>
         ///  Wysyła żądanie wyłączenia drukarki
         /// </summary>
@@ -240,6 +254,7 @@ namespace ver5
             ((IDevice)_Printer).PowerOff();
             SetStateByDevice();
         }
+
         /// <summary>
         /// Wysyła żądanie wydrukowania dokumentu
         /// </summary>

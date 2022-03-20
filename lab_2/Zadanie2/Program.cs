@@ -1,6 +1,4 @@
-﻿using System;
-
-using ver2;
+﻿using ver2;
 
 namespace ConsoleApp2
 {
@@ -15,7 +13,7 @@ namespace ConsoleApp2
 
             xerox.DownloadFax();
 
-            xerox.Fax();
+            xerox.FullFax();
             System.Console.WriteLine(xerox.Counter);
             System.Console.WriteLine(xerox.FaxCounter);
             System.Console.WriteLine(xerox.DownloadFaxCounter);
