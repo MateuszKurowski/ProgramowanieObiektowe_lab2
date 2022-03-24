@@ -27,6 +27,19 @@ namespace Pojazdy
         }
 
         /// <summary>
+        /// Limity prędkości obowiązujące w poszczególnych środowiskach wyrażone w kilometrach na godzine (km/h)
+        /// </summary>
+        public static class EnvironmentLimitSpeedKmPerH
+        {
+            public static double ZiemiaMin { get; } = 1;
+            public static double ZiemiaMax { get; } = 350;
+            public static double WodaMin { get; } = Math.Round(1.6093123, 2);
+            public static double WodaMax { get; } = Math.Round(64.372492, 2);
+            public static double PowietrzeMin { get; } = 72;
+            public static double PowietrzeMax { get; } = 720;
+        }
+
+        /// <summary>
         /// Typ paliwa
         /// </summary>
         public enum TypeOfFuel
@@ -53,10 +66,10 @@ namespace Pojazdy
 
         private State state = State.Stoi;
 
-        protected abstract string SpeedUnit { get; }
-        protected abstract int MinSpeed { get; }
-        protected abstract int MaxSpeed { get; }
-        private int _Speed;
+        protected abstract string SpeedUnit { get; set; }
+        protected abstract double MinSpeed { get; set; }
+        protected abstract double MaxSpeed { get; set; }
+        private double _Speed;
 
         public abstract Environment environment { get; }
 

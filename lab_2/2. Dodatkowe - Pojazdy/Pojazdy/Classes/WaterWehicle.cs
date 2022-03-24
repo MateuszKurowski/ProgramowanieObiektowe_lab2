@@ -24,5 +24,10 @@ namespace Pojazdy
         protected override int MinSpeed => 1;
 
         protected override int MaxSpeed => 40;
+
+        public static double ConvertMilesPerHourToKilometeresPerHour(double miles) => Math.Round(miles * 1.6093123, 2);
+        public static double ConvertMilesPerHourToKilometeresPerHour(int miles) => Math.Round(Convert.ToDouble(miles) * 1.6093123, 2);
+        public static double ConvertKilometeresPerHourToMilesPerHour(double kilometers) => Math.Round(kilometers / 1.6093123, 2);
+        public static double ConvertKilometeresPerHourToMilesPerHour(int kilometers) => Math.Round(Convert.ToDouble(kilometers) / 1.6093123, 2);
     }
 }

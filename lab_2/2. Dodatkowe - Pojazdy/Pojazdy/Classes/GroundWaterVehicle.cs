@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pojazdy
 {
-    public class GroundWaterVehicle : MultiEnvironmentVehicle, IGroundWaterVehicle
+    public class GroundWaterVehicle : MultiEnvironmentVehicle//, IGroundWaterVehicle
     {
     }
 }
