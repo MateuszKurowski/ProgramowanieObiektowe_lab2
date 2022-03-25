@@ -2,7 +2,7 @@ using System;
 
 namespace wellFormedTypes
 {
-    class Pracownik : IEquatable<Pracownik>
+    class Pracownik : IEquatable<Pracownik>, IComparable<Pracownik>
     {
         private string _Nazwisko;
        public string Nazwisko { 
@@ -75,5 +75,16 @@ namespace wellFormedTypes
 
         public static bool operator ==(Pracownik p1, Pracownik p2) => Equals(p1, p2);
         public static bool operator !=(Pracownik p1, Pracownik p2) => !(p1 == p2);
+
+        public int CompareTo(Pracownik other)
+        {
+            if (other is null) return 1;
+            if (this.Equals(other)) return 0;
+            if (this.Nazwisko != other.Nazwisko) return this.Nazwisko.CompareTo(other.Nazwisko);
+
+            if (!this.DataZatrudnienia.Equals(other.DataZatrudnienia)) return this.DataZatrudnienia.CompareTo(other.DataZatrudnienia);
+
+            return this.Wynagrodzenie.CompareTo(other.Wynagrodzenie);
+        }
     }
 }
