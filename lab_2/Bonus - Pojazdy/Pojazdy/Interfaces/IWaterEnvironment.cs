@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Pojazdy
+﻿namespace Pojazdy
 {
+    /// <summary>
+    /// Interfejs dla pojazdów w środowisku wodnych
+    /// </summary>
     public interface IWaterEnvironment
     {
+        int Displacement { get; init; }
 
+        string ToString();
     }
 }

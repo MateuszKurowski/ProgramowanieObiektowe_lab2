@@ -2,9 +2,12 @@
 
 namespace Pojazdy
 {
+    /// <summary>
+    /// Podstawowa klasa abstrakcyjna pojazdu
+    /// </summary>
     public abstract class BaseVehicle : IVehicle
     {
-        #region Enums
+        #region Enums/Constants
         /// <summary>
         /// Stan pojazdu
         /// </summary>
@@ -33,10 +36,10 @@ namespace Pojazdy
         {
             public static double ZiemiaMin { get; } = 1;
             public static double ZiemiaMax { get; } = 350;
-            public static double WodaMin { get; } = Math.Round(1.6093123, 2);
-            public static double WodaMax { get; } = Math.Round(64.372492, 2);
-            public static double PowietrzeMin { get; } = 72;
-            public static double PowietrzeMax { get; } = 720;
+            public static double WodaMin { get; } = ConvertersData.MileNaGodzine * 1;
+            public static double WodaMax { get; } = ConvertersData.MileNaGodzine * 40;
+            public static double PowietrzeMin { get; } = ConvertersData.MetryNaSekunde * 20;
+            public static double PowietrzeMax { get; } = ConvertersData.MetryNaSekunde * 200;
         }
 
         /// <summary>
@@ -59,16 +62,30 @@ namespace Pojazdy
         {
             public const string
                 KilometryNaGodzine = "km/h",
-                MileMorskie = "mph (Węzły)",
+                MileMorskie = "mph (Knot (Węzły))",
                 MetryNaSekunde = "m/s";
         }
         #endregion
 
-        public virtual State VehicleState { get; protected set; } = State.Stoi;
-
+        #region Prędkości
+        /// <summary>
+        /// Jednostka prędkości
+        /// </summary>
         public string SpeedUnit { get; protected set; }
+
+        /// <summary>
+        /// Minimalna prędkość w obecnym środowisku
+        /// </summary>
         public double MinSpeed { get; protected set; }
+
+        /// <summary>
+        /// Maksymalna prędkość w obecnym środowisku
+        /// </summary>
         public double MaxSpeed { get; protected set; }
+
+        /// <summary>
+        /// Obecna prędkość w ustandaryzowanych kilmetrach na godzinę
+        /// </summary>
         public double MainSpeed
         {
             get
@@ -93,11 +110,21 @@ namespace Pojazdy
             }
         }
 
+        /// <summary>
+        /// Obecna prędkość
+        /// </summary>
         private double _Speed;
-        public Environment environment { get; protected set; }
 
+        /// <summary>
+        /// Zwraca obecną prędkość pojazdu
+        /// </summary>
+        /// <returns>Obecna prędkość</returns>
         public double GetSpeed() => _Speed;
 
+        /// <summary>
+        /// Zmienia prędkość pojazdu
+        /// </summary>
+        /// <param name="speed">Docelowa prędkość</param>
         public void SetSpeed(double speed)
         {
             if (speed > MinSpeed && speed < MaxSpeed)
@@ -119,51 +146,63 @@ namespace Pojazdy
             }
         }
 
-        public virtual void Start()
-        {
-            if (VehicleState == State.Jedzie)
-                return;
-            VehicleState = State.Jedzie;
-            SetSpeed(MinSpeed);
-        }
-
-        public virtual void Stop()
-        {
-            if (VehicleState == State.Stoi)
-                return;
-            VehicleState = State.Stoi;
-            _Speed = 0;
-        }
-
-        protected void SetStop() => _Speed = 0;
-
+        /// <summary>
+        /// Wyświetla na konsolę dozwolone limity prędkości dla obecnego środowiska
+        /// </summary>
         public void CheckTheSpeedLimitsOfTheEnvironment()
         {
             Console.WriteLine("--- Ograniczenia prędkości ---");
             Console.WriteLine($"Minimalna prędkość to: {MinSpeed}");
             Console.WriteLine($"Maksymalna prędkość to: {MaxSpeed}");
         }
-
-        public bool IsEngine { get; init; }
-
-        public int? EnginePower { get; init; }
-
-        public string Mark { get; init; }
-
-        public TypeOfFuel Fuel { get; init; }
-
-        protected BaseVehicle(string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak)
+        /// <summary>
+        /// Wyświetla na konsolę dozwolone limity prędkości dla wybranego środowiska
+        /// </summary>
+        public static void CheckTheSpeedLimitsOfTheEnvironment(Environment environmentForLimit)
         {
-            if (isEngine && (enginePower is null || enginePower <= 0 || typeOfFuel == TypeOfFuel.Brak))
+            switch (environmentForLimit)
             {
-                throw new Exception("W przypadku urządzeń napędzanym silnikiem należy uzupełnić moc silnika oraz typ paliwa.");
-            }
-            Mark = mark;
-            IsEngine = isEngine;
-            EnginePower = enginePower;
-            Fuel = typeOfFuel;
-        }
+                case Environment.Ziemia:
+                    {
+                        Console.WriteLine("--- Ograniczenia prędkości ---");
+                        Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.ZiemiaMin}");
+                        Console.WriteLine($"Maksymalna prędkość to: {EnvironmentLimitSpeedKmPerH.ZiemiaMax}");
+                    }
+                    break;
 
+                case Environment.Powietrze:
+                    {
+                        Console.WriteLine("--- Ograniczenia prędkości ---");
+                        Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.PowietrzeMin}");
+                        Console.WriteLine($"Maksymalna prędkość to: {EnvironmentLimitSpeedKmPerH.PowietrzeMax}");
+                    }
+                    break;
+
+                case Environment.Woda:
+                    {
+                        Console.WriteLine("--- Ograniczenia prędkości ---");
+                        Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.WodaMin}");
+                        Console.WriteLine($"Maksymalna prędkość to: {EnvironmentLimitSpeedKmPerH.WodaMax}");
+                    }
+                    break;
+
+            }
+        }
+        #endregion
+
+        #region Środowisko
+        /// <summary>
+        /// Obecne środowisko
+        /// </summary>
+        public Environment environment { get; protected set; }
+
+        /// <summary>
+        /// Zmienia środowisko oraz ustawia parametry dla danego środowiska
+        /// </summary>
+        /// <param name="environmentToSet">Docelowe środowisko</param>
+        /// <param name="speed">Prędkość pojazdu przed zmianą środowiska</param>
+        /// <exception cref="ArgumentOutOfRangeException">Prędkość wychodzi poza limity docelowego środowiska</exception>
+        /// <exception cref="ArgumentException">Nie odnaleziono podanego środowiska</exception>
         protected void SetEnvironment(Environment environmentToSet, double? speed = null)
         {
             switch (environmentToSet)
@@ -180,7 +219,8 @@ namespace Pojazdy
                                 SetSpeed((double)speed);
                             else throw new ArgumentOutOfRangeException(nameof(speed));
                         }
-                    }break;
+                    }
+                    break;
                 case Environment.Woda:
                     {
                         environment = Environment.Woda;
@@ -210,8 +250,85 @@ namespace Pojazdy
                     }
                     break;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException("Nie odnaleziono podanego środowiska.");
             }
+        }
+        #endregion
+
+        #region Stan
+        /// <summary>
+        /// Obecny stan pojazdu
+        /// </summary>
+        public virtual State VehicleState { get; protected set; } = State.Stoi;
+
+        /// <summary>
+        /// Uruchamia pojazd
+        /// </summary>
+        public virtual void Start()
+        {
+            if (VehicleState == State.Jedzie)
+                return;
+            Console.WriteLine("Pojazd ruszył..");
+            VehicleState = State.Jedzie;
+            SetSpeed(MinSpeed);
+        }
+
+        /// <summary>
+        /// Zatrzymuje pojazd
+        /// </summary>
+        public virtual void Stop()
+        {
+            if (VehicleState == State.Stoi)
+                return;
+            Console.WriteLine("Pojazd się zatrzymał..");
+            VehicleState = State.Stoi;
+            SetStop();
+        }
+
+        /// <summary>
+        /// Podczas zatrzymania wymusza ustawienie prędkości na 0
+        /// </summary>
+        protected void SetStop() => _Speed = 0;
+        #endregion
+
+        /// <summary>
+        /// Czy pojazd silnikowy?
+        /// </summary>
+        public bool IsEngine { get; init; }
+
+        /// <summary>
+        /// Moc silnika wyrażona w koniach mechanicznych, w przypadku braku silnika null
+        /// </summary>
+        public int? EnginePower { get; init; }
+
+        /// <summary>
+        /// Marka pojazdu
+        /// </summary>
+        public string Mark { get; init; }
+
+        /// <summary>
+        /// Typ paliwa
+        /// </summary>
+        public TypeOfFuel Fuel { get; init; }
+
+        /// <summary>
+        /// Domyślny konstruktor
+        /// </summary>
+        /// <param name="mark">Marka pojazdu</param>
+        /// <param name="isEngine">Czy pojazd silnikowy?</param>
+        /// <param name="enginePower">Moc silnika w koniach mechanicznych</param>
+        /// <param name="typeOfFuel">Typ paliwa</param>
+        /// <exception cref="Exception">Pojazd silnikowy musi mieć zdefiniowany typ paliwa oraz moc większą od zera</exception>
+        protected BaseVehicle(string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak)
+        {
+            if (isEngine && (enginePower is null || enginePower <= 0 || typeOfFuel == TypeOfFuel.Brak))
+            {
+                throw new Exception("W przypadku urządzeń napędzanym silnikiem należy uzupełnić moc silnika oraz typ paliwa.");
+            }
+            Mark = mark;
+            IsEngine = isEngine;
+            EnginePower = enginePower;
+            Fuel = typeOfFuel;
         }
     }
 }

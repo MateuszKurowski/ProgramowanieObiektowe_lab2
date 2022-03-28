@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Pojazdy
+﻿namespace Pojazdy
 {
+    /// <summary>
+    /// Interfejs dla pojazdów w środowisku lądowym
+    /// </summary>
     public interface IGroundEnvironment
     {
+        int Wheels { get; init; }
 
+        string ToString();
     }
 }

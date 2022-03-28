@@ -1,15 +1,25 @@
 ﻿namespace Pojazdy
 {
+    /// <summary>
+    /// Intefejst podstawowy dla pojazdów
+    /// </summary>
     public interface IVehicle
     {
-        int? EnginePower { get; init; }
         BaseVehicle.Environment environment { get; }
-        BaseVehicle.TypeOfFuel Fuel { get; init; }
+        BaseVehicle.State VehicleState { get; }
+        string SpeedUnit { get; }
+        double MaxSpeed { get; }
+        double MinSpeed { get; }
+        double MainSpeed { get; }
+        string Mark { get; init; }
         bool IsEngine { get; init; }
+        BaseVehicle.TypeOfFuel Fuel { get; init; }
+        int? EnginePower { get; init; }
 
-        void CheckTheSpeedLimitsOfTheEnvironment();
         void Start();
-        void SetSpeed(double speed);
         void Stop();
+        void SetSpeed(double speed);
+        double GetSpeed();
+        void CheckTheSpeedLimitsOfTheEnvironment();
     }
 }
