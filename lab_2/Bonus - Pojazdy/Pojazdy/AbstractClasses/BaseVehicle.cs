@@ -24,9 +24,7 @@ namespace Pojazdy
         {
             Ziemia,
             Powietrze,
-            Woda,
-            ZiemiaWoda,
-            PowietrzeWoda
+            Woda
         }
 
         /// <summary>
