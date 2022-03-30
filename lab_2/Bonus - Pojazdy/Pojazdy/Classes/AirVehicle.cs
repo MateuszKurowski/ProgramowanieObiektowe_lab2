@@ -20,7 +20,7 @@ namespace Pojazdy
         /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
-        private readonly string _Type = "Powietrzny";
+        protected override string _Type => "Powietrzny";
 
         #region Stan
         /// <summary>

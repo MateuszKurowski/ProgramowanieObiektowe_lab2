@@ -289,6 +289,7 @@ namespace Pojazdy
         protected void SetStop() => _Speed = 0;
         #endregion
 
+        protected abstract string _Type { get; }
         /// <summary>
         /// Czy pojazd silnikowy?
         /// </summary>
