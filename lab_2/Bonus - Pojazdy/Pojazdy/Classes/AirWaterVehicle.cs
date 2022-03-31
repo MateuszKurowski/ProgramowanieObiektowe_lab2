@@ -2,8 +2,24 @@
 
 namespace Pojazdy
 {
+    /// <summary>
+    /// /Pojazd wielorodzajowy woda-powietrze
+    /// </summary>
+    /// <seealso cref="Pojazdy.BaseVehicle" />
+    /// <seealso cref="Pojazdy.IWaterEnvironment" />
+    /// <seealso cref="Pojazdy.IAirEnvironment" />
     public class AirWaterVehicle : BaseVehicle, IWaterEnvironment, IAirEnvironment
     {
+        /// <summary>
+        /// Domyślny konstruktor
+        /// </summary>
+        /// <param name="mark">Marka</param>
+        /// <param name="wheels">Ilość kół</param>
+        /// <param name="displacement">Wyporność</param>
+        /// <param name="isEngine">Czy pojazd silnikowy?</param>
+        /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
+        /// <param name="typeOfFuel">Typ paliwa</param>
+        /// <exception cref="System.ArgumentException">Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.</exception>
         public AirWaterVehicle(string mark, int wheels, int displacement, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             if (isEngine && Fuel is not IVehicle.TypeOfFuel.Olej)
@@ -13,7 +29,14 @@ namespace Pojazdy
             SetEnvironment(IVehicle.Environment.Woda);
         }
 
+        /// <summary>
+        /// Wyporność
+        /// </summary>
         public int Displacement { get; init; }
+
+        /// <summary>
+        /// Ilość kół
+        /// </summary>
         public int Wheels { get; init; }
 
         /// <summary>
@@ -21,6 +44,7 @@ namespace Pojazdy
         /// </summary>
         protected override string _Type { get; } = "Wielorodzajowy";
 
+        #region Stan
         /// <summary>
         /// Uruchomienie pojazdu
         /// </summary>
@@ -84,6 +108,7 @@ namespace Pojazdy
             VehicleState = IVehicle.State.Stoi;
             Console.WriteLine("Pojazd się zatrzymał..");
         }
+        #endregion
 
         /// <summary>
         /// Wyświetla dane o pojeździe

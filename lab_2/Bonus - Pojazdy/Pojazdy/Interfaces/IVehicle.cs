@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Pojazdy
+﻿namespace Pojazdy
 {
     /// <summary>
     /// Intefejst podstawowy dla pojazdów

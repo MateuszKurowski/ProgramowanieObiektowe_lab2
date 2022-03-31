@@ -2,8 +2,25 @@
 
 namespace Pojazdy
 {
+    /// <summary>
+    /// Pojazd wielorodzajowy ziemia-woda
+    /// </summary>
+    /// <seealso cref="Pojazdy.BaseVehicle" />
+    /// <seealso cref="Pojazdy.IGroundEnvironment" />
+    /// <seealso cref="Pojazdy.IWaterEnvironment" />
     public class GroundWaterVehicle : BaseVehicle, IGroundEnvironment, IWaterEnvironment
     {
+        /// <summary>
+        /// Domyślny konstruktor
+        /// </summary>
+        /// <param name="mark">Marka</param>
+        /// <param name="wheels">Ilość kół</param>
+        /// <param name="displacement">Wyporność</param>
+        /// <param name="isEngine">Czy pojazd silnikowy?</param>
+        /// <param name="environmentOfVehicle">Środowisko gdzie znajduje się obecnie pojazd</param>
+        /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
+        /// <param name="typeOfFuel">Typ paliwa</param>
+        /// <exception cref="System.ArgumentException">Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.</exception>
         public GroundWaterVehicle(string mark, int wheels, int displacement, bool isEngine, IVehicle.Environment environmentOfVehicle = IVehicle.Environment.Ziemia, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             if (isEngine && Fuel is not IVehicle.TypeOfFuel.Olej)
@@ -20,9 +37,20 @@ namespace Pojazdy
         /// </summary>
         protected override string _Type { get; } = "Wielorodzajowy";
 
+        /// <summary>
+        /// Wyporność
+        /// </summary>
         public int Displacement { get; init; }
+
+        /// <summary>
+        /// Ilość kół
+        /// </summary>
         public int Wheels { get; init; }
 
+        #region Stan
+        /// <summary>
+        /// Wodowanie pojazdu
+        /// </summary>
         public void LaunchingToWater()
         {
             if (VehicleState is IVehicle.State.Płynie or IVehicle.State.Stoi)
@@ -30,6 +58,9 @@ namespace Pojazdy
             SetEnvironment(IVehicle.Environment.Woda, GetSpeed());
         }
 
+        /// <summary>
+        /// Uruchamia procedure uruchamiania pojazdu
+        /// </summary>
         public override void Start()
         {
             if (VehicleState is IVehicle.State.Płynie or IVehicle.State.Jedzie)
@@ -40,12 +71,16 @@ namespace Pojazdy
                 StartTheVehicle(IVehicle.State.Jedzie);
         }
 
+        /// <summary>
+        /// Lądowanie pojazdu z wody
+        /// </summary>
         public void Land()
         {
             if (VehicleState is IVehicle.State.Stoi or IVehicle.State.Jedzie)
                 return;
             SetEnvironment(IVehicle.Environment.Ziemia, GetSpeed());
         }
+        #endregion
 
         /// <summary>
         /// Wyświetla dane o pojeździe

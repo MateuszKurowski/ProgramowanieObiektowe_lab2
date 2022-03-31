@@ -8,6 +8,9 @@ namespace Pojazdy
     public abstract class BaseVehicle : IVehicle
     {
         #region Constants
+        /// <summary>
+        /// Limity prędkości w środowiskach
+        /// </summary>
         public static class EnvironmentLimitSpeedKmPerH
         {
             public static double ZiemiaMin { get; } = 1;
@@ -46,6 +49,10 @@ namespace Pojazdy
         /// </summary>
         public double MaxSpeed { get; protected set; }
 
+        /// <summary>
+        /// Zamienia jednostki prędkości na kilometry na godzinę
+        /// </summary>
+        /// <exception cref="Exception">Nie ma takiego środowiska w definicji</exception>
         protected void ConvertSpeed()
         {
             switch (environment)
@@ -218,6 +225,9 @@ namespace Pojazdy
         /// </summary>
         public virtual IVehicle.State VehicleState { get; protected set; } = IVehicle.State.Stoi;
 
+        /// <summary>
+        /// Uruchamia procedure uruchamiania pojazdu
+        /// </summary>
         public virtual void Start() => StartTheVehicle(IVehicle.State.Jedzie);
 
         /// <summary>
@@ -250,6 +260,9 @@ namespace Pojazdy
         protected void SetStop() => _Speed = 0;
         #endregion
 
+        /// <summary>
+        /// Typ obiektu
+        /// </summary>
         protected abstract string _Type { get; }
 
         /// <summary>
