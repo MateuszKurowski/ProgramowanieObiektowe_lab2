@@ -46,32 +46,31 @@ namespace Pojazdy
         /// </summary>
         public double MaxSpeed { get; protected set; }
 
+        protected void ConvertSpeed()
+        {
+            switch (environment)
+            {
+                case IVehicle.Environment.Ziemia:
+                    {
+                        MainSpeed = GetSpeed();
+                    }break;
+                case IVehicle.Environment.Woda:
+                    {
+                        MainSpeed = WaterWehicle.ConvertMilesPerHourToKilometeresPerHour(GetSpeed());
+                    }break;
+                case IVehicle.Environment.Powietrze:
+                    {
+                        MainSpeed = AirVehicle.ConvertMetersPerSecondToKilometeresPerHour(GetSpeed());
+                    }break;
+                default:
+                    throw new Exception("Napotkano nieznany błąd. Skontaktuj się z administratorem.");
+            }
+        }
+
         /// <summary>
         /// Obecna prędkość w ustandaryzowanych kilmetrach na godzinę
         /// </summary>
-        public double MainSpeed
-        {
-            get
-            {
-                switch (environment)
-                {
-                    case IVehicle.Environment.Ziemia:
-                        {
-                            return GetSpeed();
-                        }
-                    case IVehicle.Environment.Woda:
-                        {
-                            return WaterWehicle.ConvertMilesPerHourToKilometeresPerHour(GetSpeed());
-                        }
-                    case IVehicle.Environment.Powietrze:
-                        {
-                            return AirVehicle.ConvertMetersPerSecondToKilometeresPerHour(GetSpeed());
-                        }
-                    default:
-                        throw new Exception("Napotkano nieznany błąd. Skontaktuj się z administratorem.");
-                }
-            }
-        }
+        public double MainSpeed { get; protected set; }
 
         /// <summary>
         /// Obecna prędkość
@@ -90,7 +89,7 @@ namespace Pojazdy
         /// <param name="speed">Docelowa prędkość</param>
         public void SetSpeed(double speed)
         {
-            if (speed > MinSpeed && speed < MaxSpeed)
+            if (speed >= MinSpeed && speed <= MaxSpeed)
             {
                 if (speed > _Speed)
                     Console.WriteLine("Przyśpieszam..");
@@ -99,6 +98,7 @@ namespace Pojazdy
                 else
                     return;
                 _Speed = speed;
+                ConvertSpeed();
             }
             else
             {
@@ -178,9 +178,7 @@ namespace Pojazdy
                         SpeedUnit = SpeedUnits.KilometryNaGodzine;
                         if (speed != null)
                         {
-                            if (speed > MinSpeed && speed < MaxSpeed)
-                                SetSpeed((double)speed);
-                            else throw new ArgumentOutOfRangeException(nameof(speed));
+                            SetSpeed((double)speed);
                         }
                     }
                     break;
@@ -192,23 +190,19 @@ namespace Pojazdy
                         SpeedUnit = SpeedUnits.MileMorskie;
                         if (speed != null)
                         {
-                            if (speed > MinSpeed && speed < MaxSpeed)
-                                SetSpeed((double)speed);
-                            else throw new ArgumentOutOfRangeException(nameof(speed));
+                            SetSpeed((double)speed);
                         }
                     }
                     break;
                 case IVehicle.Environment.Powietrze:
                     {
                         environment = IVehicle.Environment.Powietrze;
-                        MinSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.WodaMin);
-                        MaxSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.WodaMax);
+                        MinSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
+                        MaxSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.PowietrzeMax);
                         SpeedUnit = SpeedUnits.MetryNaSekunde;
                         if (speed != null)
                         {
-                            if (speed > MinSpeed && speed < MaxSpeed)
-                                SetSpeed((double)speed);
-                            else throw new ArgumentOutOfRangeException(nameof(speed));
+                            SetSpeed((double)speed);
                         }
                     }
                     break;

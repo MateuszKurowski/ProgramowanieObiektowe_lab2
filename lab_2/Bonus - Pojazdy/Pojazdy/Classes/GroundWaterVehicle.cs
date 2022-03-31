@@ -46,5 +46,22 @@ namespace Pojazdy
                 return;
             SetEnvironment(IVehicle.Environment.Ziemia, GetSpeed());
         }
+
+        /// <summary>
+        /// Wyświetla dane o pojeździe
+        /// </summary>
+        /// <returns>Strin opisujący atrybuty danego pojazdu</returns>
+        public override string ToString()
+        {
+            Console.WriteLine();
+            var description = $"Opis pojazdu: \r\n Typ obiektu: {GetType()}, \r\n Rodzaj pojazdu: {_Type}, \r\n Środowisko: {environment}, \r\n Stan: {VehicleState}, \r\n Minimalna prędkość: {MinSpeed}, \r\n Maksymalna prędkość: {MaxSpeed}, \r\n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, \r\n Marka: {Mark}, \r\n Ilość kół: {Wheels}, \r\n Wyporność: {Displacement}";
+            if (IsEngine)
+                description += $", \r\n Czy silnikowy: Tak, \r\n Moc: {EnginePower} KM, \r\n Rodzaj paliwa: {Fuel}";
+            else
+                description += ", \r\n Czy silnikowy: Nie";
+            Console.WriteLine(description);
+            Console.WriteLine();
+            return description;
+        }
     }
 }
