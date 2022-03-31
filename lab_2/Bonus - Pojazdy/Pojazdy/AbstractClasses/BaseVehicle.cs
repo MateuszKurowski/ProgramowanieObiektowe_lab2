@@ -7,29 +7,7 @@ namespace Pojazdy
     /// </summary>
     public abstract class BaseVehicle : IVehicle
     {
-        #region Enums/Constants
-        /// <summary>
-        /// Stan pojazdu
-        /// </summary>
-        public enum State
-        {
-            Stoi,
-            Jedzie
-        }
-
-        /// <summary>
-        /// Środowisko pojazdu
-        /// </summary>
-        public enum Environment
-        {
-            Ziemia,
-            Powietrze,
-            Woda
-        }
-
-        /// <summary>
-        /// Limity prędkości obowiązujące w poszczególnych środowiskach wyrażone w kilometrach na godzine (km/h)
-        /// </summary>
+        #region Constants
         public static class EnvironmentLimitSpeedKmPerH
         {
             public static double ZiemiaMin { get; } = 1;
@@ -38,19 +16,6 @@ namespace Pojazdy
             public static double WodaMax { get; } = ConvertersData.MileNaGodzine * 40;
             public static double PowietrzeMin { get; } = ConvertersData.MetryNaSekunde * 20;
             public static double PowietrzeMax { get; } = ConvertersData.MetryNaSekunde * 200;
-        }
-
-        /// <summary>
-        /// Typ paliwa
-        /// </summary>
-        public enum TypeOfFuel
-        {
-            Benzyna,
-            Olej,
-            LPG,
-            Prad,
-            Diesel,
-            Brak
         }
 
         /// <summary>
@@ -90,15 +55,15 @@ namespace Pojazdy
             {
                 switch (environment)
                 {
-                    case Environment.Ziemia:
+                    case IVehicle.Environment.Ziemia:
                         {
                             return GetSpeed();
                         }
-                    case Environment.Woda:
+                    case IVehicle.Environment.Woda:
                         {
                             return WaterWehicle.ConvertMilesPerHourToKilometeresPerHour(GetSpeed());
                         }
-                    case Environment.Powietrze:
+                    case IVehicle.Environment.Powietrze:
                         {
                             return AirVehicle.ConvertMetersPerSecondToKilometeresPerHour(GetSpeed());
                         }
@@ -156,11 +121,11 @@ namespace Pojazdy
         /// <summary>
         /// Wyświetla na konsolę dozwolone limity prędkości dla wybranego środowiska
         /// </summary>
-        public static void CheckTheSpeedLimitsOfTheEnvironment(Environment environmentForLimit)
+        public static void CheckTheSpeedLimitsOfTheEnvironment(IVehicle.Environment environmentForLimit)
         {
             switch (environmentForLimit)
             {
-                case Environment.Ziemia:
+                case IVehicle.Environment.Ziemia:
                     {
                         Console.WriteLine("--- Ograniczenia prędkości ---");
                         Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.ZiemiaMin}");
@@ -168,7 +133,7 @@ namespace Pojazdy
                     }
                     break;
 
-                case Environment.Powietrze:
+                case IVehicle.Environment.Powietrze:
                     {
                         Console.WriteLine("--- Ograniczenia prędkości ---");
                         Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.PowietrzeMin}");
@@ -176,7 +141,7 @@ namespace Pojazdy
                     }
                     break;
 
-                case Environment.Woda:
+                case IVehicle.Environment.Woda:
                     {
                         Console.WriteLine("--- Ograniczenia prędkości ---");
                         Console.WriteLine($"Minimalna prędkość to: {EnvironmentLimitSpeedKmPerH.WodaMin}");
@@ -192,7 +157,7 @@ namespace Pojazdy
         /// <summary>
         /// Obecne środowisko
         /// </summary>
-        public Environment environment { get; protected set; }
+        public IVehicle.Environment environment { get; protected set; }
 
         /// <summary>
         /// Zmienia środowisko oraz ustawia parametry dla danego środowiska
@@ -201,13 +166,13 @@ namespace Pojazdy
         /// <param name="speed">Prędkość pojazdu przed zmianą środowiska</param>
         /// <exception cref="ArgumentOutOfRangeException">Prędkość wychodzi poza limity docelowego środowiska</exception>
         /// <exception cref="ArgumentException">Nie odnaleziono podanego środowiska</exception>
-        protected void SetEnvironment(Environment environmentToSet, double? speed = null)
+        protected void SetEnvironment(IVehicle.Environment environmentToSet, double? speed = null)
         {
             switch (environmentToSet)
             {
-                case Environment.Ziemia:
+                case IVehicle.Environment.Ziemia:
                     {
-                        environment = Environment.Ziemia;
+                        environment = IVehicle.Environment.Ziemia;
                         MinSpeed = EnvironmentLimitSpeedKmPerH.ZiemiaMin;
                         MaxSpeed = EnvironmentLimitSpeedKmPerH.ZiemiaMax;
                         SpeedUnit = SpeedUnits.KilometryNaGodzine;
@@ -219,9 +184,9 @@ namespace Pojazdy
                         }
                     }
                     break;
-                case Environment.Woda:
+                case IVehicle.Environment.Woda:
                     {
-                        environment = Environment.Woda;
+                        environment = IVehicle.Environment.Woda;
                         MinSpeed = WaterWehicle.ConvertKilometeresPerHourToMilesPerHour(EnvironmentLimitSpeedKmPerH.WodaMin);
                         MaxSpeed = WaterWehicle.ConvertKilometeresPerHourToMilesPerHour(EnvironmentLimitSpeedKmPerH.WodaMax);
                         SpeedUnit = SpeedUnits.MileMorskie;
@@ -233,9 +198,9 @@ namespace Pojazdy
                         }
                     }
                     break;
-                case Environment.Powietrze:
+                case IVehicle.Environment.Powietrze:
                     {
-                        environment = Environment.Powietrze;
+                        environment = IVehicle.Environment.Powietrze;
                         MinSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.WodaMin);
                         MaxSpeed = AirVehicle.ConvertKilometeresPerHourToMetersPerSecond(EnvironmentLimitSpeedKmPerH.WodaMax);
                         SpeedUnit = SpeedUnits.MetryNaSekunde;
@@ -257,17 +222,19 @@ namespace Pojazdy
         /// <summary>
         /// Obecny stan pojazdu
         /// </summary>
-        public virtual State VehicleState { get; protected set; } = State.Stoi;
+        public virtual IVehicle.State VehicleState { get; protected set; } = IVehicle.State.Stoi;
+
+        public virtual void Start() => StartTheVehicle(IVehicle.State.Jedzie);
 
         /// <summary>
         /// Uruchamia pojazd
         /// </summary>
-        public virtual void Start()
+        protected void StartTheVehicle(IVehicle.State state)
         {
-            if (VehicleState == State.Jedzie)
+            if ((VehicleState is IVehicle.State.Jedzie or IVehicle.State.Leci or IVehicle.State.Płynie) || state is IVehicle.State.Stoi)
                 return;
             Console.WriteLine("Pojazd ruszył..");
-            VehicleState = State.Jedzie;
+            VehicleState = state;
             SetSpeed(MinSpeed);
         }
 
@@ -276,10 +243,10 @@ namespace Pojazdy
         /// </summary>
         public virtual void Stop()
         {
-            if (VehicleState == State.Stoi)
+            if (VehicleState is IVehicle.State.Stoi)
                 return;
             Console.WriteLine("Pojazd się zatrzymał..");
-            VehicleState = State.Stoi;
+            VehicleState = IVehicle.State.Stoi;
             SetStop();
         }
 
@@ -290,6 +257,7 @@ namespace Pojazdy
         #endregion
 
         protected abstract string _Type { get; }
+
         /// <summary>
         /// Czy pojazd silnikowy?
         /// </summary>
@@ -308,7 +276,7 @@ namespace Pojazdy
         /// <summary>
         /// Typ paliwa
         /// </summary>
-        public TypeOfFuel Fuel { get; init; }
+        public IVehicle.TypeOfFuel Fuel { get; init; }
 
         /// <summary>
         /// Domyślny konstruktor
@@ -318,9 +286,9 @@ namespace Pojazdy
         /// <param name="enginePower">Moc silnika w koniach mechanicznych</param>
         /// <param name="typeOfFuel">Typ paliwa</param>
         /// <exception cref="Exception">Pojazd silnikowy musi mieć zdefiniowany typ paliwa oraz moc większą od zera</exception>
-        protected BaseVehicle(string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak)
+        protected BaseVehicle(string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak)
         {
-            if (isEngine && (enginePower is null || enginePower <= 0 || typeOfFuel == TypeOfFuel.Brak))
+            if (isEngine && (enginePower is null || enginePower <= 0 || typeOfFuel is IVehicle.TypeOfFuel.Brak))
             {
                 throw new Exception("W przypadku urządzeń napędzanym silnikiem należy uzupełnić moc silnika oraz typ paliwa.");
             }

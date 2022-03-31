@@ -10,7 +10,7 @@ namespace Pojazdy
         /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
-        private readonly string _Type = "Lądowy";
+        protected override string _Type { get; } = "Lądowy";
 
         /// <summary>
         /// Ilośc kół
@@ -25,10 +25,10 @@ namespace Pojazdy
         /// <param name="isEngine">Czy pojazd silnikowy?</param>
         /// <param name="enginePower">Moc silinika wyrażona </param>
         /// <param name="typeOfFuel">Typ paliwa</param>
-        public GroundVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        public GroundVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             Wheels = wheels;
-            SetEnvironment(Environment.Ziemia);
+            SetEnvironment(IVehicle.Environment.Ziemia);
         }
 
         /// <summary>

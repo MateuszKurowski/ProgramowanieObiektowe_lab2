@@ -3,7 +3,7 @@
     /// <summary>
     /// Interfejs dla pojazdów w środowisku wodnych
     /// </summary>
-    public interface IWaterEnvironment
+    public interface IWaterEnvironment : IVehicle
     {
         int Displacement { get; init; }
 

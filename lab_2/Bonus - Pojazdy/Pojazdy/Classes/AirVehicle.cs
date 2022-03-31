@@ -8,36 +8,19 @@ namespace Pojazdy
     public class AirVehicle : BaseVehicle, IAirEnvironment
     {
         /// <summary>
-        /// Stany pojazdów
-        /// </summary>
-        new public enum State
-        {
-            Stoi,
-            Jedzie,
-            Leci
-        }
-
-        /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
         protected override string _Type => "Powietrzny";
 
         #region Stan
         /// <summary>
-        /// Stan pojazdu
-        /// </summary>
-        public new State VehicleState { get; protected set; }
-
-        /// <summary>
         /// Uruchomienie pojazdu
         /// </summary>
         public override void Start()
         {
-            if (VehicleState is State.Jedzie or State.Leci)
+            if (VehicleState is IVehicle.State.Leci or IVehicle.State.Jedzie)
                 return;
-            VehicleState = State.Jedzie;
-            Console.WriteLine("Pojazd ruszył..");
-            SetSpeed(MinSpeed);
+            StartTheVehicle(IVehicle.State.Jedzie);
         }
 
         /// <summary>
@@ -45,21 +28,23 @@ namespace Pojazdy
         /// </summary>
         public void Fly()
         {
-            if (VehicleState is State.Leci)
+            if (VehicleState is IVehicle.State.Leci)
                 return;
-            if (VehicleState is State.Stoi)
+            if (VehicleState is IVehicle.State.Stoi)
             {
                 Console.WriteLine("Aby pojazd mógł latać należy go najpierw uruchomić. Rozpoczynam sekwencje uruchomienia..");
-                Start();
+                StartTheVehicle(IVehicle.State.Jedzie);
                 SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
             }
             else
+            {
                 if (GetSpeed() < EnvironmentLimitSpeedKmPerH.PowietrzeMin)
-                SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
+                    SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
+            }
 
             Console.WriteLine("Pojazd wzniósł się do góry..");
-            SetEnvironment(Environment.Powietrze, GetSpeed());
-            VehicleState = State.Leci;
+            SetEnvironment(IVehicle.Environment.Powietrze, GetSpeed());
+            VehicleState = IVehicle.State.Leci;
         }
 
         /// <summary>
@@ -67,12 +52,12 @@ namespace Pojazdy
         /// </summary>
         public void Land()
         {
-            if (VehicleState is State.Jedzie or State.Stoi)
+            if (VehicleState is IVehicle.State.Jedzie or IVehicle.State.Stoi)
                 return;
             Console.WriteLine("Lądowanie..");
             SetSpeed(MinSpeed);
-            SetEnvironment(Environment.Ziemia, GetSpeed());
-            VehicleState = State.Jedzie;
+            SetEnvironment(IVehicle.Environment.Ziemia, GetSpeed());
+            VehicleState = IVehicle.State.Jedzie;
         }
 
         /// <summary>
@@ -80,15 +65,15 @@ namespace Pojazdy
         /// </summary>
         public override void Stop()
         {
-            if (VehicleState is State.Stoi)
+            if (VehicleState is IVehicle.State.Stoi)
                 return;
-            if (VehicleState is State.Leci)
+            if (VehicleState is IVehicle.State.Leci)
             {
                 Console.WriteLine("Nie można zatrzymać pojazdu w powietrzu, należy najpierw wylądować. Rozpoczynam sekwencje lądowania..");
                 Land();
             }
             SetStop();
-            VehicleState = State.Stoi;
+            VehicleState = IVehicle.State.Stoi;
             Console.WriteLine("Pojazd się zatrzymał..");
         }
         #endregion
@@ -106,10 +91,10 @@ namespace Pojazdy
         /// <param name="isEngine">Czy pojazd silnikowy</param>
         /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
         /// <param name="typeOfFuel">Typ paliwa</param>
-        public AirVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        public AirVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             Wheels = wheels;
-            SetEnvironment(Environment.Ziemia);
+            SetEnvironment(IVehicle.Environment.Ziemia);
         }
 
         #region Konwertery jednostek

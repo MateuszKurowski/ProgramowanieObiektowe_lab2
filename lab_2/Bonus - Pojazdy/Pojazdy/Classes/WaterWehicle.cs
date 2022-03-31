@@ -10,7 +10,16 @@ namespace Pojazdy
         /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
-        private readonly string _Type = "Wodny";
+        protected override string _Type { get; } = "Wodny";
+
+        #region Stan
+        public override void Start()
+        {
+            if (VehicleState is IVehicle.State.Płynie)
+                return;
+            StartTheVehicle(IVehicle.State.Płynie);
+        }
+        #endregion
 
         /// <summary>
         /// Wyporność pojazdu
@@ -26,12 +35,12 @@ namespace Pojazdy
         /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
         /// <param name="typeOfFuel">Typ paliwa</param>
         /// <exception cref="ArgumentException">Podano niewłaściwe paliwo, pojazdy wodne silnikowe używają tylko oleju</exception>
-        public WaterWehicle(int displacement, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        public WaterWehicle(int displacement, string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             Displacement = displacement;
-            if (isEngine && Fuel != TypeOfFuel.Olej)
+            if (isEngine && Fuel is not IVehicle.TypeOfFuel.Olej)
                 throw new ArgumentException("Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.");
-            SetEnvironment(Environment.Woda);
+            SetEnvironment(IVehicle.Environment.Woda);
         }
 
         #region Konwertery jednostek
