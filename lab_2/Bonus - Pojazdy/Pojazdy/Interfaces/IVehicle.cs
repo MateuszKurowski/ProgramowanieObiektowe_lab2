@@ -5,15 +5,28 @@
     /// </summary>
     public interface IVehicle
     {
-        BaseVehicle.Environment environment { get; }
-        BaseVehicle.State VehicleState { get; }
+        /// <summary>
+        /// Stan pojazdu
+        /// </summary>
+        enum State { Stoi, Jedzie, Leci, Płynie }
+        /// <summary>
+        /// Środowisko pojazdu
+        /// </summary>
+        enum Environment { Ziemia, Powietrze, Woda }
+        /// <summary>
+        /// Typ paliwa
+        /// </summary>
+        enum TypeOfFuel { Benzyna, Olej, LPG, Prad, Diesiel, Brak }
+
+        Environment environment { get; }
+        State VehicleState { get; }
         string SpeedUnit { get; }
         double MaxSpeed { get; }
-        double MinSpeed { get; }
+        double MinSpeed { get;  }
         double MainSpeed { get; }
         string Mark { get; init; }
         bool IsEngine { get; init; }
-        BaseVehicle.TypeOfFuel Fuel { get; init; }
+        TypeOfFuel Fuel { get; init; }
         int? EnginePower { get; init; }
 
         void Start();

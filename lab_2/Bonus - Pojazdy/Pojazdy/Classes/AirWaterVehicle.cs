@@ -1,97 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Pojazdy
 {
-    public class AirWaterVehicle : BaseVehicle//, IAirWaterVehicle
+    /// <summary>
+    /// /Pojazd wielorodzajowy woda-powietrze
+    /// </summary>
+    /// <seealso cref="Pojazdy.BaseVehicle" />
+    /// <seealso cref="Pojazdy.IWaterEnvironment" />
+    /// <seealso cref="Pojazdy.IAirEnvironment" />
+    public class AirWaterVehicle : BaseVehicle, IWaterEnvironment, IAirEnvironment
     {
         /// <summary>
-        /// Stany pojazdów
+        /// Domyślny konstruktor
         /// </summary>
-        new public enum State
+        /// <param name="mark">Marka</param>
+        /// <param name="wheels">Ilość kół</param>
+        /// <param name="displacement">Wyporność</param>
+        /// <param name="isEngine">Czy pojazd silnikowy?</param>
+        /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
+        /// <param name="typeOfFuel">Typ paliwa</param>
+        /// <exception cref="System.ArgumentException">Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.</exception>
+        public AirWaterVehicle(string mark, int wheels, int displacement, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
-            Stoi,
-            Jedzie,
-            Leci
+            if (isEngine && Fuel is not IVehicle.TypeOfFuel.Olej)
+                throw new ArgumentException("Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.");
+            Displacement = displacement;
+            Wheels = wheels;
+            SetEnvironment(IVehicle.Environment.Woda);
         }
 
         /// <summary>
-        /// Rodzaj pojazdu
+        /// Wyporność
         /// </summary>
-        protected readonly string _Type = "Wielorodzajowy";
-
-        #region Stan
-        /// <summary>
-        /// Stan pojazdu
-        /// </summary>
-        public new State VehicleState { get; protected set; }
-
-        /// <summary>
-        /// Uruchomienie pojazdu
-        /// </summary>
-        public override void Start()
-        {
-            if (VehicleState is State.Jedzie or State.Leci)
-                return;
-            VehicleState = State.Jedzie;
-            Console.WriteLine("Pojazd ruszył..");
-            SetSpeed(MinSpeed);
-        }
-
-        /// <summary>
-        /// Odlot pojazdu z środowiska lądowego do środowiska powietrznego
-        /// </summary>
-        public void Fly()
-        {
-            if (VehicleState is State.Leci)
-                return;
-            if (VehicleState is State.Stoi)
-            {
-                Console.WriteLine("Aby pojazd mógł latać należy go najpierw uruchomić. Rozpoczynam sekwencje uruchomienia..");
-                Start();
-                SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
-            }
-            else
-                if (GetSpeed() < EnvironmentLimitSpeedKmPerH.PowietrzeMin)
-                SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
-
-            Console.WriteLine("Pojazd wzniósł się do góry..");
-            SetEnvironment(Environment.Powietrze, GetSpeed());
-            VehicleState = State.Leci;
-        }
-
-        /// <summary>
-        /// Lądowanie pojazdu z środowiska powietrznego na środowisko lądowe
-        /// </summary>
-        public void Land()
-        {
-            if (VehicleState is State.Jedzie or State.Stoi)
-                return;
-            Console.WriteLine("Lądowanie..");
-            SetSpeed(MinSpeed);
-            SetEnvironment(Environment.Ziemia, GetSpeed());
-            VehicleState = State.Jedzie;
-        }
-
-        /// <summary>
-        /// Zatrzymanie pojazdu
-        /// </summary>
-        public override void Stop()
-        {
-            if (VehicleState is State.Stoi)
-                return;
-            if (VehicleState is State.Leci)
-            {
-                Console.WriteLine("Nie można zatrzymać pojazdu w powietrzu, należy najpierw wylądować. Rozpoczynam sekwencje lądowania..");
-                Land();
-            }
-            SetStop();
-            VehicleState = State.Stoi;
-            Console.WriteLine("Pojazd się zatrzymał..");
-        }
-        #endregion
+        public int Displacement { get; init; }
 
         /// <summary>
         /// Ilość kół
@@ -99,47 +40,74 @@ namespace Pojazdy
         public int Wheels { get; init; }
 
         /// <summary>
-        /// Domyslny konstruktor
+        /// Rodzaj pojazdu
         /// </summary>
-        /// <param name="wheels">Ilość kół</param>
-        /// <param name="mark">Marka</param>
-        /// <param name="isEngine">Czy pojazd silnikowy</param>
-        /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
-        /// <param name="typeOfFuel">Typ paliwa</param>
-        public AirVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        protected override string _Type { get; } = "Wielorodzajowy";
+
+        #region Stan
+        /// <summary>
+        /// Uruchomienie pojazdu
+        /// </summary>
+        public override void Start()
         {
-            Wheels = wheels;
-            SetEnvironment(Environment.Ziemia);
+            if (VehicleState is IVehicle.State.Leci or IVehicle.State.Płynie)
+                return;
+            StartTheVehicle(IVehicle.State.Jedzie);
         }
 
-        #region Konwertery jednostek
         /// <summary>
-        /// Przekonwertowanie metrów na sekundę na kilmetry na godzinę
+        /// Odlot pojazdu z środowiska lądowego do środowiska powietrznego
         /// </summary>
-        /// <param name="meters">Metry na sekundę</param>
-        /// <returns>Kilometry na godzinę</returns>
-        public static double ConvertMetersPerSecondToKilometeresPerHour(double meters) => Math.Round(meters * ConvertersData.MetryNaSekunde, 2);
+        public void Fly()
+        {
+            if (VehicleState is IVehicle.State.Leci)
+                return;
+            if (VehicleState is IVehicle.State.Stoi)
+            {
+                Console.WriteLine("Aby pojazd mógł latać należy go najpierw uruchomić. Rozpoczynam sekwencje uruchomienia..");
+                StartTheVehicle(IVehicle.State.Płynie);
+                SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
+            }
+            else
+            {
+                if (GetSpeed() < EnvironmentLimitSpeedKmPerH.PowietrzeMin)
+                    SetSpeed(EnvironmentLimitSpeedKmPerH.PowietrzeMin);
+            }
+
+            Console.WriteLine("Pojazd wzniósł się do góry..");
+            SetEnvironment(IVehicle.Environment.Powietrze, GetSpeed());
+            VehicleState = IVehicle.State.Leci;
+        }
+        
+        /// <summary>
+        /// Lądowanie pojazdu z środowiska powietrznego na środowisko wodne
+        /// </summary>
+        public void Land()
+        {
+            if (VehicleState is IVehicle.State.Płynie or IVehicle.State.Stoi)
+                return;
+            Console.WriteLine("Lądowanie..");
+            SetSpeed(MinSpeed);
+            SetEnvironment(IVehicle.Environment.Woda, GetSpeed());
+            VehicleState = IVehicle.State.Jedzie;
+        }
 
         /// <summary>
-        /// Przekonwertowanie metrów na sekundę na kilmetry na godzinę
+        /// Zatrzymanie pojazdu
         /// </summary>
-        /// <param name="meters">Metry na sekundę</param>
-        /// <returns>Kilometry na godzinę</returns>
-        public static double ConvertMetersPerSecondToKilometeresPerHour(int meters) => Math.Round(Convert.ToDouble(meters) * ConvertersData.MetryNaSekunde, 2);
-
-        /// <summary>
-        /// Przekonwertowanie kilometrów na godzinę na metry na sekundę
-        /// </summary>
-        /// <param name="kilometers">Kilometry na godzinę</param>
-        /// <returns>Metry na sekundę</returns>
-        public static double ConvertKilometeresPerHourToMetersPerSecond(double kilometers) => Math.Round(kilometers / ConvertersData.MetryNaSekunde, 2);
-
-        /// <summary>
-        /// Przekonwertowanie kilometrów na godzinę na metry na sekundę
-        /// </summary>
-        /// <param name="kilometers">Kilometry na godzinę</param>
-        /// <returns>Metry na sekundę</returns>
-        public static double ConvertKilometeresPerHourToMetersPerSecond(int kilometers) => Math.Round(Convert.ToDouble(kilometers) / ConvertersData.MetryNaSekunde, 2);
+        public override void Stop()
+        {
+            if (VehicleState is IVehicle.State.Stoi)
+                return;
+            if (VehicleState is IVehicle.State.Leci)
+            {
+                Console.WriteLine("Nie można zatrzymać pojazdu w powietrzu, należy najpierw wylądować. Rozpoczynam sekwencje lądowania..");
+                Land();
+            }
+            SetStop();
+            VehicleState = IVehicle.State.Stoi;
+            Console.WriteLine("Pojazd się zatrzymał..");
+        }
         #endregion
 
         /// <summary>
@@ -148,12 +116,14 @@ namespace Pojazdy
         /// <returns>Strin opisujący atrybuty danego pojazdu</returns>
         public override string ToString()
         {
-            var description = $"Typ obiektu: {GetType()}, /n Rodzaj pojazdu: {_Type}, /n Środowisko: {environment}, /n Stan: {VehicleState}, /n Minimalne prędkość: {MinSpeed}, /n Maksymalna prędkość: {MaxSpeed}, /n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, /n Marka: {Mark}, /n Ilość kół: {Wheels}";
+            Console.WriteLine();
+            var description = $"Opis pojazdu: \r\n Typ obiektu: {GetType()}, \r\n Rodzaj pojazdu: {_Type}, \r\n Środowisko: {environment}, \r\n Stan: {VehicleState}, \r\n Minimalna prędkość: {MinSpeed}, \r\n Maksymalna prędkość: {MaxSpeed}, \r\n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, \r\n Marka: {Mark}, \r\n Ilość kół: {Wheels}, \r\n Wyporność: {Displacement}";
             if (IsEngine)
-                description += $", /n Czy silnikowy: Tak, /n Moc: {EnginePower} KM, /n Rodzaj paliwa: {Fuel}";
+                description += $", \r\n Czy silnikowy: Tak, \r\n Moc: {EnginePower} KM, \r\n Rodzaj paliwa: {Fuel}";
             else
-                description += ", /n Czy silnikowy: Nie";
+                description += ", \r\n Czy silnikowy: Nie";
             Console.WriteLine(description);
+            Console.WriteLine();
             return description;
         }
     }

@@ -10,7 +10,7 @@ namespace Pojazdy
         /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
-        private readonly string _Type = "Lądowy";
+        protected override string _Type { get; } = "Lądowy";
 
         /// <summary>
         /// Ilośc kół
@@ -25,10 +25,10 @@ namespace Pojazdy
         /// <param name="isEngine">Czy pojazd silnikowy?</param>
         /// <param name="enginePower">Moc silinika wyrażona </param>
         /// <param name="typeOfFuel">Typ paliwa</param>
-        public GroundVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        public GroundVehicle(int wheels, string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             Wheels = wheels;
-            SetEnvironment(Environment.Ziemia);
+            SetEnvironment(IVehicle.Environment.Ziemia);
         }
 
         /// <summary>
@@ -37,12 +37,14 @@ namespace Pojazdy
         /// <returns>Strin opisujący atrybuty danego pojazdu</returns>
         public override string ToString()
         {
-            var description = $"Typ obiektu: {GetType()}, /n Rodzaj pojazdu: {_Type}, /n Środowisko: {environment}, /n Stan: {VehicleState}, /n Minimalne prędkość: {MinSpeed}, /n Maksymalna prędkość: {MaxSpeed}, /n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, /n Marka: {Mark}, /n Ilość kół: {Wheels}";
+            Console.WriteLine();
+            var description = $"Opis pojazdu: \r\n Typ obiektu: {GetType()}, \r\n Rodzaj pojazdu: {_Type}, \r\n Środowisko: {environment}, \r\n Stan: {VehicleState}, \r\n Minimalna prędkość: {MinSpeed}, \r\n Maksymalna prędkość: {MaxSpeed}, \r\n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, \r\n Marka: {Mark}, \r\n Ilość kół: {Wheels}";
             if (IsEngine)
-                description += $", /n Czy silnikowy: Tak, /n Moc: {EnginePower} KM, /n Rodzaj paliwa: {Fuel}";
+                description += $", \r\n Czy silnikowy: Tak, \r\n Moc: {EnginePower} KM, \r\n Rodzaj paliwa: {Fuel}";
             else
-                description += ", /n Czy silnikowy: Nie";
+                description += ", \r\n Czy silnikowy: Nie";
             Console.WriteLine(description);
+            Console.WriteLine();
             return description;
         }
     }

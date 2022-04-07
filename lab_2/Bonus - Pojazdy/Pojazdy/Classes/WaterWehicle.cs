@@ -10,7 +10,16 @@ namespace Pojazdy
         /// <summary>
         /// Rodzaj pojazdu
         /// </summary>
-        private readonly string _Type = "Wodny";
+        protected override string _Type { get; } = "Wodny";
+
+        #region Stan
+        public override void Start()
+        {
+            if (VehicleState is IVehicle.State.Płynie)
+                return;
+            StartTheVehicle(IVehicle.State.Płynie);
+        }
+        #endregion
 
         /// <summary>
         /// Wyporność pojazdu
@@ -26,12 +35,12 @@ namespace Pojazdy
         /// <param name="enginePower">Moc silnika wyrażona w koniach mechanicznych</param>
         /// <param name="typeOfFuel">Typ paliwa</param>
         /// <exception cref="ArgumentException">Podano niewłaściwe paliwo, pojazdy wodne silnikowe używają tylko oleju</exception>
-        public WaterWehicle(int displacement, string mark, bool isEngine, int? enginePower = null, TypeOfFuel typeOfFuel = TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
+        public WaterWehicle(int displacement, string mark, bool isEngine, int? enginePower = null, IVehicle.TypeOfFuel typeOfFuel = IVehicle.TypeOfFuel.Brak) : base(mark, isEngine, enginePower, typeOfFuel)
         {
             Displacement = displacement;
-            if (isEngine && Fuel != TypeOfFuel.Olej)
+            if (isEngine && Fuel is not IVehicle.TypeOfFuel.Olej)
                 throw new ArgumentException("Podano niewłaściwe paliwo. Pojazdy wodne z silnikiem jeżdżą tylko na olej.");
-            SetEnvironment(Environment.Woda);
+            SetEnvironment(IVehicle.Environment.Woda);
         }
 
         #region Konwertery jednostek
@@ -70,12 +79,14 @@ namespace Pojazdy
         /// <returns>Strin opisujący atrybuty danego pojazdu</returns>
         public override string ToString()
         {
-            var description = $"Typ obiektu: {GetType()}, /n Rodzaj pojazdu: {_Type}, /n Środowisko: {environment}, /n Stan: {VehicleState}, /n Minimalne prędkość: {MinSpeed}, /n Maksymalna prędkość: {MaxSpeed}, /n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, /n Marka: {Mark}, /n Ilość kół: {Displacement}";
+            Console.WriteLine();
+            var description = $"Opis pojazdu: \r\n Typ obiektu: {GetType()}, \r\n Rodzaj pojazdu: {_Type}, \r\n Środowisko: {environment}, \r\n Stan: {VehicleState}, \r\n Minimalna prędkość: {MinSpeed}, \r\n Maksymalna prędkość: {MaxSpeed}, \r\n Aktualna prędkość: {GetSpeed()} {SpeedUnit}, \r\n Marka: {Mark}, \r\n Ilość kół: {Displacement}";
             if (IsEngine)
-                description += $", /n Czy silnikowy: Tak, /n Moc: {EnginePower} KM, /n Rodzaj paliwa: {Fuel}";
+                description += $", \r\n Czy silnikowy: Tak, \r\n Moc: {EnginePower} KM, \r\n Rodzaj paliwa: {Fuel}";
             else
-                description += ", /n Czy silnikowy: Nie";
+                description += ", \r\n Czy silnikowy: Nie";
             Console.WriteLine(description);
+            Console.WriteLine();
             return description;
         }
     }
