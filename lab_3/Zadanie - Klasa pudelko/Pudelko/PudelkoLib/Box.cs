@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace BoxLib
 {
@@ -12,39 +13,78 @@ namespace BoxLib
         meter
     }
 
-    public sealed class Box : IFormattable, IEquatable<Box>//, IEnumerable
+    public sealed class Box : IFormattable, IEquatable<Box>, IEnumerable
     {
-        #region zadanie 1
-        private readonly double _A;
-        private readonly double _B;
-        private readonly double _C;
-
-        /// <summary>
-        /// Wysokość pudełka
-        /// </summary>
-        public double A
-        {
-            get { return _A; }
-            init { _A = ValidateLengthBeforeSave(value, "A"); }
-        }
-
-        /// <summary>
-        /// Szerokość pudełka
-        /// </summary>
-        public double B
-        {
-            get { return _B; }
-            init { _B = ValidateLengthBeforeSave(value, "B"); }
-        }
-
+        #region zadanie 1        
         /// <summary>
         /// Długość pudełka
         /// </summary>
-        public double C
+        private readonly double _A;
+        /// <summary>
+        /// Szerokość pudełka
+        /// </summary>
+        private readonly double _B;
+        /// <summary>
+        /// Wysokość pudełka
+        /// </summary>
+        private readonly double _C;
+
+        /// <summary>
+        /// Ustawia długośc pudełka
+        /// </summary>
+        private double A { init { _A = ValidateLengthBeforeSave(value, "A"); } }
+
+        /// <summary>
+        /// Ustawia szerokość pudełka
+        /// </summary>
+        private double B { init { _B = ValidateLengthBeforeSave(value, "B"); } }
+
+        /// <summary>
+        /// Ustawia wysokość pudełka
+        /// </summary>
+        private double C { init { _C = ValidateLengthBeforeSave(value, "C"); } }
+
+        /// <summary>
+        /// Zwraca długość pudełka
+        /// </summary>
+        /// <param name="unit">Jednostka miary</param>
+        /// <returns>Długość pudełka</returns>
+        /// <exception cref="System.ArgumentException">Nieznana jednostka miary.</exception>
+        public double GetA(UnitOfMeasure unit = UnitOfMeasure.meter) => GetValue(_A, unit);
+
+        /// <summary>
+        /// Zwraca szerokość pudełka
+        /// </summary>
+        /// <param name="unit">Jednostka miary</param>
+        /// <returns>Szerokość pudełka</returns>
+        /// <exception cref="System.ArgumentException">Nieznana jednostka miary.</exception>
+        public double GetB(UnitOfMeasure unit = UnitOfMeasure.meter) => GetValue(_B, unit);
+
+        /// <summary>
+        /// Zwraca wysokość pudełka
+        /// </summary>
+        /// <param name="unit">Jednostka miary</param>
+        /// <returns>Wysokość pudełka</returns>
+        /// <exception cref="System.ArgumentException">Nieznana jednostka miary.</exception>
+        public double GetC(UnitOfMeasure unit = UnitOfMeasure.meter) => GetValue(_C, unit);
+
+        /// <summary>
+        /// Zwraca wartość w odpowiedniej jednostce miary
+        /// </summary>
+        /// <param name="value">Wartość długości</param>
+        /// <param name="unit">Jednostka miary</param>
+        private double GetValue(double value, UnitOfMeasure unit)
         {
-            get { return _C; }
-            init { _C = ValidateLengthBeforeSave(value, "C"); }
+            return unit switch
+            {
+                UnitOfMeasure.meter => Math.Round(value, 3),
+                UnitOfMeasure.centimeter => Math.Round(value / 0.01, 3),
+                UnitOfMeasure.milimeter => Math.Round(value / 0.001, 3),
+                _ => throw new ArgumentException("Nieznana jednostka miary."),
+            };
         }
+
+        private readonly double[] _Edges;
 
         /// <summary>
         /// Jednostka wymiaru pudełka
@@ -69,6 +109,8 @@ namespace BoxLib
                 B = (double)b;
             if (c is not null)
                 C = (double)c;
+
+            _Edges = new double[] { _A, _B, _C };
         }
         #endregion
 
@@ -110,9 +152,9 @@ namespace BoxLib
 
             return format.ToLower() switch
             {
-                "m" => $"{A:0.000} m × {B:0.000} m × {C:0.000} m",
-                "cm" => $"{A * 100:0.0} cm × {B * 100:0.0} cm × {C * 100:0.0} cm",
-                "mm" => $"{A * 1000:0.0} mm × {B * 1000:0.0} mm × {C * 1000} mm",
+                "m" => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m",
+                "cm" => $"{_A * 100:0.0} cm × {_B * 100:0.0} cm × {_C * 100:0.0} cm",
+                "mm" => $"{_A * 1000:0.0} mm × {_B * 1000:0.0} mm × {_C * 1000} mm",
                 _ => throw new FormatException("Podano błędny format miary!"),
             };
         }
@@ -120,14 +162,15 @@ namespace BoxLib
         {
             return format?.ToLower() switch
             {
-                "m" => $"{A:0.000} m × {B:0.000} m × {C:0.000} m",
-                "cm" => $"{A * 100:0.0} cm × {B * 100:0.0} cm x {C * 100:0.0} cm",
-                "mm" => $"{A * 1000:0.0} mm × {B * 1000:0.0} mm × {C * 1000} mm",
+                "m" => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m",
+                "cm" => $"{_A * 100:0.0} cm × {_B * 100:0.0} cm × {_C * 100:0.0} cm",
+                "mm" => $"{_A * 1000:0} mm × {_B * 1000:0} mm × {_C * 1000:0} mm",
+                null => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m",
                 _ => throw new FormatException("Podano błędny format miary!"),
             };
         }
 
-        public override string ToString() => $"{A:0.000} m × {B:0.000} m × {C:0.000} m";
+        public override string ToString() => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m";
 
         
         #endregion
@@ -144,15 +187,15 @@ namespace BoxLib
                 double a, b, c;
                 if (Unit != UnitOfMeasure.meter)
                 {
-                    a = ConvertToMeters(A, Unit);
-                    b = ConvertToMeters(B, Unit);
-                    c = ConvertToMeters(C, Unit);
+                    a = ConvertToMeters(_A, Unit);
+                    b = ConvertToMeters(_B, Unit);
+                    c = ConvertToMeters(_C, Unit);
                 }
                 else
                 {
-                    a = A;
-                    b = B;
-                    c = C;
+                    a = _A;
+                    b = _B;
+                    c = _C;
                 }
                 return Math.Round(a * b * c, 9);
             } }
@@ -172,15 +215,15 @@ namespace BoxLib
                 double a, b, c;
                 if (Unit != UnitOfMeasure.meter)
                 {
-                    a = ConvertToMeters(A, Unit);
-                    b = ConvertToMeters(B, Unit);
-                    c = ConvertToMeters(C, Unit);
+                    a = ConvertToMeters(_A, Unit);
+                    b = ConvertToMeters(_B, Unit);
+                    c = ConvertToMeters(_C, Unit);
                 }
                 else
                 {
-                    a = A;
-                    b = B;
-                    c = C;
+                    a = _A;
+                    b = _B;
+                    c = _C;
                 }
                 return Math.Round((2 * a) * (2 * b) * (2 * c), 6);
             }
@@ -195,32 +238,32 @@ namespace BoxLib
             
             if (other.Unit == UnitOfMeasure.meter && Unit == UnitOfMeasure.meter)
             {
-                return A == other.A && B == other.B && C == other.C;
+                return GetA() == other.GetA() && GetB() == other.GetB() && GetC() == other.GetC();
             }
             else if (other.Unit == UnitOfMeasure.meter)
             {
-                var tempA = ConvertToMeters(A, Unit);
-                var tempB = ConvertToMeters(B, Unit);
-                var tempC = ConvertToMeters(C, Unit);
+                var tempA = ConvertToMeters(GetA(), Unit);
+                var tempB = ConvertToMeters(GetB(), Unit);
+                var tempC = ConvertToMeters(GetC(), Unit);
 
-                return tempA == other.A && tempB == other.B && tempC == other.C;
+                return tempA == other.GetA() && tempB == other.GetB() && tempC == other.GetC();
             }
             else if (Unit == UnitOfMeasure.meter)
             {
-                var tempA = ConvertToMeters(other.A, other.Unit);
-                var tempB = ConvertToMeters(other.B, other.Unit);
-                var tempC = ConvertToMeters(other.C, other.Unit);
+                var tempA = ConvertToMeters(other.GetA(), other.Unit);
+                var tempB = ConvertToMeters(other.GetB(), other.Unit);
+                var tempC = ConvertToMeters(other.GetC(), other.Unit);
 
-                return tempA == A && tempB == B && tempC == C;
+                return tempA == GetA() && tempB == GetB() && tempC == GetC();
             }
             else
             {
-                var tempA = ConvertToMeters(A, Unit);
-                var tempB = ConvertToMeters(B, Unit);
-                var tempC = ConvertToMeters(C, Unit);
-                var tempOtherA = ConvertToMeters(other.A, other.Unit);
-                var tempOtherB = ConvertToMeters(other.B, other.Unit);
-                var tempOtherC = ConvertToMeters(other.C, other.Unit);
+                var tempA = ConvertToMeters(GetA(), Unit);
+                var tempB = ConvertToMeters(GetB(), Unit);
+                var tempC = ConvertToMeters(GetC(), Unit);
+                var tempOtherA = ConvertToMeters(other.GetA(), other.Unit);
+                var tempOtherB = ConvertToMeters(other.GetB(), other.Unit);
+                var tempOtherC = ConvertToMeters(other.GetC(), other.Unit);
 
                 return tempA == tempOtherA && tempB == tempOtherB && tempC == tempOtherC;
             }
@@ -237,41 +280,147 @@ namespace BoxLib
         {
             if (obj1 is null && obj2 is null) return true;
             if (obj1 is null || obj2 is null) return false;
-            
+
             return obj1.Equals(obj2);
         }
 
-        public override int GetHashCode() => (A, B, C, Unit).GetHashCode();
+        public override int GetHashCode() => (GetA(), GetB(), GetC(), Unit).GetHashCode();
 
+        /// <summary>
+        /// Przeciążenie operatora porównania
+        /// </summary>
+        /// <param name="box1">Pierwsze pudełko</param>
+        /// <param name="box2">Drugie pudełko</param>
+        /// <returns>
+        /// Czy pudełka są równe
+        /// </returns>
         public static bool operator ==(Box box1, Box box2) => Equals(box1, box2);
+        /// <summary>
+        /// Przeciążenie operatora nierówności
+        /// </summary>
+        /// <param name="box1">Pierwsze pudełko</param>
+        /// <param name="box2">Drugie pudełko</param>
+        /// <returns>
+        /// Czy pudełka nie są równe
+        /// </returns>
         public static bool operator !=(Box box1, Box box2) => !(box1 == box2);
         #endregion
 
-        #region zadanie 8
+        #region zadanie 8        
+        /// <summary>
+        /// Przeciążenie operatora dodawania pudełek
+        /// </summary>
+        /// <param name="box1">Pierwsze pudełko</param>
+        /// <param name="box2">Drugie pudełko</param>
+        /// <returns>
+        /// Pudełko o najmniejszych możliwych krawędziach które pomieści oba pudełka
+        /// </returns>
+        public static Box operator +(Box box1, Box box2)
+        {
+            var firstBoxEdges = new double[] { box1.GetA(), box1.GetB(), box1.GetC() }.OrderByDescending(edge => edge).ToArray();
+            var secondBoxEdges = new double[] { box2.GetA(), box2.GetB(), box2.GetC() }.OrderByDescending(edge => edge).ToArray();
+            var a = firstBoxEdges[0] >= secondBoxEdges[0] ? firstBoxEdges[0] : secondBoxEdges [0];
+            var b = firstBoxEdges[1] >= secondBoxEdges[1] ? firstBoxEdges[1] : secondBoxEdges[1];
+            var c = firstBoxEdges[2] + secondBoxEdges[2];
+            return new Box(a, b, c);
+        }
         #endregion
 
-        #region zadanie 9
+        #region zadanie 9        
+        /// <summary>
+        /// Konwersja jawna z <see cref="Box"/> na <see cref="System.Double[]"/>.
+        /// </summary>
+        /// <param name="box">Pudełko</param>
+        /// <returns>
+        /// Tablica długości krawędzi pudełka
+        /// </returns>
+        public static explicit operator double[](Box box)
+        {
+            return new double[] { box.GetA(), box.GetB(), box.GetC() };
+        }
+
+        /// <summary>
+        /// Konwersja niejawna z <see cref="ValueTuple{System.Int32, System.Int32, System.Int32}"/> na <see cref="Box"/>.
+        /// </summary>
+        /// <param name="values">Długości wyrażone w minimetrach</param>
+        /// <returns>
+        /// Pudełko
+        /// </returns>
+        public static implicit operator Box(ValueTuple<int, int, int> values)
+        {
+            return new Box(values.Item1, values.Item2, values.Item3, UnitOfMeasure.milimeter);
+        }
         #endregion
 
         #region zadanie 10
+        public double this[int i]
+        {
+            get
+            {
+                return i switch
+                {
+                    0 => GetA(),
+                    1 => GetB(),
+                    2 => GetC(),
+                    _ => throw new ArgumentOutOfRangeException(i.ToString(), "Pudełko nie ma tyle wartości!"),
+                };
+            }
+        }
         #endregion
 
         #region zadanie 11
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<double> GetEnumerator()
+        {
+            foreach (var parameter in _Edges)
+            {
+                yield return parameter;
+            }
+        }
         #endregion
 
         #region zadanie 12
+        public static Box Parse(string expression)
+        {
+            if (expression is null) throw new FormatException();
+            var expressionArray = expression.Split(' ');
+            if (expressionArray.Length != 8) throw new FormatException();
+            var unit = expressionArray.Last() switch
+            {
+                "m" => UnitOfMeasure.meter,
+                "cm" => UnitOfMeasure.centimeter,
+                "mm" => UnitOfMeasure.milimeter,
+                _ => throw new FormatException("Podano błędną jednostkę!"),
+            };
+            if (!double.TryParse(expressionArray[0], out var a))
+                throw new FormatException("Podano błędny pierwszy parametr!");
+            if (!double.TryParse(expressionArray[3], out var b))
+                throw new FormatException("Podano błędny drugi parametr!");
+            if (!double.TryParse(expressionArray[6], out var c))
+                throw new FormatException("Podano błędny trzeci parametr!");
+
+            return new Box(a, b, c, unit);
+        }
         #endregion
 
         #region zadanie 13
+        // Pamiętaj o zapewnieniu pełnej niezmienniczości obiektom klasy Pudelko oraz o zapieczętowaniu klasy.
         #endregion
 
         #region zadanie 14
+        // Utwórz testy jednostkowe (unit tests) 
         #endregion
 
         #region zadanie 15
+        // Metoda rozszerzająca
         #endregion
 
         #region zadanie 16
+        // Sortowanie pudełek
         #endregion
     }
 }

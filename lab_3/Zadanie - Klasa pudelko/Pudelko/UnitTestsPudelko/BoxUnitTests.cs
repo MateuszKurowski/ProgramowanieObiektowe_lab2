@@ -31,9 +31,9 @@ namespace BoxUnitTests
 
         private void AssertPudelko(Box p, double expectedA, double expectedB, double expectedC)
         {
-            Assert.AreEqual(expectedA, p.A, delta: accuracy);
-            Assert.AreEqual(expectedB, p.B, delta: accuracy);
-            Assert.AreEqual(expectedC, p.C, delta: accuracy);
+            Assert.AreEqual(expectedA, p.GetA(), delta: accuracy);
+            Assert.AreEqual(expectedB, p.GetB(), delta: accuracy);
+            Assert.AreEqual(expectedC, p.GetC(), delta: accuracy);
         }
 
         #region Constructor tests ================================
@@ -43,9 +43,9 @@ namespace BoxUnitTests
         {
             Box p = new Box();
 
-            Assert.AreEqual(defaultSize, p.A, delta: accuracy);
-            Assert.AreEqual(defaultSize, p.B, delta: accuracy);
-            Assert.AreEqual(defaultSize, p.C, delta: accuracy);
+            Assert.AreEqual(defaultSize, p.GetA(), delta: accuracy);
+            Assert.AreEqual(defaultSize, p.GetB(), delta: accuracy);
+            Assert.AreEqual(defaultSize, p.GetC(), delta: accuracy);
         }
 
         [DataTestMethod, TestCategory("Constructors")]
@@ -155,9 +155,9 @@ namespace BoxUnitTests
         {
             Box p = new Box(a);
 
-            Assert.AreEqual(a, p.A);
-            Assert.AreEqual(0.1, p.B);
-            Assert.AreEqual(0.1, p.C);
+            Assert.AreEqual(a, p.GetA());
+            Assert.AreEqual(0.1, p.GetB());
+            Assert.AreEqual(0.1, p.GetC());
         }
 
         [DataTestMethod, TestCategory("Constructors")]
@@ -166,9 +166,9 @@ namespace BoxUnitTests
         {
             Box p = new Box(a);
 
-            Assert.AreEqual(a, p.A);
-            Assert.AreEqual(0.1, p.B);
-            Assert.AreEqual(0.1, p.C);
+            Assert.AreEqual(a, p.GetA());
+            Assert.AreEqual(0.1, p.GetB());
+            Assert.AreEqual(0.1, p.GetC());
         }
 
         [DataTestMethod, TestCategory("Constructors")]
@@ -425,87 +425,87 @@ namespace BoxUnitTests
             Assert.AreEqual(expectedStringEN, p.ToString());
         }
 
-        //[DataTestMethod, TestCategory("String representation")]
-        //[DataRow(null, 2.5, 9.321, 0.1, "2.500 m × 9.321 m × 0.100 m")]
-        //[DataRow("m", 2.5, 9.321, 0.1, "2.500 m × 9.321 m × 0.100 m")]
-        //[DataRow("cm", 2.5, 9.321, 0.1, "250.0 cm × 932.1 cm × 10.0 cm")]
-        //[DataRow("mm", 2.5, 9.321, 0.1, "2500 mm × 9321 mm × 100 mm")]
-        //public void ToString_Formattable_Culture_EN(string format, double a, double b, double c, string expectedStringRepresentation)
-        //{
-        //    var p = new Box(a, b, c, unit: UnitOfMeasure.meter);
-        //    Assert.AreEqual(expectedStringRepresentation, p.ToString(format));
-        //}
+        [DataTestMethod, TestCategory("String representation")]
+        [DataRow(null, 2.5, 9.321, 0.1, "2.500 m × 9.321 m × 0.100 m")]
+        [DataRow("m", 2.5, 9.321, 0.1, "2.500 m × 9.321 m × 0.100 m")]
+        [DataRow("cm", 2.5, 9.321, 0.1, "250.0 cm × 932.1 cm × 10.0 cm")]
+        [DataRow("mm", 2.5, 9.321, 0.1, "2500 mm × 9321 mm × 100 mm")]
+        public void ToString_Formattable_Culture_EN(string format, double a, double b, double c, string expectedStringRepresentation)
+        {
+            var p = new Box(a, b, c, unit: UnitOfMeasure.meter);
+            Assert.AreEqual(expectedStringRepresentation, p.ToString(format));
+        }
 
-        //[TestMethod, TestCategory("String representation")]
-        //[ExpectedException(typeof(FormatException))]
-        //public void ToString_Formattable_WrongFormat_FormatException()
-        //{
-        //    var p = new Box(1);
-        //    var stringformatedrepreentation = p.ToString("wrong code");
-        //}
+        [TestMethod, TestCategory("String representation")]
+        [ExpectedException(typeof(FormatException))]
+        public void ToString_Formattable_WrongFormat_FormatException()
+        {
+            var p = new Box(1);
+            var stringformatedrepreentation = p.ToString("wrong code");
+        }
 
-        //#endregion
+        #endregion
 
 
-        //#region Pole, Objętość ===================================
-        //// ToDo
+        #region Pole, Objętość ===================================
+        // ToDo
 
-        //#endregion
+        #endregion
 
-        //#region Equals ===========================================
-        //// ToDo
-        //#endregion
+        #region Equals ===========================================
+        // ToDo
+        #endregion
 
-        //#region Operators overloading ===========================
-        //// ToDo
-        //#endregion
+        #region Operators overloading ===========================
+        // ToDo
+        #endregion
 
-        //#region Conversions =====================================
-        //[TestMethod]
-        //public void ExplicitConversion_ToDoubleArray_AsMeters()
-        //{
-        //    var p = new Box(1, 2.1, 3.231);
-        //    double[] tab = (double[])p;
-        //    Assert.AreEqual(3, tab.Length);
-        //    Assert.AreEqual(p.A, tab[0]);
-        //    Assert.AreEqual(p.B, tab[1]);
-        //    Assert.AreEqual(p.C, tab[2]);
-        //}
+        #region Conversions =====================================
+        [TestMethod]
+        public void ExplicitConversion_ToDoubleArray_AsMeters()
+        {
+            var p = new Box(1, 2.1, 3.231);
+            double[] tab = (double[])p;
+            Assert.AreEqual(3, tab.Length);
+            Assert.AreEqual(p.GetA(), tab[0]);
+            Assert.AreEqual(p.GetB(), tab[1]);
+            Assert.AreEqual(p.GetC(), tab[2]);
+        }
 
-        //[TestMethod]
-        //public void ImplicitConversion_FromAalueTuple_As_Pudelko_InMilimeters()
-        //{
-        //    var (a, b, c) = (2500, 9321, 100); // in milimeters, ValueTuple
-        //    Box p = (a, b, c);
-        //    Assert.AreEqual((int)(p.A * 1000), a);
-        //    Assert.AreEqual((int)(p.B * 1000), b);
-        //    Assert.AreEqual((int)(p.C * 1000), c);
-        //}
+        [TestMethod]
+        public void ImplicitConversion_FromAalueTuple_As_Pudelko_InMilimeters()
+        {
+            var (a, b, c) = (2500, 9321, 100); // in milimeters, ValueTuple
+            Box p = (a, b, c);
+            Assert.AreEqual((int)(p.GetA() * 1000), a);
+            Assert.AreEqual((int)(p.GetB() * 1000), b);
+            Assert.AreEqual((int)(p.GetC() * 1000), c);
+        }
 
-        //#endregion
+        #endregion
 
-        //#region Indexer, enumeration ============================
-        //[TestMethod]
-        //public void Indexer_ReadFrom()
-        //{
-        //    var p = new Box(1, 2.1, 3.231);
-        //    Assert.AreEqual(p.A, p[0]);
-        //    Assert.AreEqual(p.B, p[1]);
-        //    Assert.AreEqual(p.C, p[2]);
-        //}
+        #region Indexer, enumeration ============================
+        [TestMethod]
+        public void Indexer_ReadFrom()
+        {
+            var p = new Box(1, 2.1, 3.231);
+            Assert.AreEqual(p.GetA(), p[0]);
+            Assert.AreEqual(p.GetB(), p[1]);
+            Assert.AreEqual(p.GetC(), p[2]);
+        }
 
-        //[TestMethod]
-        //public void ForEach_Test()
-        //{
-        //    var p = new Box(1, 2.1, 3.231);
-        //    var tab = new[] { p.A, p.B, p.C };
-        //    int i = 0;
-        //    foreach (double x in p)
-        //    {
-        //        Assert.AreEqual(x, tab[i]);
-        //        i++;
-        //    }
-        //}
+        [TestMethod]
+        public void ForEach_Test()
+        {
+            var p = new Box(1, 2.1, 3.231);
+            var tab = new[] { p.GetA(), p.GetB(), p.GetC() };
+            int i = 0;
+            foreach (double x in p)
+            {
+                Assert.AreEqual(x, tab[i]);
+                i++;
+            }
+        }
 
         #endregion
 
