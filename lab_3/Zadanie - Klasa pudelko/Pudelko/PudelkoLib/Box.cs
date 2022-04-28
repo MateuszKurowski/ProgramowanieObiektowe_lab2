@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 
@@ -13,7 +14,7 @@ namespace BoxLib
         meter
     }
 
-    public sealed class Box : IFormattable, IEquatable<Box>, IEnumerable
+    public sealed class Box : IFormattable, IEquatable<Box>, IEnumerable//, IComparable<Box>
     {
         #region zadanie 1        
         /// <summary>
@@ -147,15 +148,16 @@ namespace BoxLib
         #region zadanie 4
         string IFormattable.ToString(string format, IFormatProvider formatProvider)
         {
-            if (string.IsNullOrEmpty(format)) throw new FormatException("Podano błędny format miary!");
+            //if (string.IsNullOrEmpty(format)) throw new FormatException("Podano błędny format miary!");
             if (formatProvider == null) formatProvider = CultureInfo.CurrentCulture;
 
-            return format.ToLower() switch
+            return format?.ToLower() switch
             {
                 "m" => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m",
                 "cm" => $"{_A * 100:0.0} cm × {_B * 100:0.0} cm × {_C * 100:0.0} cm",
                 "mm" => $"{_A * 1000:0.0} mm × {_B * 1000:0.0} mm × {_C * 1000} mm",
-                _ => throw new FormatException("Podano błędny format miary!"),
+                _ => $"{_A:0.000} m × {_B:0.000} m × {_C:0.000} m"
+                //_ => throw new FormatException("Podano błędny format miary!"),
             };
         }
         public string ToString(string format)
@@ -233,9 +235,14 @@ namespace BoxLib
         #region zadanie 7
         bool IEquatable<Box>.Equals(Box other)
         {
+            return this.Equals(other);
+        }
+
+        public bool Equals(Box other)
+        {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
-            
+
             if (other.Unit == UnitOfMeasure.meter && Unit == UnitOfMeasure.meter)
             {
                 return GetA() == other.GetA() && GetB() == other.GetB() && GetC() == other.GetC();
@@ -272,7 +279,7 @@ namespace BoxLib
         public override bool Equals(object obj)
         {
             if (obj is null) return false;
-            if (obj is Box box) return Equals(box);
+            if (obj is Box) return Equals((Box)obj);
             else return false;
         }
 
@@ -420,7 +427,32 @@ namespace BoxLib
         #endregion
 
         #region zadanie 16
-        // Sortowanie pudełek
+
+        public static void Comparison<Box>(List<Box> boxList, Comparison<Box> comparison)
+        {
+            int n = boxList.Count;
+
+            do
+            {
+                for (int i = 0; i < n - 1; i++)
+                {
+                    if (comparison(boxList[i], boxList[i + 1]) > 0)
+                        SwapElements(boxList, i, i + 1);
+                }
+                n--;
+            } while (n > 1);
+        }
+
+        private static void SwapElements<Box>(List<Box> boxList, int firstIndex, int secondIndex)
+        {
+            Contract.Requires(boxList != null);
+            Contract.Requires(firstIndex >= 0 && firstIndex < boxList.Count);
+            Contract.Requires(secondIndex >= 0 && secondIndex < boxList.Count);
+            if (firstIndex == secondIndex)
+                return;
+
+            (boxList[secondIndex], boxList[firstIndex]) = (boxList[firstIndex], boxList[secondIndex]);
+        }
         #endregion
     }
 }
