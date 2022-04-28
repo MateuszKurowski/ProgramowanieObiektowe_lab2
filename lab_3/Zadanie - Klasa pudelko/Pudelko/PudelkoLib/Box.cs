@@ -12,7 +12,7 @@ namespace BoxLib
         meter
     }
 
-    public sealed class Box : IFormattable//, IEquatable<Box>, IEnumerable
+    public sealed class Box : IFormattable, IEquatable<Box>//, IEnumerable
     {
         #region zadanie 1
         private readonly double _A;
@@ -90,9 +90,9 @@ namespace BoxLib
             return meters;
         }
 
-        private double ConvertToMeters(double value, UnitOfMeasure unit)
+        public static double ConvertToMeters(double value, UnitOfMeasure unit)
         {
-            return Unit switch
+            return unit switch
             {
                 UnitOfMeasure.milimeter => Math.Round(value / 1000, 3, MidpointRounding.ToZero),
                 UnitOfMeasure.centimeter => Math.Round(value / 100, 3, MidpointRounding.ToZero),
@@ -128,6 +128,8 @@ namespace BoxLib
         }
 
         public override string ToString() => $"{A:0.000} m × {B:0.000} m × {C:0.000} m";
+
+        
         #endregion
 
         #region zadanie 5        
@@ -186,6 +188,63 @@ namespace BoxLib
         #endregion
 
         #region zadanie 7
+        bool IEquatable<Box>.Equals(Box other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            
+            if (other.Unit == UnitOfMeasure.meter && Unit == UnitOfMeasure.meter)
+            {
+                return A == other.A && B == other.B && C == other.C;
+            }
+            else if (other.Unit == UnitOfMeasure.meter)
+            {
+                var tempA = ConvertToMeters(A, Unit);
+                var tempB = ConvertToMeters(B, Unit);
+                var tempC = ConvertToMeters(C, Unit);
+
+                return tempA == other.A && tempB == other.B && tempC == other.C;
+            }
+            else if (Unit == UnitOfMeasure.meter)
+            {
+                var tempA = ConvertToMeters(other.A, other.Unit);
+                var tempB = ConvertToMeters(other.B, other.Unit);
+                var tempC = ConvertToMeters(other.C, other.Unit);
+
+                return tempA == A && tempB == B && tempC == C;
+            }
+            else
+            {
+                var tempA = ConvertToMeters(A, Unit);
+                var tempB = ConvertToMeters(B, Unit);
+                var tempC = ConvertToMeters(C, Unit);
+                var tempOtherA = ConvertToMeters(other.A, other.Unit);
+                var tempOtherB = ConvertToMeters(other.B, other.Unit);
+                var tempOtherC = ConvertToMeters(other.C, other.Unit);
+
+                return tempA == tempOtherA && tempB == tempOtherB && tempC == tempOtherC;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (obj is Box box) return Equals(box);
+            else return false;
+        }
+
+        public static bool Equals(Box obj1, Box obj2)
+        {
+            if (obj1 is null && obj2 is null) return true;
+            if (obj1 is null || obj2 is null) return false;
+            
+            return obj1.Equals(obj2);
+        }
+
+        public override int GetHashCode() => (A, B, C, Unit).GetHashCode();
+
+        public static bool operator ==(Box box1, Box box2) => Equals(box1, box2);
+        public static bool operator !=(Box box1, Box box2) => !(box1 == box2);
         #endregion
 
         #region zadanie 8
