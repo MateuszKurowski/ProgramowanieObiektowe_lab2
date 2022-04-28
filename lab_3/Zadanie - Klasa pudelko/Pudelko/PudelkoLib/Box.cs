@@ -25,7 +25,7 @@ namespace BoxLib
         public double A
         {
             get { return _A; }
-            init { _A = SwapLengthsToMeters(value, "A"); }
+            init { _A = ValidateLengthBeforeSave(value, "A"); }
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BoxLib
         public double B
         {
             get { return _B; }
-            init { _B = SwapLengthsToMeters(value, "B"); }
+            init { _B = ValidateLengthBeforeSave(value, "B"); }
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BoxLib
         public double C
         {
             get { return _C; }
-            init { _C = SwapLengthsToMeters(value, "C"); }
+            init { _C = ValidateLengthBeforeSave(value, "C"); }
         }
 
         /// <summary>
@@ -78,23 +78,27 @@ namespace BoxLib
         /// </summary>
         /// <param name="value">Długość</param>
         /// <returns>Długość w metrach</returns>
-        private double SwapLengthsToMeters(double value, string boxName = null)
+        private double ValidateLengthBeforeSave(double value, string boxName = null)
         {
             if ((Unit == UnitOfMeasure.milimeter || Unit == UnitOfMeasure.centimeter) && value <= 0.1)
                 throw new ArgumentOutOfRangeException(boxName, "Wymiar pudełka nie może być ujemny!");
             if (Unit == UnitOfMeasure.meter && value <= 0 )
                 throw new ArgumentOutOfRangeException(boxName, "Wymiar pudełka nie może być ujemny!");
 
-            var meters =  Unit switch
+            var meters = ConvertToMeters(value, Unit);
+            if (meters >= 10) throw new ArgumentOutOfRangeException(boxName, "Wymiar pudełka nie może być ujemny!");
+            return meters;
+        }
+
+        private double ConvertToMeters(double value, UnitOfMeasure unit)
+        {
+            return Unit switch
             {
                 UnitOfMeasure.milimeter => Math.Round(value / 1000, 3, MidpointRounding.ToZero),
                 UnitOfMeasure.centimeter => Math.Round(value / 100, 3, MidpointRounding.ToZero),
                 UnitOfMeasure.meter => Math.Round(value, 3, MidpointRounding.ToZero),
                 _ => throw new ArgumentException("Nieznana jednostka miary."),
-
             };
-            if (meters >= 10) throw new ArgumentOutOfRangeException(boxName, "Wymiar pudełka nie może być ujemny!");
-            return meters;
         }
         #endregion
 
@@ -126,10 +130,59 @@ namespace BoxLib
         public override string ToString() => $"{A:0.000} m × {B:0.000} m × {C:0.000} m";
         #endregion
 
-        #region zadanie 5
+        #region zadanie 5        
+        /// <summary>
+        /// Oblicza objętość pudełka, w przypadku jednostki innej niż metry konwertuje na metry
+        /// </summary>
+        /// <value>
+        /// Objętość pudełka w metrach sześciennych (m^3)
+        /// </value>
+        public double Volume {
+            get {
+                double a, b, c;
+                if (Unit != UnitOfMeasure.meter)
+                {
+                    a = ConvertToMeters(A, Unit);
+                    b = ConvertToMeters(B, Unit);
+                    c = ConvertToMeters(C, Unit);
+                }
+                else
+                {
+                    a = A;
+                    b = B;
+                    c = C;
+                }
+                return a * b * c;
+            } }
         #endregion
 
         #region zadanie 6
+        /// <summary>
+        /// Oblicza pole pudełka, w przypadku jednostki innej niż metry konwertuje na metry
+        /// </summary>
+        /// <value>
+        /// Pole pudełka w metrach kwadratowych (m^2)
+        /// </value>
+        public double Field
+        {
+            get
+            {
+                double a, b, c;
+                if (Unit != UnitOfMeasure.meter)
+                {
+                    a = ConvertToMeters(A, Unit);
+                    b = ConvertToMeters(B, Unit);
+                    c = ConvertToMeters(C, Unit);
+                }
+                else
+                {
+                    a = A;
+                    b = B;
+                    c = C;
+                }
+                return (2 * a) * (2 * b) * (2 * c);
+            }
+        }
         #endregion
 
         #region zadanie 7
