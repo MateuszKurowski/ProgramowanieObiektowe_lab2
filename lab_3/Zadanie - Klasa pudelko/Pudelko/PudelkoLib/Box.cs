@@ -152,7 +152,7 @@ namespace BoxLib
                     b = B;
                     c = C;
                 }
-                return a * b * c;
+                return Math.Round(a * b * c, 9);
             } }
         #endregion
 
@@ -180,7 +180,7 @@ namespace BoxLib
                     b = B;
                     c = C;
                 }
-                return (2 * a) * (2 * b) * (2 * c);
+                return Math.Round((2 * a) * (2 * b) * (2 * c), 6);
             }
         }
         #endregion
