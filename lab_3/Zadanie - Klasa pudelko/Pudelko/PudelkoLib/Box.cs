@@ -227,7 +227,7 @@ namespace BoxLib
                     b = _B;
                     c = _C;
                 }
-                return Math.Round((2 * a) * (2 * b) * (2 * c), 6);
+                return Math.Round((2 * GetA() * GetB()) + (2 * GetB() * GetC()) + (2 * GetC() * GetA()), 6);
             }
         }
         #endregion
@@ -243,37 +243,10 @@ namespace BoxLib
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            if (other.Unit == UnitOfMeasure.meter && Unit == UnitOfMeasure.meter)
-            {
-                return GetA() == other.GetA() && GetB() == other.GetB() && GetC() == other.GetC();
-            }
-            else if (other.Unit == UnitOfMeasure.meter)
-            {
-                var tempA = ConvertToMeters(GetA(), Unit);
-                var tempB = ConvertToMeters(GetB(), Unit);
-                var tempC = ConvertToMeters(GetC(), Unit);
+            var array = ((double[])this).OrderByDescending(x => x).ToArray();
+            var otherArray = ((double[])other).OrderByDescending(x => x).ToArray();
 
-                return tempA == other.GetA() && tempB == other.GetB() && tempC == other.GetC();
-            }
-            else if (Unit == UnitOfMeasure.meter)
-            {
-                var tempA = ConvertToMeters(other.GetA(), other.Unit);
-                var tempB = ConvertToMeters(other.GetB(), other.Unit);
-                var tempC = ConvertToMeters(other.GetC(), other.Unit);
-
-                return tempA == GetA() && tempB == GetB() && tempC == GetC();
-            }
-            else
-            {
-                var tempA = ConvertToMeters(GetA(), Unit);
-                var tempB = ConvertToMeters(GetB(), Unit);
-                var tempC = ConvertToMeters(GetC(), Unit);
-                var tempOtherA = ConvertToMeters(other.GetA(), other.Unit);
-                var tempOtherB = ConvertToMeters(other.GetB(), other.Unit);
-                var tempOtherC = ConvertToMeters(other.GetC(), other.Unit);
-
-                return tempA == tempOtherA && tempB == tempOtherB && tempC == tempOtherC;
-            }
+            return array[0] == otherArray[0] && array[1] == otherArray[1] && array[2] == otherArray[2];
         }
 
         public override bool Equals(object obj)

@@ -367,9 +367,6 @@ namespace BoxUnitTests
             Box p = new Box(a, b, unit: UnitOfMeasure.milimeter);
         }
 
-
-
-
         [DataTestMethod, TestCategory("Constructors")]
         [DataRow(-1.0)]
         [DataRow(0)]
@@ -448,16 +445,88 @@ namespace BoxUnitTests
 
 
         #region Pole, Objętość ===================================
-        // ToDo
+        [DataTestMethod, TestCategory("Volume")]
+        [DataRow(2, 4, 6, 48)]
+        [DataRow(0.12, 0.45, 8,
+                0.432)]
+        public void Volume_Test(double a, double b, double c,
+                                                     double expectedVolume)
+        {
+            Box p = new Box(a, b, c, unit: UnitOfMeasure.meter);
+
+            Assert.AreEqual(p.Volume, expectedVolume);
+        }
+
+        [DataTestMethod, TestCategory("Field")]
+        [DataRow(2, 4, 6, 88)]
+        [DataRow(0.12, 0.45, 8,
+                9.228)]
+        public void Field_Test(double a, double b, double c,
+                                                     double expectedField)
+        {
+            Box p = new Box(a, b, c, unit: UnitOfMeasure.meter);
+
+            Assert.AreEqual(p.Field, expectedField);
+        }
 
         #endregion
 
         #region Equals ===========================================
-        // ToDo
+        [DataTestMethod, TestCategory("Equals")]
+        [DataRow(1, 1, 1, 1, 1, 1, true)]
+        [DataRow(10, 10, 10, 0.1, 0.1, 0.1, true, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        [DataRow(1, 4, 4, 4, 4, 1, true)]
+        [DataRow(1, 4, 1, 4, 4, 1, false)]
+        public void Equals_Test(double a1, double b1, double c1, double a2, double b2, double c2,
+                                                     bool expectedEqual, UnitOfMeasure unit1 = UnitOfMeasure.meter, UnitOfMeasure unit2 = UnitOfMeasure.meter)
+        {
+            Box p1 = new Box(a1, b1, c1, unit1);
+            Box p2 = new Box(a2, b2, c2, unit2);
+
+            Assert.AreEqual(p1.Equals(p2), expectedEqual);
+        }
         #endregion
 
         #region Operators overloading ===========================
-        // ToDo
+        [DataTestMethod, TestCategory("Operator")]
+        [DataRow(1, 1, 1, 1, 1, 1, true)]
+        [DataRow(10, 10, 10, 0.1, 0.1, 0.1, true, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        [DataRow(10, 20, 10, 0.1, 0.1, 0.1, true, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        public void PlusOperator_Test(double a1, double b1, double c1, double a2, double b2, double c2,
+                                                     bool expectedResult, UnitOfMeasure unit1 = UnitOfMeasure.meter, UnitOfMeasure unit2 = UnitOfMeasure.meter)
+        {
+            Box p1 = new Box(a1, b1, c1, unit1);
+            Box p2 = new Box(a2, b2, c2, unit2);
+            Box p3 = p1 + p2;
+
+            Assert.AreEqual(p3.Volume > p1.Volume && p3.Volume > p2.Volume, expectedResult);
+        }
+
+        [DataTestMethod, TestCategory("Operator")]
+        [DataRow(1, 1, 1, 1, 1, 1, true)]
+        [DataRow(10, 10, 10, 0.1, 0.1, 0.1, true, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        [DataRow(10, 20, 10, 0.1, 0.1, 0.1, false, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        public void EqualsOperator_Test(double a1, double b1, double c1, double a2, double b2, double c2,
+                                                     bool expectedResult, UnitOfMeasure unit1 = UnitOfMeasure.meter, UnitOfMeasure unit2 = UnitOfMeasure.meter)
+        {
+            Box p1 = new Box(a1, b1, c1, unit1);
+            Box p2 = new Box(a2, b2, c2, unit2);
+
+            Assert.AreEqual(p1 == p2, expectedResult);
+        }
+
+        [DataTestMethod, TestCategory("Operator")]
+        [DataRow(1, 1, 1, 1, 1, 1, false)]
+        [DataRow(10, 10, 10, 0.1, 0.1, 0.1, false, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        [DataRow(10, 20, 10, 0.1, 0.1, 0.1, true, UnitOfMeasure.centimeter, UnitOfMeasure.meter)]
+        public void NotEqualsOperator_Test(double a1, double b1, double c1, double a2, double b2, double c2,
+                                                     bool expectedResult, UnitOfMeasure unit1 = UnitOfMeasure.meter, UnitOfMeasure unit2 = UnitOfMeasure.meter)
+        {
+            Box p1 = new Box(a1, b1, c1, unit1);
+            Box p2 = new Box(a2, b2, c2, unit2);
+
+            Assert.AreEqual(p1 != p2, expectedResult);
+        }
         #endregion
 
         #region Conversions =====================================
@@ -510,7 +579,16 @@ namespace BoxUnitTests
         #endregion
 
         #region Parsing =========================================
+        [DataTestMethod, TestCategory("Parsin")]
+        [DataRow("2.500 m × 9.321 m × 0.100 m", 2.5, 9.321, 0.1)]
+        public void ParsingFromString_Test(string expression, double a, double b, double c)
+        {
+            Box box = Box.Parse(expression);
 
+            Assert.AreEqual(box.GetA(), a);
+            Assert.AreEqual(box.GetB(), b);
+            Assert.AreEqual(box.GetC(), c);
+        }
         #endregion
 
     }
