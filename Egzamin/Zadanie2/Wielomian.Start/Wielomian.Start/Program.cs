@@ -78,43 +78,43 @@ namespace z2_1_wielomian
 
             var w21 = new W(1, 2, 3);
             var w22 = new W(0, 1, 2);
-            //Console.WriteLine($"({w21}) + ({w22}) = {w21 + w22}");
-            //Console.WriteLine($"({w22}) + ({w21}) = {w22 + w21}");
-            //Console.WriteLine($"({w21}) - ({w22}) = {w21 - w22}");
-            //Console.WriteLine($"({w22}) - ({w21}) = {w22 - w21}");
+            Console.WriteLine($"({w21}) + ({w22}) = {w21 + w22}");
+            Console.WriteLine($"({w22}) + ({w21}) = {w22 + w21}");
+            Console.WriteLine($"({w21}) - ({w22}) = {w21 - w22}");
+            Console.WriteLine($"({w22}) - ({w21}) = {w22 - w21}");
 
-            //Console.WriteLine($"({w21}) + {10} = {w21 + 10}");
-            //Console.WriteLine($"{10} + ({w21}) = {10 + w21}");
-            //Console.WriteLine($"({w21}) - {10} = {w21 - 10}");
-            //Console.WriteLine($"{10} - ({w21}) = {10 - w21}");
+            Console.WriteLine($"({w21}) + {10} = {w21 + 10}");
+            Console.WriteLine($"{10} + ({w21}) = {10 + w21}");
+            Console.WriteLine($"({w21}) - {10} = {w21 - 10}");
+            Console.WriteLine($"{10} - ({w21}) = {10 - w21}");
 
-            //Console.WriteLine("== Konwersje ==");
+            Console.WriteLine("== Konwersje ==");
 
-            //Wielomian w = 10;  //konwersja domyślna z int na Wielomian
+            Wielomian w = 10;  //konwersja domyślna z int na Wielomian
 
-            //int[] t = (int[])(new W(1));
-            //Console.WriteLine($"int[{t.Length}]: [{String.Join(',', t)}]");
+            int[] t = (int[])(new W(1));
+            Console.WriteLine($"int[{t.Length}]: [{String.Join(',', t)}]");
 
-            //int y = (int)(new W(1));
-            //Console.WriteLine($"int y: {y}");
+            int y = (int)(new W(1));
+            Console.WriteLine($"int y: {y}");
 
-            //int[] t11 = (int[])(new W(1, 2));
-            //Console.WriteLine($"int[{t11.Length}]: [{String.Join(',', t11)}]");
+            int[] t11 = (int[])(new W(1, 2));
+            Console.WriteLine($"int[{t11.Length}]: [{String.Join(',', t11)}]");
 
-            //try
-            //{
-            //    int t12 = (int)(new W(1, 2));
-            //}
-            //catch (InvalidCastException e)
-            //{
-            //    Console.WriteLine($"InvalidCastException: {e.Message}");
-            //}
+            try
+            {
+                int t12 = (int)(new W(1, 2));
+            }
+            catch (InvalidCastException e)
+            {
+                Console.WriteLine($"InvalidCastException: {e.Message}");
+            }
 
-            //Console.WriteLine("== indexer ==");
+            Console.WriteLine("== indexer ==");
 
-            //Console.WriteLine("W(1,2,3): ");
-            //for (int i = 0; i <= w21.Stopien; i++)
-            //    Console.WriteLine($"  w{i} = {w21[i]}");
+            Console.WriteLine("W(1,2,3): ");
+            for (int i = 0; i <= w21.Stopien; i++)
+                Console.WriteLine($"  w{i} = {w21[i]}");
 
             //Console.WriteLine("== enumerator ==");
 

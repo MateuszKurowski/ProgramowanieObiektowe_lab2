@@ -6,7 +6,7 @@ namespace MyMath
 {
     public class Wielomian : IEquatable<Wielomian>
     {
-        public int[] Polynomial { get; set; }
+        public int[] Polynomial { get; }
 
         public int Stopien => Polynomial.Length - 1;
 
@@ -70,7 +70,7 @@ namespace MyMath
             return result;
         }
 
-        bool IEquatable<Wielomian>.Equals(Wielomian other)
+        public bool Equals(Wielomian other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -104,13 +104,105 @@ namespace MyMath
         public static bool operator ==(Wielomian w1, Wielomian w2) => Equals(w1, w2);
         public static bool operator !=(Wielomian w1, Wielomian w2) => !(w1 == w2);
 
-        public static bool operator +(Wielomian w1, Wielomian w2)
+        public static Wielomian operator +(Wielomian w1, Wielomian w2)
         {
             var maxLength = w1.Stopien > w2.Stopien ? w1.Stopien : w2.Stopien;
-            var tempPolynomial = new int[maxLength];
-            for (int i = 0; i < maxLength ; i++)
+            var tempPolynomial = new int[maxLength + 1];
+            for (int i = 0; i <= maxLength; i++)
             {
-                if ()
+                if (w1.Stopien >= i)
+                {
+                    tempPolynomial[i] = w1.Polynomial[i];
+                    if (w2.Stopien >= i) tempPolynomial[i] += w2.Polynomial[i];
+                }
+                else tempPolynomial[i] = w2.Polynomial[i];
+            }
+            Array.Reverse(tempPolynomial);
+            return new Wielomian(tempPolynomial);
+        }
+
+        public static Wielomian operator -(Wielomian w1, Wielomian w2)
+        {
+            
+            var maxLength = w1.Stopien > w2.Stopien ? w1.Stopien : w2.Stopien;
+            var tempPolynomial = new int[maxLength + 1];
+            for (int i = 0; i <= maxLength; i++)
+            {
+                if (w1.Stopien >= i)
+                {
+                    tempPolynomial[i] = w1.Polynomial[i];
+                    if (w2.Stopien >= i) tempPolynomial[i] -= w2.Polynomial[i];
+                }
+                else tempPolynomial[i] = 0 - w2.Polynomial[i];
+            }
+            Array.Reverse(tempPolynomial);
+            return new Wielomian(tempPolynomial);
+        }
+
+        public static Wielomian operator +(Wielomian w1, int number)
+        {
+            var tempPolynomial = new int[w1.Stopien + 1];
+            for (int i = 0; i <= w1.Stopien; i++)
+            {
+                tempPolynomial[i] = w1.Polynomial[i];
+            }
+            tempPolynomial[0] += number;
+            Array.Reverse(tempPolynomial);
+            return new Wielomian(tempPolynomial);
+        }
+
+        public static Wielomian operator -(Wielomian w1, int number)
+        {
+            var tempPolynomial = new int[w1.Stopien + 1];
+            for (int i = 0; i <= w1.Stopien; i++)
+            {
+                tempPolynomial[i] = w1.Polynomial[i];
+            }
+            tempPolynomial[0] -= number;
+            Array.Reverse(tempPolynomial);
+            return new Wielomian(tempPolynomial);
+        }
+
+        public static Wielomian operator +(int number, Wielomian w1) => w1 + number;
+        public static Wielomian operator -(int number, Wielomian w1)
+        {
+            var tempPolynomial = new int[w1.Stopien + 1];
+            for (int i = 0; i <= w1.Stopien; i++)
+            {
+                tempPolynomial[i] = -(w1.Polynomial[i]);
+            }
+            tempPolynomial[0] = number - (-tempPolynomial[0]);
+            Array.Reverse(tempPolynomial);
+            return new Wielomian(tempPolynomial);
+        }
+
+        public static implicit operator Wielomian(int number)
+        {
+            return new Wielomian(number);
+        }
+
+        public static explicit operator int[](Wielomian w)
+        {
+            var tempPolynomial = new int[w.Stopien +1 ];
+            for (int i = 0; i <= w.Stopien; i++)
+            {
+                tempPolynomial[i] = w.Polynomial[i];
+            }
+            return tempPolynomial;
+        }
+
+        public static explicit operator int(Wielomian w)
+        {
+            if (w.Stopien != 0) throw new InvalidCastException("wielomian nie jest stopnia zerowego");
+            return w.Polynomial[0];
+        }
+
+        public int this[int i]
+        {
+            get
+            {
+                if (i > Polynomial.Length - 1) throw new ArgumentOutOfRangeException();
+                return Polynomial[i];
             }
         }
     }
