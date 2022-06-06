@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempElementsLib", "TempElementsLib\TempElementsLib.csproj", "{84694B89-F287-4785-9BF0-E0722B50CFA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempElementsLib", "TempElementsLib\TempElementsLib.csproj", "{84694B89-F287-4785-9BF0-E0722B50CFA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempElementsConsoleApp", "TempElementsConsoleApp\TempElementsConsoleApp.csproj", "{CE3C0C70-0EDC-4E2D-A601-E70642D79485}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempElementsConsoleApp", "TempElementsConsoleApp\TempElementsConsoleApp.csproj", "{CE3C0C70-0EDC-4E2D-A601-E70642D79485}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadanie_5", "Zadanie_5\Zadanie_5.csproj", "{DEDBC7CA-3945-44AE-B765-5D488AE5B4F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CE3C0C70-0EDC-4E2D-A601-E70642D79485}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE3C0C70-0EDC-4E2D-A601-E70642D79485}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3C0C70-0EDC-4E2D-A601-E70642D79485}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDBC7CA-3945-44AE-B765-5D488AE5B4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDBC7CA-3945-44AE-B765-5D488AE5B4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDBC7CA-3945-44AE-B765-5D488AE5B4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDBC7CA-3945-44AE-B765-5D488AE5B4F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
