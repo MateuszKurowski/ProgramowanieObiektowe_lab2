@@ -1,10 +1,4 @@
-﻿using FiguryLib;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace FiguryLib
 {
@@ -36,10 +30,10 @@ namespace FiguryLib
         public void Skaluj(double wspSkalowania)
             => R *= Math.Pow(R, wspSkalowania);
 
-        public virtual string ToString(Format format)
-            => $"{base.ToString()}, {ToString()}, Pole = {Pole:0.##}";
+        //public virtual string ToString(Format format)
+        //    => $"{base.ToString()}, {ToString()}, Pole = {Pole:0.##}";
 
-        public override string ToString()
-            => $"{GetType().Name}({O}, {R})";
+        //public override string ToString()
+        //    => $"{GetType().Name}({O}, {R})";
     }
 }
