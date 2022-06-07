@@ -71,6 +71,55 @@ namespace MyMath
             return result;
         }
 
+        public string ToString(string type)
+        {
+            if (string.IsNullOrWhiteSpace(type)) return ToString();
+
+            if (Polynomial.Length == 1)
+                return Polynomial[0].ToString();
+
+            var result = string.Empty;
+            var index = Polynomial.Length - 1;
+            if (Polynomial[index] == 1) result += $"x^{index}";
+            else if(Polynomial[index] == -1) result += $"-x^{index}";
+            result += $"{Polynomial[index]}x^{index}";
+            for (int i = index - 1; i >= 0; i--)
+            {
+                if (i == 1)
+                {
+                    if (Polynomial[i] == 1) result += $" + x";
+                    else if (Polynomial[i] >= 0) result += $" + {Polynomial[i]}x";
+                    else if (Polynomial[i] < 0) result += $" - {Polynomial[i]}x";
+                    continue;
+                }
+
+                if (Polynomial[i] == 0) continue;
+                else if (Polynomial[i] == 1) result += $" + x^{i}";
+                else if (Polynomial[i] == -1) result += $" - x^{i}";
+                else if (Polynomial[i] > 1)
+                {
+                    result += " + ";
+                    if (i == 0)
+                    {
+                        result += Polynomial[i].ToString();
+                        break;
+                    }
+                    result += $"{Polynomial[i]}x^{i}";
+                }
+                else
+                {
+                    result += " - ";
+                    if (i == 0)
+                    {
+                        result += Math.Abs(Polynomial[i]).ToString();
+                        break;
+                    }
+                    result += $"{Math.Abs(Polynomial[i])}x^{i}";
+                }
+            }
+            return result;
+        }
+
         public bool Equals(Wielomian other)
         {
             if (other is null) return false;

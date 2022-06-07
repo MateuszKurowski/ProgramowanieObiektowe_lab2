@@ -10,6 +10,10 @@ namespace z2_1_wielomian
     {
         static void Main(string[] args)
         {
+            Wielomian wasd = new Wielomian(-2, 0, 1, 0);
+            var resultW = wasd.ToString("test");
+            Console.WriteLine($"W(-2, 0, 1, 0) = {resultW}, stopień = {wasd.Stopien}");
+
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine("== Test implementacji klasy Wielomian! ==");
 
@@ -133,24 +137,24 @@ namespace z2_1_wielomian
 
             Console.WriteLine($"Metoda rozszerzająca: new W(1,2,1).Eval(2.0) = {new W(1, 2, 1).Eval(2.0)}");
 
-            //Console.WriteLine("== lista wielomianów, sortowanie ==");
+            Console.WriteLine("== lista wielomianów, sortowanie ==");
 
-            //var lista = new List<W>
-            //{
-            //    new W(),
-            //    new W(-2,1,2),
-            //    new W(2,1),
-            //    new W(-2,1),
-            //    new W(-1)
-            //};
-            //Console.WriteLine("- lista przed sortowaniem -");
-            //lista.ForEach(ww => Console.WriteLine(ww));
+            var lista = new List<W>
+            {
+                new W(),
+                new W(-2,1,2),
+                new W(2,1),
+                new W(-2,1),
+                new W(-1)
+            };
+            Console.WriteLine("- lista przed sortowaniem -");
+            lista.ForEach(ww => Console.WriteLine(ww));
 
-            //lista.Sort(MyMathExtensions.WielomianPoprzedzaComparison);
-            //Console.WriteLine("- lista po sortowaniu -");
-            //lista.ForEach(ww => Console.WriteLine(ww));
+            lista.Sort(MyMathExtensions.WielomianPoprzedzaComparison);
+            Console.WriteLine("- lista po sortowaniu -");
+            lista.ForEach(ww => Console.WriteLine(ww));
 
-            //System.Console.WriteLine("== koniec testu ==");
+            System.Console.WriteLine("== koniec testu ==");
         }
     }
 }
