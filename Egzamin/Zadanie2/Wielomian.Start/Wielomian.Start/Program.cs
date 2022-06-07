@@ -1,7 +1,7 @@
 ﻿using System;
 using MyMath;
 using W = MyMath.Wielomian; //alias dla nazwy klasy Wielomian
-//using MyExtensions;
+using MyExtensions;
 using System.Collections.Generic;
 
 namespace z2_1_wielomian
@@ -116,22 +116,22 @@ namespace z2_1_wielomian
             for (int i = 0; i <= w21.Stopien; i++)
                 Console.WriteLine($"  w{i} = {w21[i]}");
 
-            //Console.WriteLine("== enumerator ==");
+            Console.WriteLine("== enumerator ==");
 
-            //Console.Write("W(1,2,3): ");
-            //foreach (var x in w21)
-            //    Console.Write($"{x} ");
-            //Console.WriteLine();
+            Console.Write("W(1,2,3): ");
+            foreach (var x in w21)
+                Console.Write($"{x} ");
+            Console.WriteLine();
 
-            //Console.WriteLine("== konstruktor dla string ==");
+            Console.WriteLine("== konstruktor dla string ==");
 
-            //Wielomian wS = Wielomian.Parse("3x^2 - 2x^1 + 1");
-            //Console.WriteLine("Wielomian.Parse(\"3x^2 - 2x^1 + 1\") = {0}", wS);
-            //Console.WriteLine($"W(3, -2, 1) == Wielomian.Parse(\"3x^2 - 2x^1 + 1\"): {new Wielomian(3, -2, 1) == wS}");
+            Wielomian wS = Wielomian.Parse("3x^2 - 2x^1 + 1");
+            Console.WriteLine("Wielomian.Parse(\"3x^2 - 2x^1 + 1\") = {0}", wS);
+            Console.WriteLine($"W(3, -2, 1) == Wielomian.Parse(\"3x^2 - 2x^1 + 1\"): {new Wielomian(3, -2, 1) == wS}");
 
-            //Console.WriteLine("== Metoda rozszerzająca Eval ==");
+            Console.WriteLine("== Metoda rozszerzająca Eval ==");
 
-            //Console.WriteLine($"Metoda rozszerzająca: new W(1,2,1).Eval(2.0) = {new W(1, 2, 1).Eval(2.0)}");
+            Console.WriteLine($"Metoda rozszerzająca: new W(1,2,1).Eval(2.0) = {new W(1, 2, 1).Eval(2.0)}");
 
             //Console.WriteLine("== lista wielomianów, sortowanie ==");
 

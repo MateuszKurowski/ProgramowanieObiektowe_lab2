@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MyMath
 {
-    public class Wielomian : IEquatable<Wielomian>
+    public class Wielomian : IEquatable<Wielomian>, IEnumerable
     {
         public int[] Polynomial { get; }
 
@@ -204,6 +205,32 @@ namespace MyMath
                 if (i > Polynomial.Length - 1) throw new ArgumentOutOfRangeException();
                 return Polynomial[i];
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            foreach (var item in Polynomial)
+            {
+                yield return item;
+            }
+        }
+
+        public static Wielomian Parse(string expression)
+        {
+            var stringArray = expression.Split("x");
+            var tempPolynomial = new int[stringArray.Length];
+            for (int i = stringArray.Length - 1; i >= 0 ; i--)
+            {
+                stringArray[i] = stringArray[i].Remove(0, stringArray[i].IndexOf(" ") > 0 ? stringArray[i].IndexOf(" ") : 0).Replace(" ", "");
+                if (stringArray[i].Contains("+")) stringArray[i] = stringArray[i].Replace("+", " ");
+                tempPolynomial[i] = int.Parse(stringArray[i]);
+            }
+            return new Wielomian(tempPolynomial);
         }
     }
 }
