@@ -25,6 +25,7 @@ namespace MyMath
         {
             if (polynomial == null) throw new NullReferenceException();
             if (polynomial.Length == 0) throw new ArgumentException("wielomian nie moze być pusty");
+
             var tempPolynomial = polynomial;
             var i = 0;
             foreach (var item in tempPolynomial)
@@ -35,7 +36,28 @@ namespace MyMath
             tempPolynomial = tempPolynomial.Skip(i).ToArray();
             if (tempPolynomial.Length == 0) Polynomial = new int[1] { 0 };
             else Polynomial = tempPolynomial;
+
             Array.Reverse(Polynomial);
+        }
+
+        public Wielomian(bool reversed = false, params int[] polynomial)
+        {
+            if (polynomial == null) throw new NullReferenceException();
+            if (polynomial.Length == 0) throw new ArgumentException("wielomian nie moze być pusty");
+
+            var tempPolynomial = polynomial;
+            var i = 0;
+            foreach (var item in tempPolynomial)
+            {
+                if (item == 0) i++;
+                else break;
+            }
+            tempPolynomial = tempPolynomial.Skip(i).ToArray();
+            if (tempPolynomial.Length == 0) Polynomial = new int[1] { 0 };
+            else Polynomial = tempPolynomial;
+
+            if (!reversed)
+                Array.Reverse(Polynomial);
         }
 
         public override string ToString()
@@ -45,7 +67,7 @@ namespace MyMath
             var result = string.Empty;
 
             result += $"{Polynomial[Polynomial.Length - 1]}x^{Polynomial.Length - 1}";
-            for (int i = Polynomial.Length - 2; i >= 0 ; i--)
+            for (int i = Polynomial.Length - 2; i >= 0; i--)
             {
                 if (Polynomial[i] >= 0)
                 {
@@ -81,7 +103,7 @@ namespace MyMath
             var result = string.Empty;
             var index = Polynomial.Length - 1;
             if (Polynomial[index] == 1) result += $"x^{index}";
-            else if(Polynomial[index] == -1) result += $"-x^{index}";
+            else if (Polynomial[index] == -1) result += $"-x^{index}";
             result += $"{Polynomial[index]}x^{index}";
             for (int i = index - 1; i >= 0; i--)
             {
@@ -173,7 +195,7 @@ namespace MyMath
 
         public static Wielomian operator -(Wielomian w1, Wielomian w2)
         {
-            
+
             var maxLength = w1.Stopien > w2.Stopien ? w1.Stopien : w2.Stopien;
             var tempPolynomial = new int[maxLength + 1];
             for (int i = 0; i <= maxLength; i++)
@@ -233,7 +255,7 @@ namespace MyMath
 
         public static explicit operator int[](Wielomian w)
         {
-            var tempPolynomial = new int[w.Stopien +1 ];
+            var tempPolynomial = new int[w.Stopien + 1];
             for (int i = 0; i <= w.Stopien; i++)
             {
                 tempPolynomial[i] = w.Polynomial[i];
@@ -273,13 +295,37 @@ namespace MyMath
         {
             var stringArray = expression.Split("x");
             var tempPolynomial = new int[stringArray.Length];
-            for (int i = stringArray.Length - 1; i >= 0 ; i--)
+            for (int i = stringArray.Length - 1; i >= 0; i--)
             {
                 stringArray[i] = stringArray[i].Remove(0, stringArray[i].IndexOf(" ") > 0 ? stringArray[i].IndexOf(" ") : 0).Replace(" ", "");
                 if (stringArray[i].Contains("+")) stringArray[i] = stringArray[i].Replace("+", " ");
                 tempPolynomial[i] = int.Parse(stringArray[i]);
             }
             return new Wielomian(tempPolynomial);
+        }
+
+        public static Wielomian Parse(string expression, string type)
+        {
+            if (string.IsNullOrWhiteSpace(type)) return Parse(expression);
+
+            var stringList = expression.Split(" ").ToList();
+            if (stringList.Count % 2 == 0) throw new ArgumentException();
+
+            var maxElement = stringList[0].Split("x^");
+            var tempPolynomial = new int[int.Parse(maxElement[1]) + 1];
+            tempPolynomial[tempPolynomial.Length - 1] = int.Parse(maxElement[0]);
+
+            for (int i = 2; i < tempPolynomial.Length; i += 2)
+            {
+                var tempElement = stringList[i].Split("x^");
+                var tempString = stringList[i - 1] + tempElement[0];
+                var tempNumber = int.Parse(tempString);
+                var tempPower = int.Parse(tempElement[1]);
+
+                tempPolynomial[tempPower] = tempNumber;
+            }
+
+            return new Wielomian(true, tempPolynomial);
         }
     }
 }
