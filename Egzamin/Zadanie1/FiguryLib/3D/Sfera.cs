@@ -7,7 +7,7 @@ namespace FiguryLib
         public Punkt3D O { get; set; }
         public double R { get; set; }
 
-        public double Pole => Math.PI * Math.Pow(R, 2);
+        public double Pole => 4 * Math.PI * Math.Pow(R, 2);
 
         public Sfera()
         {
@@ -30,10 +30,13 @@ namespace FiguryLib
         public void Skaluj(double wspSkalowania)
             => R *= Math.Pow(R, wspSkalowania);
 
-        //public virtual string ToString(Format format)
-        //    => $"{base.ToString()}, {ToString()}, Pole = {Pole:0.##}";
+        public virtual string ToString(Format format)
+            => $"{base.ToString()}, {ToString()}, Pole = {Pole}";
 
-        //public override string ToString()
-        //    => $"{GetType().Name}({O}, {R})";
+        public override string ToString()
+            => $"{GetType().Name}({O}, {R})";
+
+        public static explicit operator Okrag2D(Sfera sfera)
+            => new Okrag2D(new Punkt2D(sfera.O.X, sfera.O.Y), sfera.R);
     }
 }

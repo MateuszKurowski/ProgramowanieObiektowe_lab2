@@ -58,23 +58,26 @@ namespace Figury
             Console.WriteLine(s2.ToString(Format.Pelny));
             var ku3 = s2.ToKula(); //konwersja sfery na kulę
 
-            //var o3 = (Okrag2D)s2; //rzutowanie sfery na okrąg
-            //Console.WriteLine(o3.ToString(Format.Pelny));
+            var o3 = (Okrag2D)s2; //rzutowanie sfery na okrąg
+            Console.WriteLine(o3.ToString(Format.Pelny));
 
-            //var o4 = (Okrag2D)ku2; //rzutowanie kuli na okrąg
-            //Console.WriteLine(o4.ToString(Format.Pelny));
+            var o4 = (Okrag2D)ku2; //rzutowanie kuli na okrąg
+            Console.WriteLine(o4.ToString(Format.Pelny));
 
-            //var k3 = (Kolo2D)ku2; //rzutowanie kuli na koło
-            //Console.WriteLine(o4.ToString(Format.Pelny));
+            var k3 = (Kolo2D)ku2; //rzutowanie kuli na koło
+            Console.WriteLine(o4.ToString(Format.Pelny));
 
-            //Console.WriteLine("\n ** Lista Figur **");
-            //List<Figura> lista = new List<Figura> { o1, k1, o2, o2_1, k2, s1, ku1, ku2, s2, ku3, o3, o4, k3 };
-            //foreach (var x in lista)
-            //    x.Rysuj();
+            Console.WriteLine("\n ** Lista Figur **");
+            List<Figura> lista = new List<Figura> { o1, k1, o2, o2_1, k2, s1, ku1, ku2, s2, ku3, o3, o4, k3 };
+            foreach (var x in lista)
+            {
+                x.Rysuj();
+                
+            }
 
-            //Console.WriteLine($"Średnia długość figur = ... ");
-            //Console.WriteLine($"Sumaryczne pole figur = ... ");
-            //Console.WriteLine($"Objętość figury największej = ... ");
+            Console.WriteLine($"Średnia długość figur = ... ");
+            Console.WriteLine($"Sumaryczne pole figur = ... ");
+            Console.WriteLine($"Objętość figury największej = ... ");
         }
     }
 }
