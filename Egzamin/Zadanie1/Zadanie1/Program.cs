@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Figury
 {
@@ -9,6 +10,8 @@ namespace Figury
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             Console.WriteLine("--- Proste testy konstrukcji i modyfikacji: Okrag2D");
             Okrag2D o1 = new Okrag2D();
             Console.WriteLine(o1);
@@ -69,15 +72,41 @@ namespace Figury
 
             Console.WriteLine("\n ** Lista Figur **");
             List<Figura> lista = new List<Figura> { o1, k1, o2, o2_1, k2, s1, ku1, ku2, s2, ku3, o3, o4, k3 };
+
+            var sredniaDlugoscList = new List<double>();
+            var sumaPole = 0d;
+            var maxObjetosc = 0d;
             foreach (var x in lista)
             {
                 x.Rysuj();
-                
-            }
 
-            Console.WriteLine($"Średnia długość figur = ... ");
-            Console.WriteLine($"Sumaryczne pole figur = ... ");
-            Console.WriteLine($"Objętość figury największej = ... ");
+                var mierzalna1D = x as IMierzalna1D;
+                if (mierzalna1D != null)
+                    sredniaDlugoscList.Add(mierzalna1D.Dlugosc);
+                var mierzalna2D = x as IMierzalna2D;
+                if (mierzalna2D != null)
+                    sumaPole += mierzalna2D.Pole;
+                var mierzalna3D = x as IMierzalna3D;
+                if (mierzalna3D != null)
+                {
+                    if (maxObjetosc < mierzalna3D.Objetosc)
+                        maxObjetosc = mierzalna3D.Objetosc;
+                }
+
+                //if (x is IMierzalna1D) sredniaDlugoscList.Add(((IMierzalna1D)x).Dlugosc);
+                //if (x is IMierzalna2D) sumaPole += ((IMierzalna2D)x).Pole; ;
+                //if (x is IMierzalna3D)
+                //{
+                //    if (maxObjetosc < ((IMierzalna3D)x).Objetosc)
+                //        maxObjetosc = ((IMierzalna3D)x).Objetosc;
+                //    Console.WriteLine();
+                //    Console.WriteLine(((IMierzalna3D)x).Objetosc);
+                //}
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Średnia długość figur = {sredniaDlugoscList.Average():0.##} ");
+            Console.WriteLine($"Sumaryczne pole figur = {sumaPole:0.#} ");
+            Console.WriteLine($"Objętość figury największej = {maxObjetosc:0.##} ");
         }
     }
 }
