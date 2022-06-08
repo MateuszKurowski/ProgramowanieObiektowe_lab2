@@ -9,6 +9,12 @@ namespace PhoneTests
     [TestClass]
     public class PhoneTests
     {
+        /* ********************************
+         * 
+         * Pokrycie kodu: 100% (zrzut w plikach projektu)
+         *
+         *******************************/
+
         [TestMethod]
         public void Construtor_good()
         {
