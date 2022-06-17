@@ -1,6 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
   <id type="internal" advice="ignore">20170011</id>
+  <title locale="en_US">Solutions to Pollution Problems of Oil</title>
+  <prefix locale="pl_PL">Sposoby</prefix>
+  <abstract locale="en_US">The purpose of the research is to improve the processes of conservation indicators of quality petroleum products (POL). As a hypothesis, it was assumed that the quality of fuel depends on its main quality parameters that most strongly vary during storage and transportation. The methods were applied which are used at the theoretical level of research, such as abstraction, deduction, analysis and synthesis, etc. We presented the main problems of pollution of oil. Moreover, we provided indicators of physical and chemical properties of diesel fuel and motor oil, which characterize their performance and the list of used additives. We analysed the scientific and patent work. We provided solutions to the problem. Correct storage and use of fuel will help maintain its quality parameters and ensure safety and durability of machinery.</abstract>
+  <abstract locale="pl_PL">Celem badań jest poprawa wskaźników procesów ochrony jakości produktów naftowych (paliw i smarów). Sformułowano następującą hipotezę, że jakość paliw i smarów zależy od jego głównych parametrów jakościowych, które najsilniej zmieniają się podczas przechowywania i transportu. Użyto metody stosowanej na poziomie badań teoretycznych, takich jak abstrakcja, dedukcja, analiza i synteza, etc. Głównym problemem zanieczyszczenia ropą naftową, są wskaźniki właściwo-ści fizycznych i chemicznych oleju napędowego i olejów silnikowych, charakteryzujące ich wydajność oraz listę zastosowanych dodatków. Zatem właściwe przechowywanie i wykorzystanie paliw i smarów pomoże utrzymać ich parametry jakościowe i zapewnić bezpieczeństwo oraz trwałość urządzeń pracujących przy ich użyciu.</abstract>
+  <title locale="pl_PL">Sposoby zapobiegania zanieczyszczeniom produktów naftowych</title>
+  <prefix locale="en_US">Solutions</prefix>
   <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
   <keywords locale="en_US">
     <keyword>coefficient of filterability</keyword>

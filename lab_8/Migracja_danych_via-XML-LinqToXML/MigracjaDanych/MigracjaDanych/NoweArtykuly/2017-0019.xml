@@ -1,6 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
   <id type="internal" advice="ignore">20170019</id>
+  <title locale="en_US"> Influence of Natural and Industrial Factors on the Efficiency of the Dairy Industry</title>
+  <prefix locale="pl_PL">Wpływ</prefix>
+  <abstract locale="en_US">A comparative analysis of milk production in Poland and Belarus was carried out. The basic tendencies of modern development of the dairy industry and offered upcoming trends of innovative modernization of milk production processes were analyzed. On the basis of the analysis of trends in the global production of milk and new scientific knowledge on the biosynthesis of milk, a conceptual approach to the design of equipment for machine milking, is provided, considered the relationship of technical and physiological parameters.</abstract>
+  <abstract locale="pl_PL">Przeprowadzono analizę porównawczą produkcji mleka w Polsce i na Białorusi. Przeanalizowano podstawowe tendencje nowoczesnego rozwoju przemysłu mleczarskiego i zaproponowano nowoczesne kierunki innowacyjnej modernizacji procesów produkcji mleka. Na podstawie analizy trendów w światowej produkcji mleka i nowych założeń naukowych dotyczących biosyntezy mleka, opracowano innowacyjne podejście w projektowaniu maszyn w produkcji mleka, uwzględniając parametry techniczne i fizjologiczne.</abstract>
+  <title locale="pl_PL">Wpływ uwarunkowań czynników przyrodniczych i produkcyjnych na mleko</title>
+  <prefix locale="en_US"></prefix>
   <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
   <keywords locale="en_US">
     <keyword>milk production</keyword>

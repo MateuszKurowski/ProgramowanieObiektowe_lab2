@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace MigracjaDanych
@@ -42,7 +44,7 @@ namespace MigracjaDanych
                     newArticle.Element(ns + "title").Remove();
                     newArticle.Element(ns + "prefix").Remove();
                     newArticle.Element(ns + "abstract").Remove();
-                    foreach (var title in (IEnumerable<XElement>)article.Elements(ns + "title"))
+                    foreach (var title in (IEnumerable<XElement>)article.Elements("title"))
                     {
                         var element = newArticle.Element(ns + "title");
                         if (element == null)
@@ -61,9 +63,9 @@ namespace MigracjaDanych
 
                         element = newArticle.Element(ns + "title");
                         element.AddAfterSelf(new XElement(ns + "prefix", value.Substring(0, value.IndexOf(" ")),
-                                                 new XAttribute(ns + "locale", title.Attribute("locale")?.Value ?? "")));
+                                                 new XAttribute("locale", title.Attribute("locale")?.Value ?? "")));
                     }
-                    foreach (var abstractArticle in (IEnumerable<XElement>)article.Elements(ns + "abstract"))
+                    foreach (var abstractArticle in (IEnumerable<XElement>)article.Elements("abstract"))
                     {
                         var value = abstractArticle?.Value ?? "";
                         var elements = newArticle.Elements(ns + "abstract");
@@ -112,7 +114,13 @@ namespace MigracjaDanych
                     newArticle.Element(ns + "issue_identification").Element(ns + "year").SetValue(year);
                     newArticle.Element(ns + "pages").SetValue(article.Element(ns + "pages")?.Value ?? "");
 
-                    newArticle.Save(targetPath + fileName + ".xml");
+                    string xml;
+                    using  (StringWriter msw = new MyStringWriter())
+                    {
+                        newArticle.Save(msw);
+                        xml = msw.ToString();
+                    }
+                    File.WriteAllText(targetPath + fileName + ".xml", xml);
                 }
             }
             catch (Exception e)
@@ -126,7 +134,7 @@ namespace MigracjaDanych
 
         private static XDocument CreateArticleTemplate()
         => new XDocument(
-                new XDeclaration("1.0", "", null),
+                new XDeclaration("1.0", null, null),
                 new XElement(ns + "article",
                         new XAttribute("xmlns", "http://pkp.sfu.ca"),
                         new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
@@ -189,6 +197,13 @@ namespace MigracjaDanych
                     new XElement(ns + "email", oldAuthorElement.Element("email")?.Value ?? "")
                 );
         }
-            
+         
+        public class MyStringWriter : StringWriter
+        {
+            public override Encoding Encoding
+            {
+                get => null; // Ponieważ zapis dokumentu na siłe wciska mi kodowanie utf-8 nawet w przypadku nulla lub "".
+            }
+        }
     }
 }
