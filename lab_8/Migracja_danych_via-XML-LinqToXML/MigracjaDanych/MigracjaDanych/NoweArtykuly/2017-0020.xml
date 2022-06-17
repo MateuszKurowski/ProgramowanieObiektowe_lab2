@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
+  <id type="internal" advice="ignore" xmlns="">20170020</id>
+  <title locale="en_US" xmlns="">Geometrical Model of Lemon Fruit</title>
+  <prefix locale="pl_PL" xmlns="">Geometryczny</prefix>
+  <abstract locale="en_US" xmlns="">A proposal of a mathematical method of modelling of the lemon shape with Bézier's curves was presented. Lisbon, Verna, Genoa lemon cultivars were selected for verification of the modelling method. The lemon contour, which is its meridian, was described with three smoothly combined Bézier's curves. Pictures taken in 10 locations changing every 36o were the basis for description of lemon contours. Bézier's curves, which approximate meridians located on the surface of lemons, are their 3&lt;em&gt;D&lt;/em&gt; models. The presented method may be applied for mathematical modelling of the lemon shape.</abstract>
+  <abstract locale="pl_PL" xmlns="">Przedstawiono propozycję metody matematycznego modelowania kształtu cytryn z wykorzystaniem krzywych Béziera. Do weryfikacji metody modelowania wybrano cytryny odmian Lisbon, Verna, Genoa. Kontur cytryny, który jest jej południkiem, opisano trzema gładko połączonymi krzywymi Béziera. Podstawą do opisu konturów cytryn są ich fotografie wykonane w 10 zmieniających się co 36o położeniach. Krzywe Béziera aproksymujące południki leżące na powierzchni cytryn są ich modelami 3&lt;i&gt;D&lt;/i&gt;. Przedstawiona metoda może być stosowana do matematycznego modelowania kształtu cytryn.</abstract>
+  <title locale="pl_PL" xmlns="">Geometryczny model owoców cytryn</title>
+  <prefix locale="en_US" xmlns="">Geometrical</prefix>
+  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <title locale="pl_PL" xmlns="">
+    <keyword>cytryny</keyword>
+    <keyword>kształt</keyword>
+    <keyword>krzywe Béziera</keyword>
+    <keyword>modele matematyczne</keyword>
+  </title>
+  <title locale="en_US" xmlns="">
+    <keyword>Lemons</keyword>
+    <keyword>shape</keyword>
+    <keyword>Bezier's curves</keyword>
+    <keyword>mathematical models</keyword>
+  </title>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <author include_in_browse="true" user_group_ref="Author">
+      <givenname locale="en_US">Leszek</givenname>
+      <familyname locale="en_US">Mieszkalski</familyname>
+      <affiliation locale="en_US">Institute of Production Organization and Engineering, Warsaw University of Life Sciences</affiliation>
+      <country>PL</country>
+      <email>mieszko@poczta.fm</email>
+    </author>
+  </authors>
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <id type="internal" advice="ignore">20</id>
+    <name locale="en_US">HTML</name>
+    <seq>0</seq>
+    <remote src="https://doi.org/10.1515/agriceng-2017-0020" />
+  </article_galley>
+  <issue_identification xmlns="">
+    <volume>21</volume>
+    <number>2(162)</number>
+    <year>2017</year>
+  </issue_identification>
+  <pages xmlns="">101-110</pages>
+</article>

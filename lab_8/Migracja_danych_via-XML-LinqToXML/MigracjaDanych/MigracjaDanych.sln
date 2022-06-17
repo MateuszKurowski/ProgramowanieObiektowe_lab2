@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigracjaDanych", "MigracjaDanych\MigracjaDanych.csproj", "{1E36BDD3-EF0C-4A71-9C4E-76C9712084EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E36BDD3-EF0C-4A71-9C4E-76C9712084EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E36BDD3-EF0C-4A71-9C4E-76C9712084EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E36BDD3-EF0C-4A71-9C4E-76C9712084EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E36BDD3-EF0C-4A71-9C4E-76C9712084EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50000D1D-EC0B-453F-A11E-5A2F4216F4A4}
+	EndGlobalSection
+EndGlobal

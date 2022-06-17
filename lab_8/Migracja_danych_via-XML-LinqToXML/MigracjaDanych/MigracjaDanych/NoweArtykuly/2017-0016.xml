@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
+  <id type="internal" advice="ignore" xmlns="">20170016</id>
+  <title locale="en_US" xmlns="">Technological Preconditions in Dairy Farms</title>
+  <prefix locale="pl_PL" xmlns="">Uwarunkowania</prefix>
+  <abstract locale="en_US" xmlns="">The paper presents the impact of the applied technologies on milk yield of cows in dairy farms. The scope of the research covered technical equipment used in the dairy cattle breeding and milking in 50 farms on the area of Grajewo Province in Podlaskie Voivodeship. The studies were carried out in 2016 with the diagnostic survey method based on the interview questionnaire developed for this purpose. The studies proved that 68% of the respondents from Grajewo Province maintain cattle in a stanchion-tide stable system and the remaining 32% in a free stall system. The group (48%) of the surveyed farmers maintain animals on a deep litter and 34% of them use shallow litter. In case of 18% of the investigated farms, animals are maintained on a slatted floor. In case of 68% of the investigated farms their owners feed cattle in the TMR system while the remaining 32% do it traditionally. The analysed farms in milk production use mainly pipeline milking machines (38%) and bucket milking machines (36%). 22% of the investigated farms have a milking parlour and 4% own a milking robot. A statistical analysis proved a significant correlation between the maintenance system of animals, number of lairs in a cow shed, TMR feeding of cattle, manner of obtaining milk and milk yield of cows.</abstract>
+  <abstract locale="pl_PL" xmlns="">W pracy przedstawiono wpływ stosowanych technologii na wydajność mleczną krów w gospodarstwach specjalizujących się w produkcji mleka. Zakresem badań objęto wyposażenie techniczne wykorzystywane w chowie bydła mlecznego oraz doju w 50 gospodarstwach rolnych na terenie powiatu grajewskiego w województwie podlaskim. Badania przeprowadzono w 2016 roku metodą sondażu diagnostycznego na podstawie opracowanego w tym celu kwestionariusza wywiadu. Badania wykazały, że 68% ankietowanych gospodarzy z powiatu grajewskiego utrzymuje bydło w systemie uwięziowym, a pozostałe 32% stosuje system wolnostanowiskowy. Grupa (48%) ankietowanych rolników utrzymuje zwierzęta na głębokiej ściółce, a 34% z nich stosuje płytkie ściółkowanie. W przypadku 18% badanych gospodarstw zwierzęta są utrzymywane na podłodze szczelinowej. W przypadku 68% badanych gospodarstw ich właściciele żywią bydło w systemie TMR, natomiast pozostałe 32% żywi zwierzęta tradycyjnie. Analizowane gospodarstwa w produkcji mleka stosują przede wszystkim dojarki przewodowe (38%) oraz dojarki bańkowe (36%). Halę udojową posiada 22% badanych gospodarstw, natomiast 4% z nich posiada robota udojowego. Analiza statystyczna wykazała istotną dodatnią korelację między systemem utrzymania zwierząt, liczbą stanowisk legowiskowych w oborze, żywieniem bydła TMR, sposobem pozyskiwania mleka a wydajnością mleczną krów.</abstract>
+  <title locale="pl_PL" xmlns="">Uwarunkowania technologiczne w gospodarstwach specjalizujących się w produkcji mleka</title>
+  <prefix locale="en_US" xmlns="">Technological</prefix>
+  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <title locale="pl_PL" xmlns="">
+    <keyword>produkcja mleka</keyword>
+    <keyword>gospodarstwa rolne</keyword>
+    <keyword>technologia</keyword>
+  </title>
+  <title locale="en_US" xmlns="">
+    <keyword>milk production</keyword>
+    <keyword>agricultural farms</keyword>
+    <keyword>technology</keyword>
+  </title>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <author include_in_browse="true" user_group_ref="Author">
+      <givenname locale="en_US">Andrzej</givenname>
+      <familyname locale="en_US">Borusiewicz</familyname>
+      <affiliation locale="en_US">Department of Agronomics, Higher School of Agribusiness in Łomża</affiliation>
+      <country>PL</country>
+      <email>andrzej.borusiewicz@wsa.edu.pl</email>
+    </author>
+  </authors>
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <id type="internal" advice="ignore">16</id>
+    <name locale="en_US">HTML</name>
+    <seq>0</seq>
+    <remote src="https://doi.org/10.1515/agriceng-2017-0016" />
+  </article_galley>
+  <issue_identification xmlns="">
+    <volume>21</volume>
+    <number>2(162)</number>
+    <year>2017</year>
+  </issue_identification>
+  <pages xmlns="">59-68</pages>
+</article>

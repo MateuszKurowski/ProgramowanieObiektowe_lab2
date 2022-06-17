@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
+  <id type="internal" advice="ignore" xmlns="">20170013</id>
+  <title locale="en_US" xmlns="">Evaluation of the Dairy Cows' Welfare Based on the Results of the Protocol of the Coordinated Veterinary Inspection Program in Podkarpackie Voivodeship</title>
+  <prefix locale="pl_PL" xmlns="">Ocena</prefix>
+  <abstract locale="en_US" xmlns="">Dairy cows production plays a significant role in development of Podkarpackie Voivodeship. Progress in this production branch may depend on the dairy production support which is given after relevant types of actions are undertaken. The objective of the research was to determine changes in the level of welfare of production animals, evaluation of practice in dairy cows breeding in the province of Ropczyce and Sędziszów. Breeding documentation and control protocols of the Coordinated Veterinary Inspection Program were applied pursuant to the resolution (1) of the Minister of Agriculture and Rural Development of 28 June 2010 on minimal conditions of maintaining farm animal species. 10 production herds of dairy cows (n = 240) and heifers (n = 101) which produce ≥ 10200 kilo of milk per lactation were used to achieve this objective. Dairy production was observed during individual visits in farms. Surveys were carried out with farm employees with the use of properly prepared veterinary control protocols of the Coordinated Veterinary Inspection Program. Control results were obtained based on the respondents' opinion from controlling institutions, such as: The Agency for Restructuring and Modernization of Agriculture, Regional Veterinary Office and similar certified bodies.</abstract>
+  <abstract locale="pl_PL" xmlns="">Produkcja bydła mlecznego pełni istotną rolę w rozwoju województwa podkarpackiego. Postęp tej gałęzi produkcji, może zależeć od wsparcia produkcji mlecznej, które jest udzielane po podjęciu odpowiedniego rodzaju działań. Celem badania było określenie zmian w poziomie dobrostanu zwierząt produkcyjnych, ocena praktyk w hodowli bydła mlecznego w powiecie ropczyckosędziszowskim. Wykorzystano dokumentację hodowlaną gospodarstw i protokoły kontroli SPIWet (Skoordynowany Program Inspekcji Weterynaryjnej), zgodnie z rozporządzeniem (1) Ministra Rolnictwa i Rozwoju Wsi, z dnia 28 czerwca 2010 r., w sprawie minimalnych warunków utrzymania gatunków zwierząt gospodarskich. Do osiągnięcia tego celu wykorzystano 10 stad produkcyjnych krów mlecznych (n = 240) i jałówek (n = 101), produkujących ≥10200 kg mleka za laktację. Obserwacja produkcji mlecznej odbywała się podczas indywidualnych wizyt w gospodarstwach. Wywiady przeprowadzono z pracownikami gospodarstw, przy wykorzystaniu odpowiednio przygotowanych protokołów kontroli weterynaryjnej – SPIWet. Wyniki kontroli uzyskano na podstawie opinii respondentów z instytucji kontrolujących, takich jak: Agencja Restrukturyzacji i Modernizacji Rolnictwa, Rejonowy Urząd Weterynarii oraz pokrewne organy certyfikowane.</abstract>
+  <title locale="pl_PL" xmlns="">Ocena dobrostanu bydła mlecznego na podstawie wyników protokołu SPIWet (Skoordynowany Program Inspekcji Weterynaryjnej) w województwie Podkarpackim</title>
+  <prefix locale="en_US" xmlns="">Evaluation</prefix>
+  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <title locale="pl_PL" xmlns="">
+    <keyword>produkcja mleka</keyword>
+    <keyword>województwo podkarpackie</keyword>
+    <keyword>protokół weterynaryjny SPIWET</keyword>
+    <keyword>dobrostan</keyword>
+  </title>
+  <title locale="en_US" xmlns="">
+    <keyword>milk production</keyword>
+    <keyword>Podkarpackie Voivodeship</keyword>
+    <keyword>Veterinary protocol of the Coordinated Veterinary Inspection Program</keyword>
+    <keyword>welfare</keyword>
+  </title>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <author include_in_browse="true" user_group_ref="Author">
+      <givenname locale="en_US">Edyta</givenname>
+      <familyname locale="en_US">Bauer</familyname>
+      <affiliation locale="en_US">Department of Genetics and Animal Breeding, University of Agriculture in Krakow</affiliation>
+      <country>PL</country>
+      <email>e.bauer@ur.krakow.pl</email>
+    </author>
+    <author include_in_browse="false" user_group_ref="Author">
+      <givenname locale="en_US">Justyna</givenname>
+      <familyname locale="en_US">Żychlińska-Buczek</familyname>
+      <affiliation locale="en_US">Department of Genetics and Animal Breeding, University of Agriculture in Krakow</affiliation>
+      <country>PL</country>
+      <email>noreply@wir.ptir.org</email>
+    </author>
+    <author include_in_browse="false" user_group_ref="Author">
+      <givenname locale="en_US">Anna</givenname>
+      <familyname locale="en_US">Karbowniczak</familyname>
+      <affiliation locale="en_US">Institute of Agricultural Engineering and Informatics, University of Agriculture in Krakow</affiliation>
+      <country>PL</country>
+      <email>noreply@wir.ptir.org</email>
+    </author>
+    <author include_in_browse="false" user_group_ref="Author">
+      <givenname locale="en_US">Hubert</givenname>
+      <familyname locale="en_US">Latała</familyname>
+      <affiliation locale="en_US">Institute of Agricultural Engineering and Informatics, University of Agriculture in Krakow</affiliation>
+      <country>PL</country>
+      <email>noreply@wir.ptir.org</email>
+    </author>
+  </authors>
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+    <id type="internal" advice="ignore">13</id>
+    <name locale="en_US">HTML</name>
+    <seq>0</seq>
+    <remote src="https://doi.org/10.1515/agriceng-2017-0013" />
+  </article_galley>
+  <issue_identification xmlns="">
+    <volume>21</volume>
+    <number>2(162)</number>
+    <year>2017</year>
+  </issue_identification>
+  <pages xmlns="">25-31</pages>
+</article>
