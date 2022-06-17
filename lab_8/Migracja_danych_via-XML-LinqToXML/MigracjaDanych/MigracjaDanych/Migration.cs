@@ -22,7 +22,7 @@ namespace MigracjaDanych
                 var oldArtictle = XDocument.Load(filePath).Element("issues").Element("issue");
 
                 var volume = oldArtictle.Element("volume")?.Value ?? "";
-                var number = oldArtictle.Element("number")?.Value ?? "".Substring(0, (oldArtictle.Element("number")?.Value ?? "").IndexOf('('));
+                var number = (oldArtictle.Element("number")?.Value ?? "").Substring(0, (oldArtictle.Element("number")?.Value ?? "").IndexOf('('));
                 var year = oldArtictle.Element("year")?.Value ?? "";
                 var datePublished = oldArtictle.Element("date_published")?.Value ?? "";
                 var sectionRef = oldArtictle.Element("section").Elements("abbrev");
@@ -35,18 +35,18 @@ namespace MigracjaDanych
                     var newArticle = CreateArticleTemplate().Element(ns + "article");
                     newArticle.Attribute("locale").SetValue(locale);
                     newArticle.Attribute("date_published").SetValue(article.Element("date_published")?.Value ?? "");
-                    newArticle.Element("id").SetValue(fileName.Replace("-", ""));
+                    newArticle.Element(ns + "id").SetValue(fileName.Replace("-", ""));
                     var sectionRefForArticle = sectionRef.FirstOrDefault(x => (x.Attribute("locale")?.Value ?? "") == locale)?.Value ?? "";
                     newArticle.Attribute("section_ref").SetValue(sectionRefForArticle);
 
-                    newArticle.Element("title").Remove();
-                    newArticle.Element("prefix").Remove();
-                    newArticle.Element("abstract").Remove();
-                    foreach (var title in (IEnumerable<XElement>)article.Elements("title"))
+                    newArticle.Element(ns + "title").Remove();
+                    newArticle.Element(ns + "prefix").Remove();
+                    newArticle.Element(ns + "abstract").Remove();
+                    foreach (var title in (IEnumerable<XElement>)article.Elements(ns + "title"))
                     {
-                        var element = newArticle.Element("title");
+                        var element = newArticle.Element(ns + "title");
                         if (element == null)
-                            element = newArticle.Element("id");
+                            element = newArticle.Element(ns + "id");
 
                         var value = title?.Value ?? "";
                         var prefix = string.Empty;
@@ -56,61 +56,61 @@ namespace MigracjaDanych
                             prefix = value.Substring(0, value.IndexOf(" "));
                             value = value.Substring(value.IndexOf(" "));
                         }
-                        element.AddAfterSelf(new XElement("title", value,
+                        element.AddAfterSelf(new XElement(ns + "title", value,
                                                 new XAttribute("locale", title.Attribute("locale")?.Value ?? "")));
 
-                        element = newArticle.Element("title");
-                        element.AddAfterSelf(new XElement("prefix", value.Substring(0, value.IndexOf(" ")),
-                                                 new XAttribute("locale", title.Attribute("locale")?.Value ?? "")));
+                        element = newArticle.Element(ns + "title");
+                        element.AddAfterSelf(new XElement(ns + "prefix", value.Substring(0, value.IndexOf(" ")),
+                                                 new XAttribute(ns + "locale", title.Attribute("locale")?.Value ?? "")));
                     }
-                    foreach (var abstractArticle in (IEnumerable<XElement>)article.Elements("abstract"))
+                    foreach (var abstractArticle in (IEnumerable<XElement>)article.Elements(ns + "abstract"))
                     {
                         var value = abstractArticle?.Value ?? "";
-                        var elements = newArticle.Elements("abstract");
+                        var elements = newArticle.Elements(ns + "abstract");
                         XElement element = null;
                         if (!elements.Any())
-                            element = newArticle.Element("prefix");
+                            element = newArticle.Element(ns + "prefix");
                         else element = elements.Last();
 
-                        element.AddAfterSelf(new XElement("abstract", value,
+                        element.AddAfterSelf(new XElement(ns + "abstract", value,
                                                 new XAttribute("locale", abstractArticle.Attribute("locale")?.Value ?? "")));
                     }
 
-                    newArticle.Element("licenseUrl").SetValue(article.Element("permissions").Element("license_url")?.Value ?? "");
+                    newArticle.Element(ns + "licenseUrl").SetValue(article.Element("permissions").Element("license_url")?.Value ?? "");
 
-                    newArticle.Element("keywords").Remove();
+                    newArticle.Element(ns + "keywords").Remove();
                     foreach (var subject in (IEnumerable<XElement>)article.Element("indexing").Elements("subject"))
                     {
                         var keywordsList = (subject?.Value ?? "").Split("; ");
-                        var keywords = new XElement("title", null,
+                        var keywords = new XElement(ns + "keywords", null,
                                                 new XAttribute("locale", subject.Attribute("locale")?.Value ?? ""));
                         foreach (var keyword in keywordsList)
                         {
-                            keywords.Add(new XElement("keyword", keyword));
+                            keywords.Add(new XElement(ns + "keyword", keyword));
                         }
 
-                        var elements = newArticle.Elements("keywords");
+                        var elements = newArticle.Elements(ns + "keywords");
                         XElement element = null;
                         if (!elements.Any())
-                            element = newArticle.Element("licenseUrl");
+                            element = newArticle.Element(ns + "licenseUrl");
                         else element = elements.Last();
                         element.AddAfterSelf(keywords);
                     }
 
                     foreach (var author in (IEnumerable<XElement>)article.Elements("author"))
                     {
-                        newArticle.Element("authors").Add(ChangeAuthorStructure(author));
+                        newArticle.Element(ns + "authors").Add(ChangeAuthorStructure(author));
                     }
 
-                    newArticle.Element("article_galley").Element("id").SetValue(fileName.Substring(fileName.LastIndexOf("-") + 1).TrimStart(new char[] { '0' }));
-                    newArticle.Element("article_galley").Element("name").SetValue(article.Element("galley").Element("label")?.Value ?? "");
-                    newArticle.Element("article_galley").Element("name").Attribute("locale").SetValue(article.Element("galley").Attribute("locale")?.Value ?? "");
-                    newArticle.Element("article_galley").Element("remote").Attribute("src").SetValue(remote);
+                    newArticle.Element(ns + "article_galley").Element(ns + "id").SetValue(fileName.Substring(fileName.LastIndexOf("-") + 1).TrimStart(new char[] { '0' }));
+                    newArticle.Element(ns + "article_galley").Element(ns + "name").SetValue(article.Element("galley").Element("label")?.Value ?? "");
+                    newArticle.Element(ns + "article_galley").Element(ns + "name").Attribute("locale").SetValue(article.Element("galley").Attribute("locale")?.Value ?? "");
+                    newArticle.Element(ns + "article_galley").Element(ns + "remote").Attribute("src").SetValue(remote);
 
-                    newArticle.Element("issue_identification").Element("volume").SetValue(volume);
-                    newArticle.Element("issue_identification").Element("number").SetValue(number);
-                    newArticle.Element("issue_identification").Element("year").SetValue(year);
-                    newArticle.Element("pages").SetValue(article.Element("pages")?.Value ?? "");
+                    newArticle.Element(ns + "issue_identification").Element(ns + "volume").SetValue(volume);
+                    newArticle.Element(ns + "issue_identification").Element(ns + "number").SetValue(number);
+                    newArticle.Element(ns + "issue_identification").Element(ns + "year").SetValue(year);
+                    newArticle.Element(ns + "pages").SetValue(article.Element(ns + "pages")?.Value ?? "");
 
                     newArticle.Save(targetPath + fileName + ".xml");
                 }
@@ -138,55 +138,55 @@ namespace MigracjaDanych
                         new XAttribute("seq", "1"),
                         new XAttribute("access_status", "0"),
                         new XAttribute(xsiNs + "schemaLocation", "http://pkp.sfu.ca native.xsd"),
-                    new XElement("id",
+                    new XElement(ns + "id",
                         new XAttribute("type", "internal"),
                         new XAttribute("advice", "ignore")),
-                    new XElement("title",
+                    new XElement(ns + "title",
                         new XAttribute("locale", "")),
-                    new XElement("prefix",
+                    new XElement(ns + "prefix",
                         new XAttribute("locale", "")),
-                    new XElement("abstract",
+                    new XElement(ns + "abstract",
                         new XAttribute("locale", "")),
-                    new XElement("licenseUrl"),
-                    new XElement("keywords",
+                    new XElement(ns + "licenseUrl"),
+                    new XElement(ns + "keywords",
                         new XAttribute("locale", "")),
-                    new XElement("authors",
+                    new XElement(ns + "authors",
                         new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
                         new XAttribute(xsiNs + "schemaLocation", "http://pkp.sfu.ca native.xsd")),
-                    new XElement("article_galley",
+                    new XElement(ns + "article_galley",
                             new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
                             new XAttribute("approved", "false"),
                             new XAttribute(xsiNs + "schemaLocation", "http://pkp.sfu.ca native.xsd"),
-                        new XElement("id",
+                        new XElement(ns + "id",
                             new XAttribute("type", "internal"),
                             new XAttribute("advice", "ignore")),
-                        new XElement("name",
+                        new XElement(ns + "name",
                             new XAttribute("locale", "")),
-                        new XElement("seq", "0"),
-                        new XElement("remote",
+                        new XElement(ns + "seq", "0"),
+                        new XElement(ns + "remote",
                             new XAttribute("src", ""))),
-                    new XElement("issue_identification",
-                        new XElement("volume"),
-                        new XElement("number"),
-                        new XElement("year")),
-                    new XElement("pages")
+                    new XElement(ns + "issue_identification",
+                        new XElement(ns + "volume"),
+                        new XElement(ns + "number"),
+                        new XElement(ns + "year")),
+                    new XElement(ns + "pages")
                 ));
 
         private static XElement ChangeAuthorStructure(XElement oldAuthorElement)
         {
             var locale = oldAuthorElement.Element("affiliation").Attribute("locale")?.Value ?? "";
 
-            return new XElement("author",
+            return new XElement(ns + "author",
                         new XAttribute("include_in_browse", oldAuthorElement.Attribute("primary_contact")?.Value ?? "false"),
                         new XAttribute("user_group_ref", "Author"),
-                    new XElement("givenname", oldAuthorElement.Element("firstname")?.Value ?? "",
+                    new XElement(ns + "givenname", oldAuthorElement.Element("firstname")?.Value ?? "",
                         new XAttribute("locale", locale)),
-                    new XElement("familyname", oldAuthorElement.Element("lastname")?.Value ?? "",
+                    new XElement(ns + "familyname", oldAuthorElement.Element("lastname")?.Value ?? "",
                         new XAttribute("locale", locale)),
-                    new XElement("affiliation", oldAuthorElement.Element("affiliation")?.Value ?? "",
+                    new XElement(ns + "affiliation", oldAuthorElement.Element("affiliation")?.Value ?? "",
                         new XAttribute("locale", locale)),
-                    new XElement("country", oldAuthorElement.Element("country")?.Value ?? ""),
-                    new XElement("email", oldAuthorElement.Element("email")?.Value ?? "")
+                    new XElement(ns + "country", oldAuthorElement.Element("country")?.Value ?? ""),
+                    new XElement(ns + "email", oldAuthorElement.Element("email")?.Value ?? "")
                 );
         }
             

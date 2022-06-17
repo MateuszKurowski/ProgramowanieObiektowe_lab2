@@ -1,26 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
-  <id type="internal" advice="ignore" xmlns="">20170017</id>
-  <title locale="en_US" xmlns=""> of Bayesian Networks for Forecasting Future Model of Farm</title>
-  <prefix locale="pl_PL" xmlns="">Wykorzystanie</prefix>
-  <abstract locale="en_US" xmlns="">Comparative analyses in the national scale were carried out in 300 individual farms from Małopolskie and Świętokrzyskie Voivodeship in order to search for relations between the production intensity level, work performance and land efficiency and factors which shape them. The analyses concerned the use of Bayesian modelling algorithms for forecasting development of various economic and agricultural indicators which decide on the intensity and competitiveness of agriculture. The paper constitutes the second stage of research, which was preceded with previous preparation of data for modelling with the use of an exploratory overview of available data and TwoStep Cluster Analysis (Grotkiewicz et al., 2016). Based on the analyses, which were carried out, networks were built which present the relations between the analyzed variables, and conditional similarities were verified.</abstract>
-  <abstract locale="pl_PL" xmlns="">Poszukując zależności między poziomem intensywności produkcji a wydajnością pracy i ziemi oraz czynnikami je kształtującymi, przeprowadzono analizy porównawcze w skali krajowej na tle 300 gospodarstw indywidualnych z województwa małopolskiego i świętokrzyskiego. Analiza dotyczyła zastosowania algorytmów modelowania bayesowskiego do przewidywania rozwoju róż- nych wskaźników ekonomiczno-rolniczych decydujących o intensywności i konkurencyjności rolnictwa. Praca stanowi drugi etap badań, który poprzedzony był wcześniejszym przygotowaniem danych do modelowania wykorzystując do tego eksploracyjny przegląd dostępnych danych, oraz technikę TwoStep Cluster Analysis (Grotkiewicz i in., 2016). W oparciu o przeprowadzone analizy zbudowano sieci obrazujące związki pomiędzy analizowanymi zmiennymi oraz sprawdzono prawdopodobień- stwa warunkowe.</abstract>
-  <title locale="pl_PL" xmlns="">Wykorzystanie sieci bayesowskich do prognozowania przyszłościowego modelu gospodarstwa rolnego</title>
-  <prefix locale="en_US" xmlns=""></prefix>
-  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
-  <title locale="pl_PL" xmlns="">
-    <keyword>sieci bayesowskie</keyword>
-    <keyword>prognozowanie</keyword>
-    <keyword>wskaźniki ekonomiczno-rolnicze</keyword>
-    <keyword>gospodarstwo rolne</keyword>
-  </title>
-  <title locale="en_US" xmlns="">
+  <id type="internal" advice="ignore">20170017</id>
+  <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <keywords locale="en_US">
     <keyword>Bayesian Networks</keyword>
     <keyword>forecasting</keyword>
     <keyword>economic and agricultural indicators</keyword>
     <keyword>farm</keyword>
-  </title>
-  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  </keywords>
+  <keywords locale="pl_PL">
+    <keyword>sieci bayesowskie</keyword>
+    <keyword>prognozowanie</keyword>
+    <keyword>wskaźniki ekonomiczno-rolnicze</keyword>
+    <keyword>gospodarstwo rolne</keyword>
+  </keywords>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <author include_in_browse="true" user_group_ref="Author">
       <givenname locale="en_US">Katarzyna</givenname>
       <familyname locale="en_US">Grotkiewicz</familyname>
@@ -29,16 +23,16 @@
       <email>katarzyna.grotkiewicz@ur.krakow.pl</email>
     </author>
   </authors>
-  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <id type="internal" advice="ignore">17</id>
     <name locale="en_US">HTML</name>
     <seq>0</seq>
     <remote src="https://doi.org/10.1515/agriceng-2017-0017" />
   </article_galley>
-  <issue_identification xmlns="">
+  <issue_identification>
     <volume>21</volume>
-    <number>2(162)</number>
+    <number>2</number>
     <year>2017</year>
   </issue_identification>
-  <pages xmlns="">69-79</pages>
+  <pages></pages>
 </article>

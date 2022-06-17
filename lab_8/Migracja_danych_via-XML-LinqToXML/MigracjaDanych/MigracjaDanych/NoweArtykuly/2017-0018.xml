@@ -1,28 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
-  <id type="internal" advice="ignore" xmlns="">20170018</id>
-  <title locale="en_US" xmlns=""> Analysis of the State Space of Management Process in the Industry Applying Expert Systems</title>
-  <prefix locale="pl_PL" xmlns=""></prefix>
-  <abstract locale="en_US" xmlns="">The article includes analysis of expert system application possibilities in the environment of production processes control. Such concepts as artificial intelligence, expert system, intellectual factor, state space were used. The object of the research consisted of the mechanism of controlling an enterprise (manager). These mechanisms were analysed from the point of view of state space. The graph method was used to visualize information presentation. Analysis of control processes of an enterprise was carried out by determination of their state space. The concept of state space itself is completed with numerous measurement values (parameters) under influence of which the process of task solution takes place. Moreover, the concept of static and dynamic elements of state space of the control system is applied. It was shown that dynamic elements enable the quality presentation of space, which without including other restrictions leads to extension of its impact, which confirms that a given system has an intelligent factor.</abstract>
-  <abstract locale="pl_PL" xmlns="">W artykule przeprowadzono analizę możliwości zastosowania systemów eksperckich, w takim środowisku, jak sterowanie procesami produkcyjnymi. Wykorzystano terminy: sztuczna inteligencja, system ekspercki, czynnik intelektualny, przestrzeń stabilności. Obiektem badań byłymechanizmy sterowania przedsiębiorstwem (menażerstwa). Mechanizmy te analizowano z punktu widzenia stabilności przestrzennej. W artykule wykorzystano metodę grafów w celu wizualnego przedstawienia informacji. Przeprowadzono analizę procesów sterujących przedsiębiorstwem drogą wyznaczenia ich przestrzeni stabilności. Sam termin przestrzeń stabilności uzupełniany jest licznymi wielkościami pomiarowymi (parametrami), pod wpływem których zachodzi proces rozwiązania zadania. Także stosowane jest pojęcie statycznych i dynamicznych składowych przestrzeni stabilności systemu sterowania. Pokazano, że składowe dynamiczne umożliwiają jakościowe przedstawienie przestrzeni, które przy nie uwzględnianiu innych ograniczeń prowadzi do rozszerzenia swego oddziaływania, co utwierdza o posiadaniu przez dany system inteligentnego czynnika.</abstract>
-  <title locale="pl_PL" xmlns=""> zastosowania systemu eksperckiego w sterowaniu procesami produkcyjnymi</title>
-  <prefix locale="en_US" xmlns=""></prefix>
-  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
-  <title locale="pl_PL" xmlns="">
-    <keyword>system ekspercki</keyword>
-    <keyword>analiza</keyword>
-    <keyword>proces</keyword>
-    <keyword>produkcja</keyword>
-    <keyword>stabilność</keyword>
-  </title>
-  <title locale="en_US" xmlns="">
+  <id type="internal" advice="ignore">20170018</id>
+  <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <keywords locale="en_US">
     <keyword>expert system</keyword>
     <keyword>analysis</keyword>
     <keyword>process</keyword>
     <keyword>production</keyword>
     <keyword>stability</keyword>
-  </title>
-  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  </keywords>
+  <keywords locale="pl_PL">
+    <keyword>system ekspercki</keyword>
+    <keyword>analiza</keyword>
+    <keyword>proces</keyword>
+    <keyword>produkcja</keyword>
+    <keyword>stabilność</keyword>
+  </keywords>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <author include_in_browse="true" user_group_ref="Author">
       <givenname locale="en_US">Jan Radosław</givenname>
       <familyname locale="en_US">Kamiński</familyname>
@@ -52,16 +46,16 @@
       <email>noreply@wir.ptir.org</email>
     </author>
   </authors>
-  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <id type="internal" advice="ignore">18</id>
     <name locale="en_US">HTML</name>
     <seq>0</seq>
     <remote src="https://doi.org/10.1515/agriceng-2017-0018" />
   </article_galley>
-  <issue_identification xmlns="">
+  <issue_identification>
     <volume>21</volume>
-    <number>2(162)</number>
+    <number>2</number>
     <year>2017</year>
   </issue_identification>
-  <pages xmlns="">81-90</pages>
+  <pages></pages>
 </article>

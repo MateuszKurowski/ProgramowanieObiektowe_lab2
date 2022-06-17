@@ -1,26 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
-  <id type="internal" advice="ignore" xmlns="">20170019</id>
-  <title locale="en_US" xmlns=""> Influence of Natural and Industrial Factors on the Efficiency of the Dairy Industry</title>
-  <prefix locale="pl_PL" xmlns="">Wpływ</prefix>
-  <abstract locale="en_US" xmlns="">A comparative analysis of milk production in Poland and Belarus was carried out. The basic tendencies of modern development of the dairy industry and offered upcoming trends of innovative modernization of milk production processes were analyzed. On the basis of the analysis of trends in the global production of milk and new scientific knowledge on the biosynthesis of milk, a conceptual approach to the design of equipment for machine milking, is provided, considered the relationship of technical and physiological parameters.</abstract>
-  <abstract locale="pl_PL" xmlns="">Przeprowadzono analizę porównawczą produkcji mleka w Polsce i na Białorusi. Przeanalizowano podstawowe tendencje nowoczesnego rozwoju przemysłu mleczarskiego i zaproponowano nowoczesne kierunki innowacyjnej modernizacji procesów produkcji mleka. Na podstawie analizy trendów w światowej produkcji mleka i nowych założeń naukowych dotyczących biosyntezy mleka, opracowano innowacyjne podejście w projektowaniu maszyn w produkcji mleka, uwzględniając parametry techniczne i fizjologiczne.</abstract>
-  <title locale="pl_PL" xmlns="">Wpływ uwarunkowań czynników przyrodniczych i produkcyjnych na mleko</title>
-  <prefix locale="en_US" xmlns=""></prefix>
-  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
-  <title locale="pl_PL" xmlns="">
-    <keyword>produkcja mleka</keyword>
-    <keyword>proces technologiczny</keyword>
-    <keyword>maszyny mleczarskie</keyword>
-    <keyword>koszty jednostkowe</keyword>
-  </title>
-  <title locale="en_US" xmlns="">
+  <id type="internal" advice="ignore">20170019</id>
+  <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <keywords locale="en_US">
     <keyword>milk production</keyword>
     <keyword>physiologically relaxed process</keyword>
     <keyword>milking equipment</keyword>
     <keyword>costs per unit</keyword>
-  </title>
-  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  </keywords>
+  <keywords locale="pl_PL">
+    <keyword>produkcja mleka</keyword>
+    <keyword>proces technologiczny</keyword>
+    <keyword>maszyny mleczarskie</keyword>
+    <keyword>koszty jednostkowe</keyword>
+  </keywords>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <author include_in_browse="true" user_group_ref="Author">
       <givenname locale="en_US">Vadim</givenname>
       <familyname locale="en_US">Kitikov</familyname>
@@ -36,16 +30,16 @@
       <email>noreply@wir.ptir.org</email>
     </author>
   </authors>
-  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <id type="internal" advice="ignore">19</id>
     <name locale="en_US">HTML</name>
     <seq>0</seq>
     <remote src="https://doi.org/10.1515/agriceng-2017-0019" />
   </article_galley>
-  <issue_identification xmlns="">
+  <issue_identification>
     <volume>21</volume>
-    <number>2(162)</number>
+    <number>2</number>
     <year>2017</year>
   </issue_identification>
-  <pages xmlns="">91-100</pages>
+  <pages></pages>
 </article>

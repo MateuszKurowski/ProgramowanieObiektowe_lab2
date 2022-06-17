@@ -1,26 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
-  <id type="internal" advice="ignore" xmlns="">20170014</id>
-  <title locale="en_US" xmlns="">Impact of the Irrigation Dose Amount on the Wheat Yield</title>
-  <prefix locale="pl_PL" xmlns="">Wpływ</prefix>
-  <abstract locale="en_US" xmlns="">The paper presents analysis of the impact of irrigation dose on the winter wheat Bystra yield, which is recommended for cultivation in Poland. It is a low-growing high-yield wheat cultivar. A reel sprinkler equipped with a computer for control of parameters of its operation, which was supplied with pond water was used for irrigation. Test were carried out on five fields, where four irrigation doses were used: 15, 20, 25, 30 mm. A change of weather during research in May and June caused the need to irrigate a field four times. During research, the size of the irrigation dose was measured with rain gauges on each of the investigated fields in five measurement points. One of the fields was a control field, which was not irrigated. The investigated wheat was characterized during harvesting. Research proved that the size of the irrigation dose influences the wheat yield. The grain yield between a control field and a field with the highest irrigation dose increased by twofold. Moreover, analysis of costs incurred during sprinkling were analysed.</abstract>
-  <abstract locale="pl_PL" xmlns="">W pracy przedstawiono analizę wpływu wielkości dawki nawadniania na plon pszenicy ozimej Bystra, która jest rekomendowana do uprawy w Polsce. Jest odmianą pszenicy niskopiennej o wysokim plonowaniu. Do nawadniania użyto deszczowni szpulowej wyposażonej w komputer do sterowania parametrami jej pracy, którą zasilano wodą ze stawu. Badania przeprowadzono na pięci poletkach, na których stosowano cztery dawki nawadniania: 15, 20, 25, 30 mm. Zmiana pogody podczas badań w maju i czerwcu spowodowała konieczność czterokrotnego nawadnianie pola. W czasie badań mierzono wielkość dawki irygacji za pomocą deszczomierzy na każdym z badanych poletek w pięciu punktach pomiarowych. Jedno z poletek było poletkiem kontrolnym, które nie było nawadniane. W czasie zbioru dokonano charakterystyki badanej pszenicy. Badania dowiodły, że wielkość dawki nawadniania ma wpływ na plon pszenicy. Plon ziarna między poletkiem kontrolnym, a poletkiem o największej dawce nawadniania wzrósł 2-krotnie. Dodatkowo dokonano analizy kosztów poniesionych w trakcie deszczowania.</abstract>
-  <title locale="pl_PL" xmlns="">Wpływ wielkości dawki nawadniania na plon pszenicy</title>
-  <prefix locale="en_US" xmlns="">Impact</prefix>
-  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
-  <title locale="pl_PL" xmlns="">
-    <keyword>deszczownia</keyword>
-    <keyword>nawadnianie</keyword>
-    <keyword>eksploatacja</keyword>
-    <keyword>pszenica</keyword>
-  </title>
-  <title locale="en_US" xmlns="">
+  <id type="internal" advice="ignore">20170014</id>
+  <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <keywords locale="en_US">
     <keyword>sprinkler</keyword>
     <keyword>irrigation</keyword>
     <keyword>exploitation</keyword>
     <keyword>wheat</keyword>
-  </title>
-  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  </keywords>
+  <keywords locale="pl_PL">
+    <keyword>deszczownia</keyword>
+    <keyword>nawadnianie</keyword>
+    <keyword>eksploatacja</keyword>
+    <keyword>pszenica</keyword>
+  </keywords>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <author include_in_browse="true" user_group_ref="Author">
       <givenname locale="en_US">Jerzy</givenname>
       <familyname locale="en_US">Bieniek</familyname>
@@ -50,16 +44,16 @@
       <email>noreply@wir.ptir.org</email>
     </author>
   </authors>
-  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <id type="internal" advice="ignore">14</id>
     <name locale="en_US">HTML</name>
     <seq>0</seq>
     <remote src="https://doi.org/10.1515/agriceng-2017-0014" />
   </article_galley>
-  <issue_identification xmlns="">
+  <issue_identification>
     <volume>21</volume>
-    <number>2(162)</number>
+    <number>2</number>
     <year>2017</year>
   </issue_identification>
-  <pages xmlns="">33-47</pages>
+  <pages></pages>
 </article>

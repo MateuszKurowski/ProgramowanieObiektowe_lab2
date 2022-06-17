@@ -1,28 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <article xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" locale="en_US" date_submitted="2022-06-17" stage="production" date_published="2017-06-26" section_ref="ART" seq="1" access_status="0" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
-  <id type="internal" advice="ignore" xmlns="">20170012</id>
-  <title locale="en_US" xmlns="">New Developments of Solar Energy Utilization in the Aspect of EU Directives</title>
-  <prefix locale="pl_PL" xmlns="">Nowe</prefix>
-  <abstract locale="en_US" xmlns="">Photovoltaic systems are very efficient concerning proper utilization of solar radiation. However, the nanotechnology solution can replace the photovoltaic by the use of new production technology to lower the price of solar cells to one tenth. Sun provides nearly unlimited energy resource, but existing solar energy harvesting technologies are quite expensive and cannot compete with fossil fuels. The central part of Poland, which represents about 50 percent of the area, gives solar radiation at the level of 1000 kWh·m&lt;sup&gt;-2&lt;/sup&gt;/year. Other new developments, which can help improve existing efficiency of solar systems are: diatoms utilization, artificial photosynthesis, nanoleaves and rotation solar towers.</abstract>
-  <abstract locale="pl_PL" xmlns="">Układy fotowoltaiczne są bardzo wydajne pod względem właściwego wykorzystania promieniowania słonecznego. Jednakże rozwiązania nanotechnologiczne mogą zastąpić fotowoltaikę dzięki wykorzystaniu nowej technologii produkcji, w celu obniżenia ceny ogniw słonecznych do jednej dziesiątej. Słońce dostarcza prawie nieograniczone zasoby energii, ale istniejące technologie jej pozyskiwania są dość kosztowne i nie mogą konkurować z paliwami kopalnymi. W centralnej części Polski, która stanowi około 50 procent powierzchni, promieniowanie słoneczne osiąga poziom 1000 kWh∙m&lt;sup&gt;-2&lt;/sup&gt;/rok. Innymi nowymi rozwiązaniami, które mogą przyczynić się do poprawy istniejącej efektywności systemów słonecznych są: wykorzystanie sztucznej fotosyntezy, nanotechnologii, czy też wprowadzenie obrotowych wież słonecznych.</abstract>
-  <title locale="pl_PL" xmlns="">Nowe technologie rozwoju energetyki solarnej w aspekcie dyrektyw UE</title>
-  <prefix locale="en_US" xmlns="">New</prefix>
-  <licenseUrl xmlns="">http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
-  <title locale="pl_PL" xmlns="">
-    <keyword>energia słoneczna</keyword>
-    <keyword>kolektory słoneczne</keyword>
-    <keyword>nanotechnologia</keyword>
-    <keyword>sztuczna fotosynteza</keyword>
-    <keyword>wieże słoneczne</keyword>
-  </title>
-  <title locale="en_US" xmlns="">
+  <id type="internal" advice="ignore">20170012</id>
+  <licenseUrl>http://creativecommons.org/licenses/by-nc-nd/4.0</licenseUrl>
+  <keywords locale="en_US">
     <keyword>solar energy</keyword>
     <keyword>solar collectors</keyword>
     <keyword>nanotechnology</keyword>
     <keyword>artificial photosynthesis</keyword>
     <keyword>solar towers</keyword>
-  </title>
-  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  </keywords>
+  <keywords locale="pl_PL">
+    <keyword>energia słoneczna</keyword>
+    <keyword>kolektory słoneczne</keyword>
+    <keyword>nanotechnologia</keyword>
+    <keyword>sztuczna fotosynteza</keyword>
+    <keyword>wieże słoneczne</keyword>
+  </keywords>
+  <authors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <author include_in_browse="true" user_group_ref="Author">
       <givenname locale="en_US">Jan</givenname>
       <familyname locale="en_US">Barwicki</familyname>
@@ -45,16 +39,16 @@
       <email>noreply@wir.ptir.org</email>
     </author>
   </authors>
-  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd" xmlns="">
+  <article_galley xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" approved="false" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">
     <id type="internal" advice="ignore">12</id>
     <name locale="en_US">HTML</name>
     <seq>0</seq>
     <remote src=" https://doi.org/10.1515/agriceng-2017-0012" />
   </article_galley>
-  <issue_identification xmlns="">
+  <issue_identification>
     <volume>21</volume>
-    <number>2(162)</number>
+    <number>2</number>
     <year>2017</year>
   </issue_identification>
-  <pages xmlns="">15-24</pages>
+  <pages></pages>
 </article>
