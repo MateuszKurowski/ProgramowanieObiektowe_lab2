@@ -1,0 +1,50 @@
+﻿<Window x:Class="KursNBP.Dekstop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KursNBP.Dekstop"
+        mc:Ignorable="d"
+        Title="NBP currency detail" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">Currency</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Text="EUR" x:Name="CurrencyForm"/>
+            <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">Start date:</Label>
+            <DatePicker Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Text="2018-09-01" x:Name="StartDateForm"/>
+            <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">End date:</Label>
+            <DatePicker Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center" Text="2018-09-20" x:Name="EndDateForm"/>
+            <Button Grid.Row="4" Width="75" Height="20" Grid.Column="1" Margin="67,15,0,0" HorizontalAlignment="Left" Click="Button_Click">Search</Button>
+
+            <TextBlock Grid.Row="5" Text="Available Currency: EUR, USD, CHF, GBP" HorizontalAlignment="Left" Margin="10,43,0,0" Foreground="DimGray" Grid.Column="1"/>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TextBlock Margin="50" Background="LightGray" TextWrapping="Wrap" x:Name="TextToDisplay">
+                </TextBlock>
+            </ScrollViewer>
+        </Grid>
+
+    </Grid>
+</Window>

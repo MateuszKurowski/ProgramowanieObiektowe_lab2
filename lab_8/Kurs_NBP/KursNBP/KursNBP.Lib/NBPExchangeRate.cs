@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace KursNBP.Lib
 {
@@ -63,19 +65,21 @@ namespace KursNBP.Lib
             var tempMonth = startMonth;
             var tempYear = startYear;
 
-            if (startYear < endYear)
+            if (startYear < endYear) // Poprzednie lata
             {
                 for (; tempYear < endYear; tempYear++)
                 {
                     var regexPastYear = new Regex($"<a href=\"a[0-9]{{3}}z{tempYear:00}[0-9]{{4}}.xml\"");
                     foreach (Match matchPastYear in regexPastYear.Matches(fileNamesInNBP))
                     {
-                        _FileNames.Add(matchPastYear.Value.Substring(9, 15));
+                        if (matchPastYear?.Value == null || matchPastYear?.Value?.Length < 1)
+                            continue;
+                        _FileNames.Add(matchPastYear?.Value?.Substring(9, 15));
                     }
                 }
             }
 
-            if (tempYear == endYear)
+            if (tempYear == endYear) // Poprzednie miesiące
             {
                 for (; tempMonth < endMonth; tempMonth++)
                 {
@@ -84,19 +88,26 @@ namespace KursNBP.Lib
                         var regexPastYear = new Regex($"<a href=\"a[0-9]{{3}}z{tempYear:00}{tempMonth:00}{i:00}.xml\"");
                         foreach (Match matchPastYear in regexPastYear.Matches(fileNamesInNBP))
                         {
-                            _FileNames.Add(matchPastYear.Value.Substring(9, 15));
+                            if (matchPastYear?.Value == null || matchPastYear?.Value?.Length < 1)
+                                continue;
+                            _FileNames.Add(matchPastYear?.Value?.Substring(9, 15));
                         }
                     }
                 }
-                for (; tempDay <= endDay; tempDay++)
+                for (; tempDay <= endDay; tempDay++) // Ostatni miesiąc
                 {
                     var regexPastYear = new Regex($"<a href=\"a[0-9]{{3}}z{tempYear:00}{tempMonth:00}{tempDay:00}.xml\"");
                     foreach (Match matchPastYear in regexPastYear.Matches(fileNamesInNBP))
                     {
-                        _FileNames.Add(matchPastYear.Value.Substring(9, 15));
+                        if (matchPastYear?.Value == null || matchPastYear?.Value?.Length < 1)
+                            continue;
+                        _FileNames.Add(matchPastYear?.Value?.Substring(9, 15));
                     }
                 }
             }
+
+            if (_FileNames.Count < 1)
+                throw new Exception("Query returned no result");
 
             if (_FileNames.Count > 0 && !Directory.Exists(_Path))
                 Directory.CreateDirectory(_Path);
@@ -112,9 +123,36 @@ namespace KursNBP.Lib
         /// </summary>
         private void ProcessXmls()
         {
-            foreach (var document in _FileNames)
+            foreach (var documentName in _FileNames)
             {
+                var document = XDocument.Parse(File.ReadAllText(_Path + "\\" + documentName, Encoding.GetEncoding("ISO-8859-1")));
+                if (document == null)
+                    continue;
+                var node = document.Descendants("tabela_kursow");
+                var exchangeRate = new ExchangeRateNPB();
+                var dateString = document?
+                                        .Descendants("tabela_kursow")?
+                                        .Elements("data_publikacji")?
+                                        .FirstOrDefault()?
+                                        .Value;
+                var valueString = document?
+                                .Descendants("tabela_kursow")?
+                                .Elements("pozycja")?
+                                .Where(x => x.Element("kod_waluty").Value == Currency)?
+                                .Elements("kurs_sredni")?
+                                .FirstOrDefault()?
+                                .Value;
 
+                if (!string.IsNullOrWhiteSpace(dateString) || !string.IsNullOrWhiteSpace(valueString))
+                    continue;
+
+                if (!double.TryParse(valueString, out var value))
+                    continue;
+                if (!DateTime.TryParse(dateString, out var date))
+                    continue;
+                exchangeRate.ExchangeRate = value;
+                exchangeRate.Date = date;
+                _ExchangeRates.Add(exchangeRate);
             }
 
             try
@@ -156,7 +194,7 @@ namespace KursNBP.Lib
         public override string ToString()
         {
             var result = string.Empty;
-            result += $"Zakres dat: {StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
+            result += $"Date range: {StartDate.ToShortDateString()} - {EndDate.ToShortDateString()}";
             result += Environment.NewLine;
             result += Environment.NewLine;
             result += $"Average rate (arithmetic mean): {AverageExchangeRate:0.##}";
@@ -200,5 +238,16 @@ namespace KursNBP.Lib
             public double ExchangeRate { get; set; }
             public DateTime Date { get; set; }
         }
+    }
+
+    public static class AvailableCurrency
+    {
+        public static readonly string[] AvailabeCurrency =
+        {
+            "USD",
+            "EUR",
+            "CHF",
+            "GBP"
+        };
     }
 }

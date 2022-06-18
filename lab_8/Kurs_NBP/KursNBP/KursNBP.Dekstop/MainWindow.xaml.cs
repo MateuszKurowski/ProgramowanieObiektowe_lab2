@@ -2,36 +2,51 @@
 
 using System;
 using System.Linq;
+using System.Windows;
 
-namespace KursNBP.Console
+namespace KursNBP.Dekstop
 {
-    public class Program
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public static void Main(string[] args)
+        public MainWindow()
         {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var args = new string[]
+            {
+                CurrencyForm.Text,
+                StartDateForm.Text,
+                EndDateForm.Text
+            };
             try
             {
-                CheckInput(args);
+                ValidateInput(args);
             }
             catch (Exception)
             {
-                args = RepeatInput();
+                MessageBox.Show("The entered data is incorrect", "Input error", MessageBoxButton.OK);
+                return;
             }
 
             try
             {
                 NBPExchangeRate exchange = new NBPExchangeRate(args[0].ToUpper(), DateTime.Parse(args[1]), DateTime.Parse(args[2]));
-                System.Console.WriteLine(exchange);
+                TextToDisplay.Text = exchange.ToString();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                System.Console.WriteLine("The system encountered an error.");
-                System.Console.WriteLine(e.Message);
-                System.Console.WriteLine("Please try again.");
+                MessageBox.Show("The system encountered an error. Please try again with other data.", "System error", MessageBoxButton.OK);
+                return;
             }
         }
 
-        private static void CheckInput(string[] args)
+        private void ValidateInput(string[] args)
         {
             if (args == null || args.Length == 0)
                 throw new ArgumentNullException();
@@ -50,29 +65,6 @@ namespace KursNBP.Console
 
             if (startDate > DateTime.Now || endDate > DateTime.Now)
                 throw new ArgumentOutOfRangeException("Unable to give a future date!");
-        }
-
-        private static string[] RepeatInput()
-        {
-            while(true)
-            {
-                System.Console.WriteLine("Bad input.");
-                System.Console.WriteLine("Please pass correct input (Example: EUR 2018-09-01 2018-09-20)");
-                try
-                {
-                    var input = System.Console.ReadLine();
-                    var args = input.Replace(",", " ").Replace(".", " ").Split(" ");
-
-                    CheckInput(args);
-
-                    return args;
-                }
-                catch (Exception)
-                {
-                    System.Console.Clear();
-                }
-            }
-            
         }
     }
 }
