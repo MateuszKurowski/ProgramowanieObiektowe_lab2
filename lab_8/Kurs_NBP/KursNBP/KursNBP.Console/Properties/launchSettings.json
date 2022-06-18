@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KursNBP.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "EUR 2018-09-01 2018-09-20"
+    }
+  }
+}
