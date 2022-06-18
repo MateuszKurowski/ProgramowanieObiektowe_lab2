@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KursNBP.Lib;
+
+using System;
 using System.Linq;
 
 namespace KursNBP.Console
@@ -16,7 +18,8 @@ namespace KursNBP.Console
                 args = RepeatInput();
             }
 
-            
+            NBPExchangeRate exchange = new NBPExchangeRate(args[0].ToUpper(), DateTime.Parse(args[1]), DateTime.Parse(args[2]));
+            System.Console.WriteLine(exchange);
         }
 
         private static void CheckInput(string[] args)

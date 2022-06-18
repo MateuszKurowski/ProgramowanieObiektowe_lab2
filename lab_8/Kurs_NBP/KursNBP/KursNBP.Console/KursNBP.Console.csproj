@@ -6,4 +6,8 @@
     <StartupObject>KursNBP.Console.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KursNBP.Lib\KursNBP.Lib.csproj" />
+  </ItemGroup>
+
 </Project>
