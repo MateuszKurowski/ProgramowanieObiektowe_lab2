@@ -41,7 +41,7 @@ namespace KursNBP.Dekstop
             }
             catch (Exception ex)
             {
-                MessageBox.Show("The system encountered an error. Please try again with other data.", "System error", MessageBoxButton.OK);
+                MessageBox.Show("The system encountered an error. Please try again with other data." + System.Environment.NewLine + System.Environment.NewLine + "Error: " + ex.Message, "System error", MessageBoxButton.OK);
                 return;
             }
         }
