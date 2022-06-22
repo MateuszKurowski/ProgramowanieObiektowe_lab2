@@ -12,8 +12,13 @@ namespace AppGraZaDuzoZaMaloCLI
     {
         static void Main(string[] args)
         {
+            OutputEncoding = Encoding.UTF8;
             (new KontrolerCLI()).Uruchom();
         }
     }
 }
 // https://github.com/wsei-csharp201/cs-lab-serializacja-szyfrowanie-GraZgadywanka
+// TODO
+// 1. Czas po zapisie
+// 2. Zapis gry
+// 3. Poprawienie wyświetalnia historii gry

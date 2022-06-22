@@ -47,6 +47,10 @@ namespace AppGraZaDuzoZaMaloCLI
                     WriteLine("Przesadziłeś. Podana przez Ciebie wartość jest zła! Spróbuj raz jeszcze.");
                     continue;
                 }
+                catch (KoniecGryException)
+                {
+                    throw;
+                }
                 catch (Exception)
                 {
                     WriteLine("Nieznany błąd! Spróbuj raz jeszcze.");
@@ -58,8 +62,8 @@ namespace AppGraZaDuzoZaMaloCLI
 
         public void OpisGry()
         {
-            WriteLine("Gra w \"Za dużo za mało\"." + Environment.NewLine
-                + "Twoimm zadaniem jest odgadnąć liczbę, którą wylosował komputer." + Environment.NewLine + "Na twoje propozycje komputer odpowiada: za dużo, za mało albo trafiłeś");
+            WriteLine("== Gra w \"Za dużo za mało\" ==" + Environment.NewLine
+                + "Twoimm zadaniem jest odgadnąć liczbę, którą wylosował komputer." + Environment.NewLine + "Na twoje propozycje komputer odpowiada: za dużo, za mało albo trafiłeś" + Environment.NewLine);
         }
 
         public bool ChceszKontynuowac(string prompt)
@@ -83,7 +87,7 @@ namespace AppGraZaDuzoZaMaloCLI
             int i = 1;
             foreach (var ruch in kontroler.ListaRuchow)
             {
-                WriteLine($"{i}     {ruch.Liczba}      {ruch.Wynik}  {ruch.Czas.Second}   {ruch.StatusGry}");
+                WriteLine($"{i}    {ruch.Liczba}           {ruch.Wynik}        {ruch.Czas.Second}       {ruch.StatusGry}");
                 i++;
             }
         }
@@ -107,6 +111,37 @@ namespace AppGraZaDuzoZaMaloCLI
             Console.ForegroundColor = ConsoleColor.Green;
             WriteLine("Trafiono!");
             Console.ResetColor();
+        }
+
+        public void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
+        public void PokazMenu()
+        {
+            Console.WriteLine("Menu:");
+            Console.WriteLine("1. Nowa gra");
+            Console.WriteLine("2. Wczytaj gre");
+            Console.WriteLine("3. Zmień zakres losowania");
+            Console.WriteLine("4. Wyjdź");
+            Console.WriteLine();
+            Console.Write("Odpowiedź: ");
+        }
+
+        public void Wygrana(int liczbaDoOdgadniecia, int liczbaRuchow, TimeSpan czas)
+        {
+            CzyscEkran();
+            Console.WriteLine($"Gratulacje! Udało ci się odgadnąć liczbę {liczbaDoOdgadniecia}");
+            Console.WriteLine($"Wykonano ruchów: {liczbaRuchow}");
+            Console.WriteLine($"W czasie: {czas}");
+            Console.WriteLine();
+            Console.WriteLine("Historia ruchów:");
+            HistoriaGry();
+            Console.ReadKey();
         }
     }
 
